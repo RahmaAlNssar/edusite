@@ -13,7 +13,7 @@
         content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="PIXINVENT">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Dashboard {{ getModel() == 'dashboard' ? '' : '|' . ucfirst(getModel()) }}</title>
+    <title>Dashboard {{ getModel() == 'dashboard' ? '' : ' | ' . ucfirst(getModel()) }}</title>
 
     {{-- ************** START ICON ************** --}}
     <link rel="apple-touch-icon" href="{{ path('images/ico/e-learning.png') }}">

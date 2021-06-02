@@ -11,7 +11,6 @@ class DashboardController extends Controller
 {
     public function index(UserDataTable $dataTable)
     {
-        toast('test toast', 'success');
         return $dataTable->render('backend.users.index', ['count' => User::count()]);
     }
 }

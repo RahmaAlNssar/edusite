@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Category;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(100)->create();
+        // make all tables is empty
+        User::query()->delete();
+        Category::query()->delete();
+        // end
+
+
+        User::factory(50)->create();
+        $this->call(CategorySeeder::class);
     }
 }

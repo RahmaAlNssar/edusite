@@ -10,7 +10,7 @@
 -   Create `edusite` database in phpmyadmin.
 -   Open this file
     `vendor\mcamara\laravel-localization\src\Mcamara\LaravelLocalization\LaravelLocalization.php`
--   Add this method
+-   Add this method on line 564 :
     ```
         /**
          * Returns current locale name.
