@@ -6,7 +6,7 @@
     ```
 -   Go to the folder application using `cd edusite` command on your cmd or terminal
 -   Run `composer install` on your cmd or terminal.
--   MAke Copy from `.env.example` to `.env` on the root folder (don't make anythink again).
+-   MAke Copy from `.env.example` to `.env` on the root folder.
 -   Create `edusite` database in phpmyadmin.
 -   Open this file
     `vendor\mcamara\laravel-localization\src\Mcamara\LaravelLocalization\LaravelLocalization.php`
