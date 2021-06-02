@@ -33,8 +33,8 @@ class CategoriesDataTable extends DataTable
                     $query->where('is_active', 0);
                 }
             })
-            ->addColumn('check', 'backend.categories.checkbox')
-            ->addColumn('action', 'backend.categories.action')
+            ->addColumn('check', 'backend.includes.tables.checkbox')
+            ->addColumn('action', 'backend.includes.buttons.table-buttons')
             ->rawColumns(['action', 'order', 'is_active', 'check']);
     }
 
