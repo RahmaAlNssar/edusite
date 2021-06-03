@@ -8,6 +8,13 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ active('courses') }}">
+                <a href="{{ route('backend.courses.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.users.main">Courses</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ active('users') }}">
                 <a href="{{ route('backend.users.index') }}">
                     <i class="la la-users"></i>

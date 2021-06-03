@@ -8,7 +8,7 @@
     <form action="{{ route('backend.' . getModel() . '.store') }}" method="post" class="submit-form"
         enctype="multipart/form-data">
         @csrf
-        <input type="hidden" name="id" value="{{ $row->id ?? '' }}">
+        <input type="hidden" name="id" value="{{ $course->id ?? '' }}">
 
         {{-- END FORM INPUTS --}}
         @include('backend.' . getModel() . '.form')
