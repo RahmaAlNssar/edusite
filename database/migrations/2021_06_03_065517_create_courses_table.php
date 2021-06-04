@@ -17,10 +17,10 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->text('descrption');
+            $table->text('description');
             $table->float('price');
             $table->unsignedTinyInteger('discount');
-          
+
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('user_id');

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\CourseDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
+use App\DataTables\CourseDataTable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Course;
 use App\Models\Category;
+use App\Models\Course;
+use Exception;
+
 class CoursesController extends Controller
 {
     /**
@@ -22,7 +24,7 @@ class CoursesController extends Controller
             if (request()->ajax())
                 return $dataTable->render('backend.includes.tables.rows');
 
-            return view('backend.courses.index', ['count' => Course::count()]);
+            return view('backend.includes.pages.index', ['count' => Course::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -37,8 +39,7 @@ class CoursesController extends Controller
     {
         try {
             $categories = Category::all();
-            return view('backend.includes.forms.form-create',compact('categories'));
-            
+            return view('backend.includes.forms.form-create', compact('categories'));
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -80,8 +81,8 @@ class CoursesController extends Controller
     public function edit(Course $course)
     {
         try {
-            $category = Category::where('id',$course->category_id)->get();
-            return view('backend.includes.forms.form-update', ['course' => $course,'category'=>$category]);
+            $categories = Category::all();
+            return view('backend.includes.forms.form-update', ['row' => $course, 'categories' => $categories]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -94,7 +95,7 @@ class CoursesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CourseRequest $request,Course $course)
+    public function update(CourseRequest $request, Course $course)
     {
         try {
             $course->update($request->except(['id']));

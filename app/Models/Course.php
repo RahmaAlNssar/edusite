@@ -3,19 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'slug', 'descrption', 'price','discount','total','category_id','user_id'];
+    protected $fillable = ['title', 'slug', 'description', 'price', 'discount', 'category_id', 'user_id'];
 
     /*************************** Begin RELATIONS Area ****************************/
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo('App\Models\Category');
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsto('App\Models\User');
     }
 
@@ -29,4 +32,9 @@ class Course extends Model
         return ['slug' => ['source' => 'title', 'onUpdate' => true,]];
     } // auto make slug from name field when create or update
 
+
+    public function total()
+    {
+        //
+    } // return the price after discount
 }

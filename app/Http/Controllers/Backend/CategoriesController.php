@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Course;
 use Exception;
 
 class CategoriesController extends Controller
@@ -33,10 +34,11 @@ class CategoriesController extends Controller
         }
     }
 
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
+        dd($request->all());
         try {
-            Category::create($request->except(['id']));
+            Course::create($request->except(['id']));
             return response()->json(['message' => 'Your Category has been created!', 'icon' => 'success', 'count' => Category::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);

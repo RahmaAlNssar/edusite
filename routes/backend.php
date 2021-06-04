@@ -13,6 +13,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::resource('courses', 'CoursesController');
         Route::post('courses/multidelete', 'CoursesController@multidelete')->name('courses.multidelete');
+
         Route::resource('users', 'usersController');
     });
 });

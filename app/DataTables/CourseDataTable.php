@@ -2,11 +2,9 @@
 
 namespace App\DataTables;
 
-use App\Models\CoursesDataTable;
+use App\Models\Course;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class CourseDataTable extends DataTable
@@ -22,16 +20,17 @@ class CourseDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->addColumn('check', 'backend.includes.tables.checkbox')
-            ->addColumn('action', 'backend.includes.buttons.table-buttons');
+            ->addColumn('action', 'backend.includes.buttons.table-buttons')
+            ->rawColumns(['action', 'check']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\CoursesDataTable $model
+     * @param \App\Models\Course $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(CoursesDataTable $model)
+    public function query(Course $model)
     {
         return $model->newQuery()->latest();
     }
@@ -44,15 +43,15 @@ class CourseDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-                    ->setTableId('coursesdatatables-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    ->setTableAttribute('class', 'table table-striped table-bordered  w-100 dataTable')
-                    ->parameters([
-                        'responsive' => true,
-                    ])
-                    ->dom('Bfrtip')
-                    ->orderBy(1);
+            ->setTableId('coursesdatatables-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            ->setTableAttribute('class', 'table table-striped table-bordered  w-100 dataTable')
+            ->parameters([
+                'responsive' => true,
+            ])
+            ->dom('Bfrtip')
+            ->orderBy(1);
     }
 
     /**
@@ -67,9 +66,8 @@ class CourseDataTable extends DataTable
             Column::make('discount')->width(40)->addClass('text-center'),
             Column::make('title'),
             Column::make('price'),
-            Column::make('total'),
             Column::make('category_id'),
-            Column::make('descrption'),
+            Column::make('description'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

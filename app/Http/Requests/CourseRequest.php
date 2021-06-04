@@ -24,12 +24,12 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5|max:190|unique:courses,name,' . $this->id . '|unique:courses,slug,' . $this->id,
-            'price' => 'required|numeric',
-            'discount'=>'required|int',
-            'total'=> 'required|numeric',
-            'discrption'=>'required',
-            'category_id' => 'required'
+            'title'         => 'required|min:5|max:190',
+            'price'         => 'required|numeric',
+            'discount'      => 'required|int',
+            'description'   => 'required',
+            'category_id'   => 'required|exists:categories,id',
+            'user_id'       => 'required|exists:users,id'
         ];
     }
 }
