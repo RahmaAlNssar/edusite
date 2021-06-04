@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRequest;
 use App\DataTables\CourseDataTable;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
@@ -13,6 +14,7 @@ use Exception;
 
 class CoursesController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,7 @@ class CoursesController extends Controller
             if (request()->ajax())
                 return $dataTable->render('backend.includes.tables.rows');
 
-            return view('backend.includes.pages.index', ['count' => Course::count()]);
+            return view('backend.includes.pages.index', ['count' => Course::count(),'no_ajax'=>'']);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -39,7 +41,7 @@ class CoursesController extends Controller
     {
         try {
             $categories = Category::all();
-            return view('backend.includes.forms.form-create', compact('categories'));
+            return view('backend.courses.create', compact('categories'));
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -51,11 +53,28 @@ class CoursesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
+        
         try {
-            Course::create($request->except(['id']));
-            return response()->json(['message' => 'Your Course has been created!', 'icon' => 'success', 'count' => Course::count()]);
+            $course = new Course();
+            $course->title = $request->title;
+            $course->price = $request->price;
+            $course->description = $request->description;
+            $course->discount = $request->discount;
+            $course->category_id = $request->category_id;
+            $course->user_id = 1;
+           // $course->image = $request->file('image')->getClientOriginalName();
+          
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+                $image = $request->file('image');
+               // $name = $image->getClientOriginalName();
+               // $image->store('Courses','public');
+                $course->image =  $image->store('Courses','public');;
+            }
+            $course->save();
+       
+            return response()->json(['redirect'=>route('backend.courses.index'),'Your Course has been created!','icon'=>'success', 'count' => Course::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -82,7 +101,7 @@ class CoursesController extends Controller
     {
         try {
             $categories = Category::all();
-            return view('backend.includes.forms.form-update', ['row' => $course, 'categories' => $categories]);
+            return view('backend.courses.edit', ['row' => $course, 'categories' => $categories,'no_ajax'=>'']);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -98,8 +117,17 @@ class CoursesController extends Controller
     public function update(CourseRequest $request, Course $course)
     {
         try {
-            $course->update($request->except(['id']));
-            return response()->json(['message' => 'Your Course has been updated!', 'icon' => 'success']);
+            $data = $request->except(['id','image']);
+            
+            if(File::exists('storage/'.$course->image)){
+                unlink('storage/'.$course->image);
+            }
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+                $image = $request->file('image');
+                $course->image = $image->store('Courses','public');
+            }
+            $course->update($data);
+            return response()->json(['redirect'=>route('backend.courses.index'),'message' => 'Your Course has been updated!', 'icon' => 'success']);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -114,7 +142,10 @@ class CoursesController extends Controller
     public function destroy(Course $course)
     {
         try {
-            if ($course->delete())
+            if(File::exists('storage/'.$course->image)){
+                unlink('storage/'.$course->image);
+            }
+            $course->delete();
                 return response()->json(['message' => 'Your Course has been deleted!', 'icon' => 'success', 'count' => Category::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -126,12 +157,25 @@ class CoursesController extends Controller
         try {
             $courses = Course::whereIn('id', (array)$request['id'])->get();
             DB::beginTransaction();
-            foreach ($courses as $course)
+            foreach ($courses as $course){
+            if(File::exists('storage/'.$course->image)){
+                unlink('storage/'.$course->image);
+           }
                 $course->delete();
+        }
             DB::commit();
             return response()->json(['message' => 'Your courses has been deleted!', 'icon' => 'success', 'count' => Course::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
     }
+/*
+    public function Total(Course $course)
+    {
+        $course->sum(function($q){
+            $total = $q->price * $q->dicount;
+            return $total;
+        });
+    }
+    */
 }

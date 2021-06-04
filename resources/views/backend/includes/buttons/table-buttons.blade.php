@@ -4,7 +4,7 @@
     <span aria-labelledby="table-optins" class="dropdown-menu mt-1 dropdown-menu-right" x-placement="bottom-end">
 
         <a href="{{ route('backend.' . getModel() . '.edit', $id) }}"
-            class="btn btn-outline-primary show-modal-form dropdown-item">
+            class="btn btn-outline-primary dropdown-item {{$no_ajax ?? 'show-model-form'}}">
             <i class="ft-edit"></i> Edit
         </a>
 

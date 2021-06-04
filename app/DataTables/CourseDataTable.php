@@ -19,9 +19,26 @@ class CourseDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('category_id', function ($course) {
+                return $course->category->name;
+            })
+            ->editColumn('image', function ($course) {
+                return $course->image_url;
+            })
+
+            ->addColumn('total', function ($course) {
+                return $total = '';
+            })
+            ->editColumn('total', function ($course) {
+                return $course->Total();
+            })
+            ->addColumn('no_ajax',function(){
+                return $no_ajax = '';
+            })
+           
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'check']);
+            ->rawColumns(['action', 'check','image','total']);
     }
 
     /**
@@ -32,7 +49,7 @@ class CourseDataTable extends DataTable
      */
     public function query(Course $model)
     {
-        return $model->newQuery()->latest();
+        return $model->newQuery()->with('category')->latest();
     }
 
     /**
@@ -65,9 +82,11 @@ class CourseDataTable extends DataTable
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('discount')->width(40)->addClass('text-center'),
             Column::make('title'),
+            Column::make('image'),
             Column::make('price'),
-            Column::make('category_id'),
+            Column::make('category_id')->title('Category'),
             Column::make('description'),
+            Column::make('total'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

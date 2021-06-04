@@ -78,6 +78,9 @@ $(function () {
             processData: false,
             contentType: false,
             success: function(data, textStatus, jqXHR) {
+                if(data.redirect){
+                    window.location = data.redirect;
+                }
                 $('.modal').modal("hide");
                 toast(data.message, null, data.icon);
                 form.trigger("reset");

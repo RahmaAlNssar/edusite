@@ -10,7 +10,7 @@
                 <a data-toggle="dropdown"> <i class="fas fa-wrench"></i> </a>
                 <div class="dropdown-menu" x-placement="bottom-start">
                     <a href="{{ route('backend.' . getModel() . '.create') }}"
-                        class=" btn btn-outline-primary dropdown-item show-modal-form">
+                        class=" btn btn-outline-primary dropdown-item {{$no_ajax ?? 'show-model-form' }}">
                         <i class="ft-plus"></i> Create {{ ucfirst(getSinglarModel()) }}
                     </a>
 

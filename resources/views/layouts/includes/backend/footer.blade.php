@@ -38,6 +38,8 @@
 @include('sweetalert::alert')
 {{-- ************** END SWEETALERT JS ************** --}}
 
+
+
 @yield('script')
 @stack('script')
 

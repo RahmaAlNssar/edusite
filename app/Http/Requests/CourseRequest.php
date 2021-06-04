@@ -29,7 +29,8 @@ class CourseRequest extends FormRequest
             'discount'      => 'required|int',
             'description'   => 'required',
             'category_id'   => 'required|exists:categories,id',
-            'user_id'       => 'required|exists:users,id'
+            'user_id'       => 'required|exists:users,id',
+            'image'         =>'required|mimes:jpg,jpeg,png'
         ];
     }
 }

@@ -32,9 +32,15 @@ class Course extends Model
         return ['slug' => ['source' => 'title', 'onUpdate' => true,]];
     } // auto make slug from name field when create or update
 
+    Public function getImageUrlAttribute(){
+        if($this->image){
+            return '<img src='.asset('storage/'.$this->image).' height="100px" weidth="90">';
+        }
+        return false;
+    }
 
-    public function total()
+    public function Total()
     {
-        //
+     return $this->price - ($this->price *  $this->discount /100);
     } // return the price after discount
 }
