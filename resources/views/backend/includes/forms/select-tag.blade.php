@@ -4,7 +4,7 @@
         aria-hidden="true" name="tags[]">
         @forelse ($tags as $tag)
         <option value="{{ $tag->id }}" data-icon=" {{ $tag->icon }}"
-            {{ isset($row) ? (in_array($tag->id, $row['tags']) ? 'selected' : '') : (in_array($tag->id, old('tags')) ? 'selected' : '') }}>
+            {{ isset($row) ? (in_array($tag->id, $row['tags']) ? 'selected' : '') : 'selected' }}>
             {{ $tag->name }}
         </option>
         @empty
