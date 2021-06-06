@@ -8,10 +8,24 @@
                 </a>
             </li>
 
+            <li class="nav-item {{ active('tags') }}">
+                <a href="{{ route('backend.tags.index') }}">
+                    <i class="la la-tags"></i>
+                    <span class="menu-title" data-i18n="nav.users.main">Tags</span>
+                </a>
+            </li>
+
             <li class="nav-item {{ active('courses') }}">
                 <a href="{{ route('backend.courses.index') }}">
                     <i class="la la-list"></i>
                     <span class="menu-title" data-i18n="nav.users.main">Courses</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ active('videos') }}">
+                <a href="{{ route('backend.videos.index') }}">
+                    <i class="la la-file-video-o"></i>
+                    <span class="menu-title" data-i18n="nav.users.main">Videos</span>
                 </a>
             </li>
 

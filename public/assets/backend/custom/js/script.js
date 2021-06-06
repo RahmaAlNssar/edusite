@@ -77,9 +77,15 @@ $(function () {
             dataType: 'JSON',
             processData: false,
             contentType: false,
+<<<<<<< HEAD
             success: function(data, textStatus, jqXHR) {
                 if(data.redirect){
                     window.location = data.redirect;
+=======
+            success: function (data, textStatus, jqXHR) {
+                if (data.redirect) {
+                    return window.location = data.redirect;
+>>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
                 }
                 $('.modal').modal("hide");
                 toast(data.message, null, data.icon);
@@ -191,11 +197,12 @@ $(function () {
 
     }); // MULTI DELETE ROWS
 
-    function toast(message, title = null, icon = 'error', position = 'top-end', timer = 5000)
+
+    function toast(message, title = null, icon = 'error', timer = 5000)
     {
         const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: $('html').attr('lang') == 'ar' ? 'top-start' : 'top-end',
         showConfirmButton: false,
         showCloseButton: true,
         timer: timer,

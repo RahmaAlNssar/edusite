@@ -4,13 +4,17 @@
     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
     <div class="heading-elements">
         <ul class="list-inline mb-0">
-            <li> <a data-action="collapse"> <i class="ft-plus"></i> </a> </li>
+            <li> <a data-action="collapse"> <i class="ft-minus"></i> </a> </li>
             <li> <a data-action="expand"> <i class="ft-maximize"></i> </a> </li>
             <li class="btn-group">
                 <a data-toggle="dropdown"> <i class="fas fa-wrench"></i> </a>
                 <div class="dropdown-menu" x-placement="bottom-start">
                     <a href="{{ route('backend.' . getModel() . '.create') }}"
+<<<<<<< HEAD
                         class=" btn btn-outline-primary dropdown-item {{$no_ajax ?? 'show-model-form' }}">
+=======
+                        class=" btn btn-outline-primary dropdown-item {{ $no_ajax ?? 'show-modal-form' }}">
+>>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
                         <i class="ft-plus"></i> Create {{ ucfirst(getSinglarModel()) }}
                     </a>
 

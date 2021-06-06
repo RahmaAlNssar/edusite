@@ -26,7 +26,11 @@ class CoursesController extends Controller
             if (request()->ajax())
                 return $dataTable->render('backend.includes.tables.rows');
 
+<<<<<<< HEAD
             return view('backend.includes.pages.index', ['count' => Course::count(),'no_ajax'=>'']);
+=======
+            return view('backend.includes.pages.index', ['count' => Course::count(), 'no_ajax' => '']);
+>>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -40,8 +44,12 @@ class CoursesController extends Controller
     public function create()
     {
         try {
+<<<<<<< HEAD
             $categories = Category::all();
             return view('backend.courses.create', compact('categories'));
+=======
+            return view('backend.courses.create', ['categories' => Category::all()]);
+>>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

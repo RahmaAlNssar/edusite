@@ -3,7 +3,6 @@
 namespace App\DataTables;
 
 use App\Models\Course;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -49,7 +48,11 @@ class CourseDataTable extends DataTable
      */
     public function query(Course $model)
     {
+<<<<<<< HEAD
         return $model->newQuery()->with('category')->latest();
+=======
+        return $model->newQuery();
+>>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
     }
 
     /**

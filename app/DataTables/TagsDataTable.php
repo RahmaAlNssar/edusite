@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoriesDataTable extends DataTable
+class TagsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,32 +18,21 @@ class CategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('order', function ($category) {
-                return $category->order();
-            })
-            ->editColumn('is_active', function ($category) {
-                return $category->isActive();
-            })
-            ->filterColumn('is_active', function ($query, $keywords) {
-                $keywords = strtolower($keywords);
-                if ($keywords == 'active') {
-                    $query->where('is_active', 1);
-                } else if ($keywords === 'unactive' || $keywords === 'un active') {
-                    $query->where('is_active', 0);
-                }
+            ->editColumn('icon', function ($tag) {
+                return '<i class="' . $tag->icon . '"></i>';
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'order', 'is_active', 'check']);
+            ->rawColumns(['action', 'check', 'icon']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Category $model
+     * @param \App\Models\Tag $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Category $model)
+    public function query(Tag $model)
     {
         return $model->newQuery();
     }
@@ -56,7 +45,7 @@ class CategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('categoriesdatatables-table')
+            ->setTableId('tag-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
@@ -64,7 +53,7 @@ class CategoriesDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(1);
     }
 
     /**
@@ -76,9 +65,9 @@ class CategoriesDataTable extends DataTable
     {
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('order')->width(40)->addClass('text-center'),
+            Column::make('id')->width(40)->addClass('text-center'),
             Column::make('name'),
-            Column::make('is_active'),
+            Column::make('icon'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }
@@ -90,6 +79,6 @@ class CategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'CategoriesDatatables_' . date('YmdHis');
+        return 'Tag_' . date('YmdHis');
     }
 }
