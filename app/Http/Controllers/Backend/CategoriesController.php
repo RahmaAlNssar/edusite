@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Course;
 use Exception;
 
 class CategoriesController extends Controller
@@ -34,11 +33,10 @@ class CategoriesController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        dd($request->all());
         try {
-            Course::create($request->except(['id']));
+            Category::create($request->except(['id']));
             return response()->json(['message' => 'Your Category has been created!', 'icon' => 'success', 'count' => Category::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
@@ -87,7 +85,7 @@ class CategoriesController extends Controller
             foreach ($rows as $row)
                 $row->delete();
             DB::commit();
-            return response()->json(['message' => 'Your Categories has been deleted!', 'icon' => 'success', 'count' => Category::count()]);
+            return response()->json(['message' => 'Your Categories has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => Category::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

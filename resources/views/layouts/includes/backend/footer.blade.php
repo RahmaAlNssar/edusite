@@ -14,8 +14,8 @@
 {{-- ************** START VENDOR JS ************** --}}
 <script src="{{ path('vendors/js/vendors.min.js') }}" type="text/javascript"></script>
 <script type="text/javascript" src="{{ path('vendors/js/forms/icheck/icheck.min.js') }}"></script>
-<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/datatables.min.js') }}">
-</script>
+<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/forms/select/select2.full.min.js') }}"></script>
 {{-- ************** END VENDOR JS ************** --}}
 
 {{-- ************** START FONTAWESOME JS ************** --}}
@@ -28,15 +28,17 @@
 <script type="text/javascript" src="{{ path('js/scripts/customizer.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/forms/checkbox-radio.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/modal/components-modal.js') }}"></script>
+<script type="text/javascript" src="{{ path('js/scripts/forms/select/form-select2.js') }}"></script>
 {{-- ************** END MODERN JS ************** --}}
-
-{{-- ************** START CUSTOM JS ************** --}}
-<script src="{{ path('custom/js/script.js') }}" type="text/javascript"></script>
-{{-- ************** END CUSTOM JS ************** --}}
 
 {{-- ************** START SWEETALERT JS ************** --}}
 @include('sweetalert::alert')
 {{-- ************** END SWEETALERT JS ************** --}}
+
+{{-- ************** START CUSTOM JS ************** --}}
+<script type="text/javascript" src="{{ path('custom/js/script.js') }}"></script>
+<script type="text/javascript" src="{{ path('custom/js/upload-image.js') }}"></script>
+{{-- ************** END CUSTOM JS ************** --}}
 
 @yield('script')
 @stack('script')

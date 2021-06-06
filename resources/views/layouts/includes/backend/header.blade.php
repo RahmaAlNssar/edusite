@@ -42,6 +42,7 @@
     {{-- ************** END RTL , LTR CSS FILES ************** --}}
 
     {{-- ************** START MODERN CSS ************** --}}
+    <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/selects/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/icheck.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/custom.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('css/plugins/forms/checkboxes-radios.css') }}">
@@ -57,6 +58,7 @@
     {{-- ************** START CUSTOM CSS ************** --}}
     <link rel="stylesheet" type="text/css" href="{{ path('custom/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('custom/css/loading.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ path('custom/css/upload-image.css') }}">
     {{-- ************** END CUSTOM CSS ************** --}}
 
     @yield('style')

@@ -20,9 +20,11 @@
         @include('layouts.includes.backend.breadcrumb')
         {{-- END SIDEBAR SECTION --}}
 
-        {{-- START CONTENT SECTION --}}
-        @yield('content')
-        {{-- END CONTENT SECTION --}}
+        <div class="content-body">
+            {{-- START CONTENT SECTION --}}
+            @yield('content')
+            {{-- END CONTENT SECTION --}}
+        </div>
     </div>
 </div>
 

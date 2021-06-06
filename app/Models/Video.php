@@ -6,21 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class Video extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'slug', 'description', 'price', 'discount', 'category_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'description', 'video', 'type', 'course_id'];
 
     /*************************** Begin RELATIONS Area ****************************/
-    public function category()
+    public function course()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Course::class);
     }
 
-    public function user()
+    public function tags()
     {
-        return $this->belongsto(User::class);
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 
     /*************************** Begin SCOPE Area *********************************/
@@ -33,9 +33,8 @@ class Course extends Model
         return ['slug' => ['source' => 'title', 'onUpdate' => true,]];
     } // auto make slug from name field when create or update
 
-
-    public function total()
+    public function getVideoPathAttribute()
     {
-        //
-    } // return the price after discount
+        return asset('uploads/videos/' . $this->video);
+    } // To Return The Image Path
 }

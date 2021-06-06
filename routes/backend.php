@@ -11,8 +11,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::resource('categories', 'CategoriesController');
         Route::post('categories/multidelete', 'CategoriesController@multidelete')->name('categories.multidelete');
 
+        Route::resource('tags', 'TagsController');
+        Route::post('tags/multidelete', 'TagsController@multidelete')->name('tags.multidelete');
+
         Route::resource('courses', 'CoursesController');
         Route::post('courses/multidelete', 'CoursesController@multidelete')->name('courses.multidelete');
+
+        Route::resource('videos', 'VideosController');
+        Route::post('videos/multidelete', 'VideosController@multidelete')->name('videos.multidelete');
 
         Route::resource('users', 'usersController');
     });

@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\Video;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoriesDataTable extends DataTable
+class VideoDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,34 +18,35 @@ class CategoriesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('order', function ($category) {
-                return $category->order();
+            ->editColumn('course_id', function ($category) {
+                return $category->course->title;
             })
-            ->editColumn('is_active', function ($category) {
-                return $category->isActive();
+            ->editColumn('video', function ($video) {
+                return '<video width="100%" height="70px" controls class="review-file"><source src="' . $video->video_path . '" type="' . $video->type . '">Your browser does not support the video tag.</video>';
             })
             ->filterColumn('is_active', function ($query, $keywords) {
-                $keywords = strtolower($keywords);
-                if ($keywords == 'active') {
-                    $query->where('is_active', 1);
-                } else if ($keywords === 'unactive' || $keywords === 'un active') {
-                    $query->where('is_active', 0);
-                }
+                $query->whereHas('course', function ($q) use ($keywords) {
+                    return $q->where('title', 'like', '%' . $keywords . '%');
+                });
             })
+            ->addColumn('no_ajax', function () {
+                return $no_ajax = '';
+            })
+            ->addColumn('tags', 'backend.includes.tables.tags')
             ->addColumn('check', 'backend.includes.tables.checkbox')
-            ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'order', 'is_active', 'check']);
+            ->addColumn('action', 'backend.videos.table-buttons')
+            ->rawColumns(['action', 'check', 'video', 'tags', 'description']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Category $model
+     * @param \App\Models\Video $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Category $model)
+    public function query(Video $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['course', 'tags']);
     }
 
     /**
@@ -56,7 +57,7 @@ class CategoriesDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('categoriesdatatables-table')
+            ->setTableId('video-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
@@ -76,9 +77,11 @@ class CategoriesDataTable extends DataTable
     {
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('order')->width(40)->addClass('text-center'),
-            Column::make('name'),
-            Column::make('is_active'),
+            Column::make('video')->width(100)->orderable(false)->searchable(false)->addClass('text-center'),
+            Column::make('title'),
+            Column::make('description')->width(100),
+            Column::make('tags'),
+            Column::make('course_id')->title('Course')->orderable(false),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }
@@ -90,6 +93,6 @@ class CategoriesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'CategoriesDatatables_' . date('YmdHis');
+        return 'Video_' . date('YmdHis');
     }
 }

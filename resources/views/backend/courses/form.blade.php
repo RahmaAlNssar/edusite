@@ -1,4 +1,4 @@
-<input type="hidden" name="user_id" value="310">
+<input type="hidden" name="user_id" value="1">
 {{-- START COURSE Title --}}
 <div class="form-group">
     <label>Course Title:</label>

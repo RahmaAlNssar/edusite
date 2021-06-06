@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Course;
+use App\Models\Tag;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class CourseDataTable extends DataTable
+class TagsDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,18 +18,21 @@ class CourseDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('icon', function ($tag) {
+                return '<i class="' . $tag->icon . '"></i>';
+            })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'check']);
+            ->rawColumns(['action', 'check', 'icon']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Course $model
+     * @param \App\Models\Tag $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Course $model)
+    public function query(Tag $model)
     {
         return $model->newQuery();
     }
@@ -42,10 +45,10 @@ class CourseDataTable extends DataTable
     public function html()
     {
         return $this->builder()
-            ->setTableId('coursesdatatables-table')
+            ->setTableId('tag-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->setTableAttribute('class', 'table table-striped table-bordered  w-100 dataTable')
+            ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
             ->parameters([
                 'responsive' => true,
             ])
@@ -62,11 +65,9 @@ class CourseDataTable extends DataTable
     {
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('discount')->width(40)->addClass('text-center'),
-            Column::make('title'),
-            Column::make('price'),
-            Column::make('category_id'),
-            Column::make('description'),
+            Column::make('id')->width(40)->addClass('text-center'),
+            Column::make('name'),
+            Column::make('icon'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }
@@ -78,6 +79,6 @@ class CourseDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Courses_' . date('YmdHis');
+        return 'Tag_' . date('YmdHis');
     }
 }

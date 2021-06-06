@@ -12,10 +12,13 @@ class Category extends Model
 
 
     protected $fillable = ['name', 'slug', 'order', 'is_active'];
+    public $timestamps = false;
 
     /*************************** Begin RELATIONS Area ****************************/
-
-
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 
     /*************************** Begin SCOPE Area *********************************/
 
