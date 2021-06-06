@@ -35,14 +35,10 @@
 @include('sweetalert::alert')
 {{-- ************** END SWEETALERT JS ************** --}}
 
-<<<<<<< HEAD
-
-=======
 {{-- ************** START CUSTOM JS ************** --}}
 <script type="text/javascript" src="{{ path('custom/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ path('custom/js/upload-image.js') }}"></script>
 {{-- ************** END CUSTOM JS ************** --}}
->>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
 
 @yield('script')
 @stack('script')

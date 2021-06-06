@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\TagsDataTable;
 use App\Http\Controllers\BackendController;
+use Illuminate\Support\Facades\DB;
+use App\DataTables\TagsDataTable;
 use App\Http\Requests\TagRequest;
 use Illuminate\Http\Request;
 use App\Models\Tag;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
 class TagsController extends BackendController
 {

@@ -25,12 +25,12 @@ class CourseRequest extends FormRequest
     {
         return [
             'title'         => 'required|min:5|max:190',
-            'price'         => 'required|numeric',
-            'discount'      => 'required|int',
-            'description'   => 'required',
-            'category_id'   => 'required|exists:categories,id',
-            'user_id'       => 'required|exists:users,id',
-            'image'         =>'required|mimes:jpg,jpeg,png'
+            'price'         => 'required|numeric|min:0',
+            'discount'      => 'required|numeric|min:0|max:100',
+            'description'   => 'required|min:5|string',
+            'category_id'   => 'required|size:1|exists:categories,id',
+            'user_id'       => 'required|size:1|exists:users,id',
+            'image'         => 'required_without:id|mimes:jpg,jpeg,png'
         ];
     }
 }

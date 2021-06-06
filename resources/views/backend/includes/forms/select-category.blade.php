@@ -4,7 +4,7 @@
         @forelse ($categories as $category)
         <option value="{{ $category->id }}"
             {{ isset($row) ? ($row->category_id == $category->id ? 'selected' : '') : (old('category_id') == $category->id ? 'selected' : '') }}>
-            {{ $course->title }}
+            {{ $category->name }}
         </option>
         @empty
         <option>no categories found</option>

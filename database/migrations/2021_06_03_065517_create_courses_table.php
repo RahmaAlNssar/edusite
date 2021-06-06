@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
+            $table->string('image');
             $table->text('description');
             $table->float('price');
             $table->unsignedTinyInteger('discount');

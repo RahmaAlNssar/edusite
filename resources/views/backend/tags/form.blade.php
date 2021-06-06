@@ -5,7 +5,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="la la-tag"></i> </span>
         </div>
-        <input type="text" class="form-control" name="tag" value="{{ $row->name ?? old('name') }}"
+        <input type="text" class="form-control" name="name" value="{{ $row->name ?? old('name') }}"
             placeholder="Tage Name">
     </div>
     <span class="red error" id="name-error"></span>

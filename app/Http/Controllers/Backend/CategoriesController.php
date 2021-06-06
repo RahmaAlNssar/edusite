@@ -35,10 +35,6 @@ class CategoriesController extends Controller
 
     public function store(CategoryRequest $request)
     {
-<<<<<<< HEAD
-      //  dd($request->all());
-=======
->>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
         try {
             Category::create($request->except(['id']));
             return response()->json(['message' => 'Your Category has been created!', 'icon' => 'success', 'count' => Category::count()]);

@@ -6,7 +6,7 @@ use App\Models\Course;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class CourseDataTable extends DataTable
+class CoursesDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -24,20 +24,28 @@ class CourseDataTable extends DataTable
             ->editColumn('image', function ($course) {
                 return $course->image_url;
             })
-
             ->addColumn('total', function ($course) {
                 return $total = '';
             })
             ->editColumn('total', function ($course) {
                 return $course->Total();
             })
-            ->addColumn('no_ajax',function(){
+            ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
             })
-           
+            ->filterColumn('category_id', function ($query, $keywords) {
+                return $query->whereHas('category', function ($q) use ($keywords) {
+                    return $q->where('name', 'like', '%' . $keywords . '%');
+                });
+            })
+            ->orderColumn('category_id', function ($query, $order) {
+                return $query->whereHas('category', function ($q) use ($order) {
+                    return $q->orderBy('name', $order);
+                });
+            })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'check','image','total']);
+            ->rawColumns(['action', 'check', 'image', 'total']);
     }
 
     /**
@@ -48,11 +56,7 @@ class CourseDataTable extends DataTable
      */
     public function query(Course $model)
     {
-<<<<<<< HEAD
-        return $model->newQuery()->with('category')->latest();
-=======
-        return $model->newQuery();
->>>>>>> 88e5c997e592c8dba26a4e849ceca9c509b8cbc2
+        return $model->newQuery()->with('category');
     }
 
     /**
@@ -66,12 +70,12 @@ class CourseDataTable extends DataTable
             ->setTableId('coursesdatatables-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->setTableAttribute('class', 'table table-striped table-bordered  w-100 dataTable')
+            ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
             ->parameters([
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(1);
+            ->orderBy(2);
     }
 
     /**
@@ -85,11 +89,11 @@ class CourseDataTable extends DataTable
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('discount')->width(40)->addClass('text-center'),
             Column::make('title'),
-            Column::make('image'),
+            Column::make('image')->orderable(false)->searchable(false),
             Column::make('price'),
             Column::make('category_id')->title('Category'),
             Column::make('description'),
-            Column::make('total'),
+            Column::make('total')->orderable(false),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

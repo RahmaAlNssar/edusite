@@ -26,8 +26,11 @@ class VideoObserve
 
     protected function uploadVideo($video)
     {
-        $video->type  =  'video/' . $video->video->getClientOriginalExtension();
-        $video->video = $this->upload($video->video, 'videos');
-        $video->saveQuietly();
+        $src = explode('/', $video->video);
+        if (in_array('tmp', $src) || in_array('temp', $src)) {
+            $video->type  =  'video/' . $video->video->getClientOriginalExtension();
+            $video->video = $this->upload($video->video, 'videos');
+            $video->saveQuietly();
+        }
     }
 }
