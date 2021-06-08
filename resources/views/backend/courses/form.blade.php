@@ -1,9 +1,9 @@
-<input type="hidden" name="user_id" value="{{ auth()->id() ?? 1 }}">
 {{-- START COURSE Title --}}
 <div class="form-group">
     <label>Course Title:</label>
     <div class="input-group">
-        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-list"></i> </span> </div>
+        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-list"></i> </span>
+        </div>
         <input type="text" class="form-control" name="title" value="{{ $row->title ?? old('title') }}"
             placeholder="Course Tite">
     </div>
@@ -12,55 +12,105 @@
 {{-- END COURSE Title --}}
 
 <div class="row">
-    <div class="col-md-6">
-        {{-- START COURSE PRICE --}}
-        <div class="form-group">
-            <label>Course Price:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-dollar-sign"></i> </span>
-                </div>
-                <input type="number" class="form-control" name="price" value="{{ $row->price ?? old('price') }}"
-                    placeholder="Course Price" min="1">
+    <div class="col-md-8">
+        <div class="row px-0">
+            <div class="col-md-6">
+                {{-- START COURSE CATEGORY --}}
+                @include('backend.includes.forms.select-user')
+                {{-- START COURSE CATEGORY --}}
             </div>
-            <span class="red error" id="price-error"></span>
-        </div>
-        {{-- START COURSE PRICE --}}
-    </div>
 
-    <div class="col-md-6">
-        {{-- START COURSE DISCOUNT --}}
-        <div class="form-group">
-            <label>Course Discount:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-percent"></i> </span>
-                </div>
-                <input type="number" class="form-control" name="discount"
-                    value="{{ $row->discount ?? old('discount') }}" placeholder="Course Discount" min="1">
+            <div class="col-md-6">
+                {{-- START COURSE CATEGORY --}}
+                @include('backend.includes.forms.select-category')
+                {{-- START COURSE CATEGORY --}}
             </div>
-            <span class="red error" id="discount-error"></span>
+
+            <div class="col-md-6">
+                {{-- START COURSE PRICE --}}
+                <div class="form-group">
+                    <label>Course Price:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-dollar-sign"></i> </span>
+                        </div>
+                        <input type="number" class="form-control" name="price" value="{{ $row->price ?? old('price') }}"
+                            placeholder="Course Price" min="0">
+                    </div>
+                    <span class="red error" id="price-error"></span>
+                </div>
+                {{-- START COURSE PRICE --}}
+            </div>
+
+            <div class="col-md-6">
+                {{-- START COURSE DISCOUNT --}}
+                <div class="form-group">
+                    <label>Course Discount:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-percent"></i> </span>
+                        </div>
+                        <input type="number" class="form-control" name="discount" min="0" max="99.99"
+                            placeholder="Enter Value in %" value="{{ $row->discount ?? old('discount') }}">
+                    </div>
+                    <span class="red error" id="discount-error"></span>
+                </div>
+                {{-- START COURSE DISCOUNT --}}
+            </div>
+
+            <div class="col-md-4">
+                {{-- START COURSE DISCOUNT START DATE --}}
+                <div class="form-group">
+                    <label>Discount Start Date:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                        </div>
+                        <input type="date" class="form-control" name="start_date" min="{{ date('Y-m-d') }}"
+                            value="{{ $row->start_date ?? old('start_date') }}">
+                    </div>
+                    <span class="red error" id="start_date-error"></span>
+                </div>
+                {{-- END COURSE DISCOUNT START DATE --}}
+            </div>
+
+            <div class="col-md-4">
+                {{-- START COURSE DISCOUNT END DATE --}}
+                <div class="form-group">
+                    <label>Discount End Date:</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
+                        </div>
+                        <input type="date" class="form-control" name="end_date"
+                            min="{{ date("Y-m-d", time() + 86400) }}" value="{{ $row->end_date ?? old('end_date') }}">
+                    </div>
+                    <span class="red error" id="end_date-error"></span>
+                </div>
+                {{-- END COURSE DISCOUNT END DATE --}}
+            </div>
+
+            <div class="col-md-4">
+                {{-- START COURSE DISCOUNT END DATE --}}
+                @include('backend.includes.forms.select-visibility')
+                {{-- END COURSE DISCOUNT END DATE --}}
+            </div>
         </div>
-        {{-- START COURSE DISCOUNT --}}
     </div>
 
-    <div class="col-md-6">
-        {{-- START COURSE CATEGORY --}}
-        @include('backend.includes.forms.select-category')
-        {{-- START COURSE CATEGORY --}}
-    </div>
-
-    <div class="col-md-6">
+    <div class="col-md-4">
         {{-- START COURSE IMAGE --}}
         <div class="form-group">
-            <label>Course Image:</label>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fas fa-image"></i> </span>
+            <label>Upload Image :</label>
+            <div id="file-preview">
+                <input type="file" name="image" class="form-control input-image" accept="image/*"
+                    onchange="previewFile(this)">
+                <div>
+                    <img src="{{ $row->image_url ?? 'https://www.lifewire.com/thmb/2KYEaloqH6P4xz3c9Ot2GlPLuds=/1920x1080/smart/filters:no_upscale()/cloud-upload-a30f385a928e44e199a62210d578375a.jpg' }}"
+                        class="img-border img-thumbnail" id="show-file">
                 </div>
-                <input type="file" class="form-control" name="image">
             </div>
-            <span class="red error" id="image-error"></span>
+            <span class="error red" id="image-error"></span>
         </div>
         {{-- START COURSE IMAGE --}}
     </div>

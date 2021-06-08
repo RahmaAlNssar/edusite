@@ -10,7 +10,7 @@ class Course extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'slug', 'image', 'description', 'price', 'discount', 'category_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'image', 'description', 'price', 'start_date', 'end_date', 'discount', 'visibility', 'category_id', 'user_id'];
 
     /*************************** Begin RELATIONS Area ****************************/
     public function category()
@@ -35,14 +35,11 @@ class Course extends Model
 
     public function getImageUrlAttribute()
     {
-        if ($this->image) {
-            return '<img src=' . asset('storage/' . $this->image) . ' height="100px" weidth="90">';
-        }
-        return false;
-    }
+        return asset('uploads/courses/' . $this->image);
+    } // return image path
 
     public function Total()
     {
-        return $this->price - ($this->price *  $this->discount / 100);
+        return '$' . ($this->price - ($this->price * $this->discount / 100));
     } // return the price after discount
 }

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Observers\CourseObserve;
 use App\Observers\VideoObserve;
+use App\Models\Course;
 use App\Models\Video;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Course::observe(CourseObserve::class);
         Video::observe(VideoObserve::class);
     }
 }

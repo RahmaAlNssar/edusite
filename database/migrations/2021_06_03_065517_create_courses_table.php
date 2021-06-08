@@ -19,8 +19,11 @@ class CreateCoursesTable extends Migration
             $table->string('slug');
             $table->string('image');
             $table->text('description');
-            $table->float('price');
-            $table->unsignedTinyInteger('discount');
+            $table->float('price')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->unsignedTinyInteger('discount')->nullable();
+            $table->boolean('visibility')->default(0);
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

@@ -26,9 +26,13 @@ class DatabaseSeeder extends Seeder
         Tag::query()->delete();
         // end
 
+        foreach (glob(public_path('uploads/*/*.*')) as $file)
+            unlink($file);
 
-        User::factory(50)->create();
+
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
+        User::factory(50)->create();
+        Course::factory(10)->create();
     }
 }

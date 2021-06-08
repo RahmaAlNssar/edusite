@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('slug');
+            $table->boolean('visibility')->default(false);
             $table->string('icon')->nullable();
         });
     }

@@ -2,9 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Course;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Str;
+use App\Models\Course;
 
 class CoursesDataTable extends DataTable
 {
@@ -18,34 +19,44 @@ class CoursesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('category_id', function ($course) {
-                return $course->category->name;
-            })
-            ->editColumn('image', function ($course) {
-                return $course->image_url;
-            })
-            ->addColumn('total', function ($course) {
-                return $total = '';
-            })
-            ->editColumn('total', function ($course) {
-                return $course->Total();
-            })
             ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
             })
-            ->filterColumn('category_id', function ($query, $keywords) {
-                return $query->whereHas('category', function ($q) use ($keywords) {
-                    return $q->where('name', 'like', '%' . $keywords . '%');
-                });
+            ->editColumn('price', function ($course) {
+                if ($course->discount != null) {
+                    return $course->total() . '<br> <del class="red">$' . $course->price . '</del>';
+                }
+                return '$' . $course->price;
             })
-            ->orderColumn('category_id', function ($query, $order) {
-                return $query->whereHas('category', function ($q) use ($order) {
-                    return $q->orderBy('name', $order);
-                });
+            ->editColumn('image', function ($course) {
+                return '<img src="' . $course->image_url . '" class="img-thumbnail" width="150px">';
+            })
+            ->editColumn('title', function ($course) {
+                return Str::limit($course->title, 30) . '<hr> <span class="red">Category | </span> ' . Str::limit($course->category->name, 30);
+            })
+            ->editColumn('description', function ($course) {
+                return Str::limit($course->description, 100);
+            })
+            ->filterColumn('visibility', function ($query, $keywords) {
+                $keywords = strtolower($keywords);
+                if ($keywords == 'visible') {
+                    $query->where('visibility', 1);
+                } else if ($keywords == 'hidden') {
+                    $query->where('visibility', 0);
+                }
+            })
+            ->filterColumn('title', function ($query, $keywords) {
+                return $query->where('title', 'like', '%' . $keywords . '%')
+                    ->orWhereHas('category', function ($q) use ($keywords) {
+                        $q->where('name', 'like', '%' . $keywords . '%');
+                    });
+            })
+            ->setRowClass(function ($course) {
+                return $course->visibility == 0 ? 'bg-primary bg-accent-1' : '';
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'check', 'image', 'total']);
+            ->rawColumns(['action', 'check', 'image', 'description', 'visibility', 'price', 'title']);
     }
 
     /**
@@ -87,13 +98,10 @@ class CoursesDataTable extends DataTable
     {
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('discount')->width(40)->addClass('text-center'),
-            Column::make('title'),
+            Column::make('title')->width(270),
             Column::make('image')->orderable(false)->searchable(false),
+            Column::make('description')->width(300),
             Column::make('price'),
-            Column::make('category_id')->title('Category'),
-            Column::make('description'),
-            Column::make('total')->orderable(false),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

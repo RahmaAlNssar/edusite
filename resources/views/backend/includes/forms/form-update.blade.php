@@ -1,6 +1,8 @@
 <div class="card-header bg-primary">
-    <h4 class="card-title white"><i class="ft-edit"></i><span class="mx-1">update
-            {{ ucfirst(getSinglarModel()) }}</span></h4>
+    <h4 class="card-title white">
+        <i class="ft-edit"></i><span class="mx-1">update {{ ucfirst(getSinglarModel()) }}</span>
+    </h4>
+    @yield('back')
 </div>
 
 <div class="card-body">

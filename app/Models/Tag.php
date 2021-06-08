@@ -10,7 +10,7 @@ class Tag extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillable = ['name', 'slug', 'icon'];
+    protected $fillable = ['name', 'slug', 'visibility', 'icon'];
     public $timestamps = false;
 
 
@@ -30,4 +30,11 @@ class Tag extends Model
     {
         return ['slug' => ['source' => 'name', 'onUpdate' => true,]];
     } // auto make slug from name field when create or update
+
+    public function visibilityType()
+    {
+        return $this->visibility == 1
+            ? '<span class="badge badge-success"> <i class="fas fa-lightbulb"></i>&nbsp; Visible</span>'
+            : '<span class="badge badge-warning"> <i class="far fa-lightbulb"></i>&nbsp; Hidden</span>';
+    }
 }

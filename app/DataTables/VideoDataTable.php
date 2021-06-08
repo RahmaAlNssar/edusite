@@ -2,9 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Video;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Str;
+use App\Models\Video;
 
 class VideoDataTable extends DataTable
 {
@@ -18,24 +19,33 @@ class VideoDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('course_id', function ($category) {
-                return $category->course->title;
-            })
             ->editColumn('video', function ($video) {
                 return '<video width="100%" height="70px" controls class="review-file"><source src="' . $video->video_path . '" type="' . $video->type . '">Your browser does not support the video tag.</video>';
             })
-            ->filterColumn('is_active', function ($query, $keywords) {
-                $query->whereHas('course', function ($q) use ($keywords) {
-                    return $q->where('title', 'like', '%' . $keywords . '%');
-                });
+            ->editColumn('title', function ($video) {
+                return Str::limit($video->title, 35) . '<hr> <span class="red">Course | </span> ' . Str::limit($video->course->title, 25);
+            })
+            ->editColumn('description', function ($video) {
+                return Str::limit($video->description, 150);
             })
             ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
             })
+            ->filterColumn('title', function ($query, $keywords) {
+                return $query->where('title', 'like', '%' . $keywords . '%')
+                    ->orWhereHas('course', function ($q) use ($keywords) {
+                        $q->where('title', 'like', '%' . $keywords . '%');
+                    });
+            })
+            ->filterColumn('tags', function ($query, $keywords) {
+                return $query->whereHas('tags', function ($q) use ($keywords) {
+                    return $q->where('name', 'like', '%' . $keywords . '%');
+                });
+            })
             ->addColumn('tags', 'backend.includes.tables.tags')
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.videos.table-buttons')
-            ->rawColumns(['action', 'check', 'video', 'tags', 'description']);
+            ->rawColumns(['action', 'check', 'video', 'tags', 'description', 'title']);
     }
 
     /**
@@ -78,10 +88,9 @@ class VideoDataTable extends DataTable
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('video')->width(100)->orderable(false)->searchable(false)->addClass('text-center'),
-            Column::make('title'),
-            Column::make('description')->width(100),
-            Column::make('tags'),
-            Column::make('course_id')->title('Course')->orderable(false),
+            Column::make('title')->width(250),
+            Column::make('description'),
+            Column::make('tags')->orderable(false)->width(100),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

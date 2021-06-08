@@ -25,3 +25,7 @@
     <span class="red error" id="icon-error"></span>
 </div>
 {{-- START TAG ICON --}}
+
+{{-- START CATEGORY IS ACTIVE --}}
+@include('backend.includes.forms.select-visibility')
+{{-- END CATEGORY IS ACTIVE --}}

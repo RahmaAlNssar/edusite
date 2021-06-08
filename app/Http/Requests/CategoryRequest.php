@@ -24,9 +24,9 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:190|unique:categories,name,' . $this->id . '|unique:categories,slug,' . $this->id,
-            'order' => 'required|integer|between:1,1000000|unique:categories,order,' . $this->id,
-            'is_active' => 'required|in:0,1',
+            'name'       => 'required|min:5|max:190|unique:categories,name,' . $this->id . '|unique:categories,slug,' . $this->id,
+            'order'      => 'required|integer|between:1,1000000|unique:categories,order,' . $this->id,
+            'visibility' => 'required|in:0,1',
         ];
     }
 }

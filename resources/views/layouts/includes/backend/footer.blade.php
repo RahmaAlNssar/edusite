@@ -37,7 +37,7 @@
 
 {{-- ************** START CUSTOM JS ************** --}}
 <script type="text/javascript" src="{{ path('custom/js/script.js') }}"></script>
-<script type="text/javascript" src="{{ path('custom/js/upload-image.js') }}"></script>
+<script type="text/javascript" src="{{ path('custom/js/preview-file.js') }}"></script>
 {{-- ************** END CUSTOM JS ************** --}}
 
 @yield('script')

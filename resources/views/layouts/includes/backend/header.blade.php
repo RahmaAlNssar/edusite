@@ -58,7 +58,7 @@
     {{-- ************** START CUSTOM CSS ************** --}}
     <link rel="stylesheet" type="text/css" href="{{ path('custom/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('custom/css/loading.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ path('custom/css/upload-image.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ path('custom/css/preview-file.css') }}">
     {{-- ************** END CUSTOM CSS ************** --}}
 
     @yield('style')

@@ -17,18 +17,14 @@ class CategorySeeder extends Seeder
     {
         $categories =
             [
-                ['name' => 'Town Planning & Urban Design',      'slug' => 'town-planning-&-urban-design',     'order' => 1,  'is_active' => rand(0, 1)],
-                ['name' => 'Architecture & Interior Design',    'slug' => 'architecture-&-interior-design',   'order' => 2,  'is_active' => rand(0, 1)],
-                ['name' => 'Garden & Landscape Design',         'slug' => 'garden-&-landscape-design',        'order' => 3,  'is_active' => rand(0, 1)],
-                ['name' => 'Exhibition Design',                 'slug' => 'exhibition-design',                'order' => 4,  'is_active' => rand(0, 1)],
-                ['name' => 'Product Design',                    'slug' => 'product-design',                   'order' => 5,  'is_active' => rand(0, 1)],
-                ['name' => 'Packaging Design',                  'slug' => 'packaging-design',                 'order' => 6,  'is_active' => rand(0, 1)],
-                ['name' => 'Graphic Design',                    'slug' => 'graphic-design',                   'order' => 7,  'is_active' => rand(0, 1)],
-                ['name' => 'Corporate Identity',                'slug' => 'corporate-identity',               'order' => 8,  'is_active' => rand(0, 1)],
-                ['name' => 'Brand',                             'slug' => 'brand',                            'order' => 9,  'is_active' => rand(0, 1)],
-                ['name' => 'IT & Multimedia Design',            'slug' => 'it&-multimedia-design',            'order' => 10, 'is_active' => rand(0, 1)],
-                ['name' => 'Textile & Fashion Design',          'slug' => 'textile&-fashion-design',          'order' => 11, 'is_active' => rand(0, 1)],
-                ['name' => 'Furniture Design',                  'slug' => 'furniture-design',                 'order' => 12, 'is_active' => rand(0, 1)],
+                ['name' => 'Web Developer',             'slug' => 'web-developer',           'order' => 1, 'visibility' => rand(0, 1)],
+                ['name' => 'Web Designer',              'slug' => 'web-designer',            'order' => 2, 'visibility' => rand(0, 1)],
+                ['name' => 'Ui&Ux Designer',            'slug' => 'ui-ux-designer',          'order' => 3, 'visibility' => rand(0, 1)],
+                ['name' => 'Desktop Application',       'slug' => 'desktop-application',     'order' => 4, 'visibility' => rand(0, 1)],
+                ['name' => 'Mobile Application',        'slug' => 'mobile-application',      'order' => 5, 'visibility' => rand(0, 1)],
+                ['name' => 'Web Application',           'slug' => 'web-application',         'order' => 6, 'visibility' => rand(0, 1)],
+                ['name' => 'Artificial Intelligence',   'slug' => 'artificial-intelligence', 'order' => 7, 'visibility' => rand(0, 1)],
+                ['name' => 'IT & Multimedia Design',    'slug' => 'it&-multimedia-design',   'order' => 8, 'visibility' => rand(0, 1)],
             ];
         Category::insert($categories);
     }

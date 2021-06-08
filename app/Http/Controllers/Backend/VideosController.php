@@ -20,12 +20,12 @@ class VideosController extends BackendController
         if (request()->ajax())
             return $dataTables->render('backend.includes.tables.rows');
 
-        return view('backend.includes.pages.index', ['count' => Video::count(), 'no_ajax' => '']);
+        return view('backend.includes.pages.index-page', ['count' => Video::count(), 'no_ajax' => '']);
     }
 
     public function create()
     {
-        return view('backend.videos.create', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all()]);
+        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all()]);
     }
 
     public function store(VideoRequest $request)
@@ -50,7 +50,7 @@ class VideosController extends BackendController
     public function edit(Video $video)
     {
         $video->tags = $video->tags->pluck('id')->toArray();
-        return view('backend.videos.update', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all(), 'row' => $video]);
+        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all(), 'row' => $video]);
     }
 
     public function update(VideoRequest $request, Video $video)

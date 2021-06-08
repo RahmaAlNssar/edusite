@@ -19,11 +19,22 @@ class TagsDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->editColumn('icon', function ($tag) {
-                return '<i class="' . $tag->icon . '"></i>';
+                return '<i class="' . $tag->icon . ' font-large-1"></i>';
+            })
+            ->editColumn('visibility', function ($tag) {
+                return $tag->visibilityType();
+            })
+            ->filterColumn('visibility', function ($query, $keywords) {
+                $keywords = strtolower($keywords);
+                if ($keywords == 'visible') {
+                    $query->where('visibility', 1);
+                } else if ($keywords === 'hidden') {
+                    $query->where('visibility', 0);
+                }
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'check', 'icon']);
+            ->rawColumns(['action', 'check', 'icon', 'visibility']);
     }
 
     /**
@@ -67,7 +78,8 @@ class TagsDataTable extends DataTable
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('id')->width(40)->addClass('text-center'),
             Column::make('name'),
-            Column::make('icon'),
+            Column::make('icon')->width(60)->addClass('text-center'),
+            Column::make('visibility')->title('Visibility')->width(100)->addClass('text-center'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

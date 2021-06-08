@@ -1,7 +1,9 @@
 <div class="card-header bg-primary">
-    <h4 class="card-title white"><i class="fa fa-plus fa-sm"></i><span class="mx-1">Create New
-            {{ ucfirst(getSinglarModel()) }}</span>
+    <h4 class="card-title white">
+        <i class="fa fa-plus fa-sm"></i><span class="mx-1">Create New {{ ucfirst(getSinglarModel()) }}</span>
     </h4>
+
+    @yield('back')
 </div>
 
 <div class="card-body">

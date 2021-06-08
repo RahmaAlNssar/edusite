@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{{ path('vendors/css/editors/summernote.css') }}">
 @endsection
 
+@section('back')
+@include('backend.includes.cards.form-header')
+@endsection
+
 @section('content')
 <div class="card">
     @include('backend.includes.forms.form-create')

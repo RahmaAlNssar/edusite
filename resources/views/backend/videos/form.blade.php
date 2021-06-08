@@ -21,7 +21,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="la la-file-video-o"></i> </span>
                 </div>
-                <input type="file" class="form-control select-file" name="video" accept="video/*">
+                <input type="file" class="form-control" name="video" accept="video/*" onchange="previewFile(this)">
             </div>
             <span class="red error" id="video-error"></span>
         </div>
@@ -34,8 +34,8 @@
 
     {{-- START VIDEO PREVIEW --}}
     <div class="col-md-5">
-        <video width="100%" height="250px" controls class="review-file">
-            <source src="{{ $row->video_path ?? '' }}" type="{{ $row->type ?? 'video/mp4' }}">
+        <video width="100%" height="250px" controls>
+            <source src="{{ $row->video_path ?? '' }}" type="{{ $row->type ?? 'video/mp4' }}" id="show-file">
             Your browser does not support the video tag.
         </video>
     </div>

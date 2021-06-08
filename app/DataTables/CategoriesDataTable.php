@@ -21,20 +21,20 @@ class CategoriesDataTable extends DataTable
             ->editColumn('order', function ($category) {
                 return $category->order();
             })
-            ->editColumn('is_active', function ($category) {
-                return $category->isActive();
+            ->editColumn('visibility', function ($category) {
+                return $category->visibilityType();
             })
-            ->filterColumn('is_active', function ($query, $keywords) {
+            ->filterColumn('visibility', function ($query, $keywords) {
                 $keywords = strtolower($keywords);
-                if ($keywords == 'active') {
-                    $query->where('is_active', 1);
-                } else if ($keywords === 'unactive' || $keywords === 'un active') {
-                    $query->where('is_active', 0);
+                if ($keywords == 'visible') {
+                    $query->where('visibility', 1);
+                } else if ($keywords == 'hidden') {
+                    $query->where('visibility', 0);
                 }
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
-            ->rawColumns(['action', 'order', 'is_active', 'check']);
+            ->rawColumns(['action', 'order', 'visibility', 'check']);
     }
 
     /**
@@ -76,9 +76,9 @@ class CategoriesDataTable extends DataTable
     {
         return [
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('order')->width(40)->addClass('text-center'),
+            Column::make('order')->width(50)->addClass('text-center'),
             Column::make('name'),
-            Column::make('is_active'),
+            Column::make('visibility')->width(100)->addClass('text-center'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

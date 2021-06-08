@@ -27,23 +27,5 @@
 {{-- START CATEGORY ORDER --}}
 
 {{-- START CATEGORY IS ACTIVE --}}
-<div class="form-group">
-    <label>Category Status:</label>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fas fa-lightbulb"></i> </span>
-        </div>
-        <select class="form-control" name="is_active">
-            <option value="0"
-                {{ isset($row) ? ($row->is_active == 0 ? 'selected' : '') : (old('is_active') == 0 ? 'selected' : '') }}>
-                Un Active
-            </option>
-            <option value="1"
-                {{ isset($row) ? ($row->is_active == 1 ? 'selected' : '') : (old('is_active') == 1 ? 'selected' : '') }}>
-                Active
-            </option>
-        </select>
-    </div>
-    <span class="red error" id="is_active-error"></span>
-</div>
+@include('backend.includes.forms.select-visibility')
 {{-- END CATEGORY IS ACTIVE --}}

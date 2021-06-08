@@ -24,8 +24,9 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'   => 'required|min:1|max:25|unique:tags,name,' . $this->id,
-            'icon'  => 'nullable|min:1|max:25',
+            'name'       => 'required|min:1|max:25|unique:tags,name,' . $this->id,
+            'icon'       => 'nullable|min:1|max:25',
+            'visibility' => 'required|in:0,1',
         ];
     }
 }
