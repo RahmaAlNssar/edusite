@@ -34,7 +34,7 @@ class Tag extends Model
     public function visibilityType()
     {
         return $this->visibility == 1
-            ? '<span class="badge badge-success"> <i class="fas fa-lightbulb"></i>&nbsp; Visible</span>'
-            : '<span class="badge badge-warning"> <i class="far fa-lightbulb"></i>&nbsp; Hidden</span>';
+            ? '<a href="' . route('backend.tags.visibility-toggle', $this->id) . '" class="btn btn-success btn-sm visibility-toggle"> <i class="fas fa-lightbulb"></i>&nbsp; Visible</a>'
+            : '<a href="' . route('backend.tags.visibility-toggle', $this->id) . '" class="btn btn-warning btn-sm visibility-toggle"> <i class="far fa-lightbulb"></i>&nbsp; Hidden</a>';
     }
 }

@@ -90,4 +90,16 @@ class CategoriesController extends Controller
             return response()->json($e->getMessage(), 500);
         }
     }
+
+    public function visibilityToggle(Category $category)
+    {
+        try {
+            DB::beginTransaction();
+            $category->update(['visibility' => !$category->visibility]);
+            DB::commit();
+            return response()->json(['message' => ' Visibility of Your Category has been Changed!', 'icon' => 'success']);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 }

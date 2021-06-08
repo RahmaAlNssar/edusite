@@ -8,6 +8,8 @@ $(function () {
         if (typeof textStatus.responseJSON !== 'undefined' && textStatus.responseJSON.message == 'Unauthenticated.') { location.reload(true); }
     }); // WHEN MAKE REQUEST AND THE RESPONSE IS ERROR THEN MAKE REFRESH THE PAGE
 
+    $(document).ajaxComplete(function() { $('.load').removeClass('load'); }); // WHEN THE REQUEST IS COMPLETED WILL BE REMOVE THE CLASS LOAD
+
     document.addEventListener('wheel', (e) => (e.ctrlKey || e.metaKey) && e.preventDefault(), { passive: false });
 
     $('body').on('contextmenu', 'img', function (e) { e.preventDefault(); });
@@ -191,6 +193,34 @@ $(function () {
 
     }); // MULTI DELETE ROWS
 
+    $('body').on('click', '.visibility-toggle', function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, change it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: $(this).attr('href'),
+                    type: "post",
+                    success: function (data, textStatus, jqXHR) {
+                        toast(data.message, null, data.icon)
+                        rows();
+                    },
+                    error: function (jqXHR) {
+                        if (jqXHR.readyState == 0)
+                            return false;
+                        toast('File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')', jqXHR.responseJSON.message, icon = 'error')
+                    },
+                });
+            }
+        })
+    }); // MAKE THE DATA IS VISIBILE OR NOT WHEN CLCIK ON THE BUTTON
 
     function toast(message, title = null, icon = 'error', timer = 5000)
     {

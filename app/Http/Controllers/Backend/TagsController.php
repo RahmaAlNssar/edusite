@@ -90,4 +90,16 @@ class TagsController extends BackendController
             return response()->json($e->getMessage(), 500);
         }
     }
+
+    public function visibilityToggle(Tag $tag)
+    {
+        try {
+            DB::beginTransaction();
+            $tag->update(['visibility' => !$tag->visibility]);
+            DB::commit();
+            return response()->json(['message' => ' Visibility of Your Tag has been Changed!', 'icon' => 'success']);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 }
