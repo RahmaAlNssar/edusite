@@ -35,7 +35,7 @@
                             <span class="input-group-text"> <i class="fas fa-dollar-sign"></i> </span>
                         </div>
                         <input type="number" class="form-control" name="price" value="{{ $row->price ?? old('price') }}"
-                            placeholder="Course Price" min="0">
+                            placeholder="Course Price" min="1">
                     </div>
                     <span class="red error" id="price-error"></span>
                 </div>
@@ -50,7 +50,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-percent"></i> </span>
                         </div>
-                        <input type="number" class="form-control" name="discount" min="0" max="99.99"
+                        <input type="number" class="form-control" name="discount" min="1" max="99.99"
                             placeholder="Enter Value in %" value="{{ $row->discount ?? old('discount') }}">
                     </div>
                     <span class="red error" id="discount-error"></span>

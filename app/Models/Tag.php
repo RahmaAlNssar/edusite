@@ -15,9 +15,14 @@ class Tag extends Model
 
 
     /*************************** Begin RELATIONS Area ****************************/
-    public function posts()
+    public function videos()
     {
         return $this->morphedByMany(Video::class, 'taggable');
+    }
+
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'taggable');
     }
 
 

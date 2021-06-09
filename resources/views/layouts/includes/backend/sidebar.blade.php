@@ -35,6 +35,13 @@
                     <span class="menu-title" data-i18n="nav.users.main">Users</span>
                 </a>
             </li>
+
+            <li class="nav-item {{ active('posts') }}">
+                <a href="{{ route('backend.posts.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.users.main">Posts</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
