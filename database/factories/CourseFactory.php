@@ -25,8 +25,9 @@ class CourseFactory extends Factory
     {
         return [
             'title'        =>  $this->faker->sentence(rand(5, 10)),
-            'image'        =>  $this->faker->image(public_path('uploads/courses/'), 600, 600, 'courses', false),
-            'description'  =>  $this->faker->text(rand(300, 700)),
+            'short_desc'   =>  $this->faker->sentence(rand(5, 10)),
+            'image'        =>  $this->faker->image(public_path('uploads/courses/'), 360, 229, 'courses', false),
+            'desc'         =>  $this->faker->text(rand(300, 700)),
             'price'        =>  $this->faker->numberBetween(10, 600),
             'start_date'   =>  date("Y-m-d"),
             'end_date'     =>  date("Y-m-d", time() + ((60 * 60 * 24) * rand(1, 4))),

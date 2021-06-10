@@ -12,10 +12,10 @@
 {{-- END FOOTER --}}
 
 {{-- ************** START VENDOR JS ************** --}}
-<script src="{{ path('vendors/js/vendors.min.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ path('vendors/js/forms/icheck/icheck.min.js') }}"></script>
-<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/vendors.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}"></script>
 {{-- ************** END VENDOR JS ************** --}}
 
 {{-- ************** START FONTAWESOME JS ************** --}}
@@ -23,11 +23,9 @@
 {{-- ************** START FONTAWESOME JS ************** --}}
 
 {{-- ************** START MODERN JS ************** --}}
-<script type="text/javascript" src="{{ path('js/core/app-menu.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/core/app.js') }}"></script>
+<script type="text/javascript" src="{{ path('js/core/app-menu.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/customizer.js') }}"></script>
-<script type="text/javascript" src="{{ path('js/scripts/forms/checkbox-radio.js') }}"></script>
-<script type="text/javascript" src="{{ path('js/scripts/modal/components-modal.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/forms/select/form-select2.js') }}"></script>
 {{-- ************** END MODERN JS ************** --}}
 
@@ -36,10 +34,21 @@
 {{-- ************** END SWEETALERT JS ************** --}}
 
 {{-- ************** START CUSTOM JS ************** --}}
-<script type="text/javascript" src="{{ path('custom/js/script.js') }}"></script>
 <script type="text/javascript" src="{{ path('custom/js/preview-file.js') }}"></script>
+<script type="text/javascript" src="{{ path('custom/js/script.js') }}"></script>
 {{-- ************** END CUSTOM JS ************** --}}
 
+<script type="text/javascript">
+    $('.badge-text-maxlength').maxlength({
+            alwaysShow: true,
+            separator: ' of ',
+            preText: 'You have ',
+            postText: ' chars remaining.',
+            validate: true,
+            warningClass: "badge badge-success",
+            limitReachedClass: "badge badge-danger",
+        });
+</script>
 @yield('script')
 @stack('script')
 

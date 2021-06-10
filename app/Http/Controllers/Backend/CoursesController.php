@@ -42,7 +42,7 @@ class CoursesController extends Controller
     {
         try {
             DB::beginTransaction();
-            Course::create($request->except(['id']));
+            Course::create(array_merge($request->except(['id', 'discount', 'start_date', 'end_date']), $this->checkIfNull($request)));
             DB::commit();
             toast('Your Course has been created!', 'success');
             return response()->json(['redirect' => route('backend.courses.index')]);
@@ -71,7 +71,8 @@ class CoursesController extends Controller
             DB::beginTransaction();
             if ($request->has('image'))
                 $this->remove($course->image, 'courses');
-            $course->update($request->except(['id']));
+
+            $course->update(array_merge($request->except(['id', 'discount', 'start_date', 'end_date']), $this->checkIfNull($request)));
             DB::commit();
             toast('Your Course has been updated!', 'success');
             return response()->json(['redirect' => route('backend.courses.index')]);
@@ -103,5 +104,14 @@ class CoursesController extends Controller
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
+    }
+
+    public function checkIfNull($request)
+    {
+        return [
+            'discount'      => !$request->price ? null : $request->discount,
+            'start_date'    => (!$request->price || !$request->discount) ? null : $request->start_date,
+            'end_date'      => (!$request->price || !$request->discount) ? null : $request->end_date,
+        ];
     }
 }

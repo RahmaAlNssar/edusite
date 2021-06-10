@@ -11,12 +11,12 @@ class VideoObserve
 
     public function created(Video $video)
     {
-        $this->uploadVideo($video);
+        $this->upload($video);
     }
 
     public function updated(Video $video)
     {
-        $this->uploadVideo($video);
+        $this->upload($video);
     }
 
     public function deleted(Video $video)
@@ -24,12 +24,12 @@ class VideoObserve
         $this->remove($video->video, 'videos');
     }
 
-    protected function uploadVideo($video)
+    protected function upload($video)
     {
         $src = explode('/', $video->video);
         if (in_array('tmp', $src) || in_array('temp', $src)) {
             $video->type  =  'video/' . $video->video->getClientOriginalExtension();
-            $video->video = $this->upload($video->video, 'videos');
+            $video->video = $this->uploadVideo($video->video, 'videos');
             $video->saveQuietly();
         }
     }

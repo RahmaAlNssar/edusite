@@ -69,7 +69,6 @@ $(function () {
 
         form.find('.alert').remove();
         form.find('span.error').fadeOut(200);
-        form.find(`input`).css('border-color', '#CACFE7');
         form.parent().addClass('load');
 
         $.ajax({
@@ -95,7 +94,6 @@ $(function () {
                 } else if (jqXhr.status == 422) {
                     $.each(jqXhr.responseJSON.errors, function(key, val) {
                         form.find(`#${key}-error`).text(val).fadeIn(300);
-                        form.find(`[name=${key}]`).css('border-color', '#f00');
                     });
                 } else {
                     if (jqXhr.responseJSON.line) {

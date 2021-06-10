@@ -49,7 +49,6 @@ class VideosController extends BackendController
 
     public function edit(Video $video)
     {
-        $video->tags = $video->tags->pluck('id')->toArray();
         return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all(), 'row' => $video]);
     }
 

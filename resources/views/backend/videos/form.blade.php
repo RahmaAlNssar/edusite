@@ -7,8 +7,8 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="la la-list"></i> </span>
                 </div>
-                <input type="text" class="form-control" name="title" value="{{ $row->title ?? old('title') }}"
-                    placeholder="Video Tite">
+                <input type="text" class="form-control badge-text-maxlength" maxlength="70" name="title"
+                    value="{{ $row->title ?? old('title') }}" placeholder="Video Tite" autocomplete="off">
             </div>
             <span class="red error" id="title-error"></span>
         </div>

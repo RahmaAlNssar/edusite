@@ -43,15 +43,11 @@
 
     {{-- ************** START MODERN CSS ************** --}}
     <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/selects/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/icheck.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/custom.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ path('css/plugins/forms/checkboxes-radios.css') }}">
     {{-- ************** END MODERN CSS ************** --}}
 
     {{-- ************** START DATATABLES ************** --}}
     <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/tables/datatable/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css"
-        href="{{ path('vendors/css/tables/extensions/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ path('vendors/css/tables/extensions/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('css/plugins/animate/animate.css') }}">
     {{-- ************** START DATATABLES ************** --}}
 

@@ -5,8 +5,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="la la-list"></i> </span>
         </div>
-        <input type="text" class="form-control" name="name" value="{{ $row->name ?? old('name') }}"
-            placeholder="Category Name">
+        <input type="text" class="form-control badge-text-maxlength" maxlength="25" name="name"
+            value="{{ $row->name ?? old('name') }}" placeholder="Category Name" autocomplete="off">
     </div>
     <span class="red error" id="name-error"></span>
 </div>
@@ -19,8 +19,8 @@
         <div class="input-group-prepend">
             <span class="input-group-text"> <i class="fas fa-sort-numeric-up-alt"></i> </span>
         </div>
-        <input type="number" class="form-control" name="order" value="{{ $row->order ?? old('order') }}"
-            placeholder="Category Order" value="1" min="1">
+        <input type="number" class="form-control badge-text-maxlength" maxlength="2" name="order" autocomplete="off"
+            value="{{ $row->order ?? old('order') }}" placeholder="Category Order" value="1" min="1">
     </div>
     <span class="red error" id="order-error"></span>
 </div>

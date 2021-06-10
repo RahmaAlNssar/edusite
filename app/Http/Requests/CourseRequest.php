@@ -24,12 +24,13 @@ class CourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|min:5|max:190',
-            'price'         => 'nullable|numeric|min:0',
-            'discount'      => 'nullable|numeric|min:0|max:99',
-            'start_date'    => 'required_with:discount|nullable|date|after_or_equal:' . date('Y-m-d'),
-            'end_date'      => 'required_with:discount|nullable|date|after_or_equal:start_date',
-            'description'   => 'required|min:5|string',
+            'title'         => 'required|min:5|max:50',
+            'short_desc'    => 'required|min:5|max:75',
+            'price'         => 'nullable|numeric|min:1',
+            'discount'      => 'nullable|numeric|min:1|max:100',
+            'start_date'    => 'required_with:discount|required_with:end_date|nullable|date',
+            'end_date'      => 'required_with:discount|required_with:start_date|nullable|date|after_or_equal:start_date',
+            'desc'          => 'required|min:5|string',
             'category_id'   => 'required|exists:categories,id',
             'user_id'       => 'required|exists:users,id',
             'image'         => 'required_without:id|mimes:jpg,jpeg,png',
