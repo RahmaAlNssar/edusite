@@ -15,18 +15,18 @@ use Exception;
 class VideosController extends BackendController
 {
 
-    public function index(VideoDataTable $dataTables)
-    {
-        if (request()->ajax())
-            return $dataTables->render('backend.includes.tables.rows');
-
-        return view('backend.includes.pages.index-page', ['count' => Video::count(), 'no_ajax' => '']);
+    public function __construct(VideoDataTable $dataTable,Video $video){
+        parent::__construct($dataTable,$video);
+        
     }
-
-    public function create()
-    {
-        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all()]);
+    public function append(){
+     
+        return [
+            'courses' => Course::select('id', 'title')->get(),
+             'tags' => Tag::all()
+        ];
     }
+  
 
     public function store(VideoRequest $request)
     {
@@ -47,11 +47,7 @@ class VideosController extends BackendController
         dd($video);
     }
 
-    public function edit(Video $video)
-    {
-        $video->tags = $video->tags->pluck('id')->toArray();
-        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all(), 'row' => $video]);
-    }
+
 
     public function update(VideoRequest $request, Video $video)
     {
@@ -69,27 +65,4 @@ class VideosController extends BackendController
         }
     }
 
-    public function destroy(Video $video)
-    {
-        try {
-            if ($video->delete())
-                return response()->json(['message' => 'Your Video has been deleted!', 'icon' => 'success', 'count' => Video::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
-
-    public function multidelete(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-            $rows = Video::whereIn('id', (array)$request['id'])->get();
-            foreach ($rows as $row)
-                $row->delete();
-            DB::commit();
-            return response()->json(['message' => 'Your Videos has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => Video::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
 }

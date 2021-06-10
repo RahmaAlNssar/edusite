@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BackendController;
 use App\Http\Requests\CourseRequest;
 use App\DataTables\CoursesDataTable;
 use Illuminate\Support\Facades\DB;
@@ -13,30 +14,25 @@ use App\Models\Course;
 use App\Models\User;
 use Exception;
 
-class CoursesController extends Controller
+class CoursesController extends BackendController
 {
     use UploadFile;
 
-    public function index(CoursesDataTable $dataTable)
-    {
-        try {
-            if (request()->ajax())
-                return $dataTable->render('backend.includes.tables.rows');
-
-            return view('backend.includes.pages.index-page', ['count' => Course::count(), 'no_ajax' => '']);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
+    public function __construct(CoursesDataTable $dataTable,Course $course){
+        parent::__construct($dataTable,$course);
+        
     }
+    
+   public function append(){
+     
+       return [
+        'categories' => Category::select('id', 'name', 'visibility')->get(),
+         'users' => User::select('id', 'name')->get(),
+         
+         'no_ajax' => ''
+       ];
+   }
 
-    public function create()
-    {
-        try {
-            return view('backend.includes.pages.form-page', ['categories' => Category::select('id', 'name', 'visibility')->get(), 'users' => User::select('id', 'name')->get()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
 
     public function store(CourseRequest $request)
     {
@@ -54,15 +50,6 @@ class CoursesController extends Controller
     public function show($id)
     {
         //
-    }
-
-    public function edit(Course $course)
-    {
-        try {
-            return view('backend.includes.pages.form-page', ['row' => $course, 'categories' => Category::select('id', 'name', 'visibility')->get(), 'users' => User::select('id', 'name')->get(), 'no_ajax' => '']);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
     }
 
     public function update(CourseRequest $request, Course $course)
@@ -93,28 +80,5 @@ class CoursesController extends Controller
         return [];
       
     }
-    public function destroy(Course $course)
-    {
-        try {
-            $course->delete();
-            return response()->json(['message' => 'Your Course has been deleted!', 'icon' => 'success', 'count' => Course::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
-
-    public function multidelete(Request $request)
-    {
-        try {
-            $courses = Course::whereIn('id', (array)$request['id'])->get();
-            DB::beginTransaction();
-            foreach ($courses as $course) {
-                $course->delete();
-            }
-            DB::commit();
-            return response()->json(['message' => 'Your courses has been deleted! (' . count($courses) . ')', 'icon' => 'success', 'count' => Course::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
+  
 }

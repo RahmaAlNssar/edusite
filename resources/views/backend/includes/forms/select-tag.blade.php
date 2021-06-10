@@ -5,7 +5,7 @@
         <option> Selecr Tag </option>
         @forelse ($tags as $tag)
         <option value="{{ $tag->id }}" data-icon=" {{ $tag->icon }}"
-            {{ isset($row) ? (in_array($tag->id, $row['tags']) ? 'selected' : '') : '' }}>
+            {{ isset($row) ? (in_array($tag->id, $row->tags->pluck('id')->toArray()) ? 'selected' : '') : '' }}>
             {{ $tag->name }}
         </option>
         @empty

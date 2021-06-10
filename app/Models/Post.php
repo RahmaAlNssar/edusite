@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\User;
 class Post extends Model
 {
@@ -26,6 +27,11 @@ class Post extends Model
             return $this->belongsTo(Category::class,'category_id');
         }
     /*************************** Begin SCOPE Area *********************************/
+    public function sluggable(): array
+    {
+        return ['slug' => ['source' => 'title', 'onUpdate' => true,]];
+    } // auto make slug from name field when create or update
+
     public function getImageUrlAttribute()
     {
         return asset('uploads/posts/' . $this->image);

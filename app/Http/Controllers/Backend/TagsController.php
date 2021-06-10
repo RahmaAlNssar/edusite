@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\TagsDataTable;
 use App\Http\Requests\TagRequest;
@@ -11,27 +12,39 @@ use App\Models\Tag;
 use Exception;
 
 class TagsController extends BackendController
+
 {
-    public function index(TagsDataTable $dataTable)
+    public function __construct(TagsDataTable $dataTable,Tag $tag){
+        parent::__construct($dataTable,$tag);
+      
+    }
+ 
+    public function index()
     {
         try {
             if (request()->ajax())
-                return $dataTable->render('backend.includes.tables.rows');
+                return $this->dataTable->render('backend.includes.tables.rows');
 
             return view('backend.tags.index', ['count' => Tag::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
     }
-
-    public function create()
-    {
-        try {
-            return view('backend.includes.forms.form-create');
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
+ 
+     public function append(){
+      
+         return [
+         
+         ];
+     }
+     public function create()
+     {
+         try {
+             return view('backend.includes.forms.form-create');
+         } catch (Exception $e) {
+             return response()->json($e->getMessage(), 500);
+         }
+     }
 
     public function store(TagRequest $request)
     {
@@ -47,15 +60,16 @@ class TagsController extends BackendController
     {
         //
     }
-
-    public function edit(Tag $tag)
+    public function edit($id)
     {
         try {
-            return view('backend.includes.forms.form-update', ['row' => $tag]);
+           $row = Tag::findOrFail($id);
+            return view('backend.includes.forms.form-update', compact('row'));
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
     }
+  
 
     public function update(TagRequest $request, Tag $tag)
     {
@@ -67,29 +81,7 @@ class TagsController extends BackendController
         }
     }
 
-    public function destroy(Tag $tag)
-    {
-        try {
-            if ($tag->delete())
-                return response()->json(['message' => 'Your Tag has been deleted!', 'icon' => 'success', 'count' => Tag::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
 
-    public function multidelete(Request $request)
-    {
-        try {
-            $rows = Tag::whereIn('id', (array)$request['id'])->get();
-            DB::beginTransaction();
-            foreach ($rows as $row)
-                $row->delete();
-            DB::commit();
-            return response()->json(['message' => 'Your Tags has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => Tag::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
 
     public function visibilityToggle(Tag $tag)
     {
