@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     /*************************** Begin RELATIONS Area ****************************/
 
-
+    
     /*************************** Begin SCOPE Area *********************************/
 
 

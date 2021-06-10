@@ -19,7 +19,7 @@
             {{-- START TAGS LINKS --}}
 
             {{-- START COURSES LINKS --}}
-            <li class="nav-item has-sub">
+            <li class="nav-item has-sub {{ active('courses') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
                     <i class="la la-th-list"></i> <span class="menu-title">Courses</span>
                 </a>
@@ -42,7 +42,7 @@
             {{-- END COURSES LINKS --}}
 
             {{-- START VIDEOS LINKS --}}
-            <li class="nav-item has-sub">
+            <li class="nav-item has-sub {{ active('videos') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
                     <i class="la la-file-video-o"></i> <span class="menu-title">Videos</span>
                 </a>
@@ -65,7 +65,7 @@
             {{-- END VIDEOS LINKS --}}
 
             {{-- START USERS LINKS --}}
-            <li class="nav-item has-sub">
+            <li class="nav-item has-sub {{ active('users') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
                     <i class="la la-users"></i> <span class="menu-title">Users</span>
                 </a>
@@ -86,6 +86,30 @@
                 </ul>
             </li>
             {{-- END USERS LINKS --}}
+
+
+            {{-- START POSTS LINKS --}}
+            <li class="nav-item has-sub {{ active('posts') ? 'open' : '' }}">
+                <a href="javascript:void(0)">
+                    <i class="la la-paper-plane"></i> <span class="menu-title">Posts</span>
+                </a>
+                <ul class="menu-content" style="">
+                    <li class="is-shown {{ active('posts', 'index') }}">
+                        <a href="{{ active('posts', 'index') ? 'javascript:void(0)' : route('backend.posts.index') }}"
+                            class="menu-item">
+                            <i class="la la-eye"></i> <span class="menu-title">Show All posts</span>
+                        </a>
+                    </li>
+
+                    <li class="is-shown {{ active('posts', 'create') }}">
+                        <a href="{{ active('posts', 'create') ? 'javascript:void(0)' : route('backend.posts.create') }}"
+                            class="menu-item">
+                            <i class="la la-plus-square"></i> <span class="menu-title">Create New Post</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {{-- END POSTS LINKS --}}
         </ul>
     </div>
 </div>

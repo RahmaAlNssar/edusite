@@ -20,6 +20,11 @@ class Tag extends Model
         return $this->morphedByMany(Video::class, 'taggable');
     }
 
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'taggable');
+    }
+
 
     /*************************** Begin SCOPE Area *********************************/
 

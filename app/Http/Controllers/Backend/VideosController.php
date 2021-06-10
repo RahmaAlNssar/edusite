@@ -6,7 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Requests\VideoRequest;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\VideoDataTable;
-use Illuminate\Http\Request;
+use App\Traits\UploadFile;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Tag;
@@ -14,18 +14,19 @@ use Exception;
 
 class VideosController extends BackendController
 {
+    use UploadFile;
 
-    public function index(VideoDataTable $dataTables)
+    public function __construct(VideoDataTable $dataTable, Video $video)
     {
-        if (request()->ajax())
-            return $dataTables->render('backend.includes.tables.rows');
-
-        return view('backend.includes.pages.index-page', ['count' => Video::count(), 'no_ajax' => '']);
+        parent::__construct($dataTable, $video);
     }
 
-    public function create()
+    public function append()
     {
-        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all()]);
+        return [
+            'courses' => Course::select('id', 'title')->get(),
+            'tags' => Tag::all()
+        ];
     }
 
     public function store(VideoRequest $request)
@@ -42,16 +43,6 @@ class VideosController extends BackendController
         }
     }
 
-    public function show(Video $video)
-    {
-        dd($video);
-    }
-
-    public function edit(Video $video)
-    {
-        return view('backend.includes.pages.form-page', ['courses' => Course::select('id', 'title')->get(), 'tags' => Tag::all(), 'row' => $video]);
-    }
-
     public function update(VideoRequest $request, Video $video)
     {
         try {
@@ -63,30 +54,6 @@ class VideosController extends BackendController
             DB::commit();
             toast('Your Video has been updated!', 'success');
             return response()->json(['redirect' => route('backend.videos.index')]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
-
-    public function destroy(Video $video)
-    {
-        try {
-            if ($video->delete())
-                return response()->json(['message' => 'Your Video has been deleted!', 'icon' => 'success', 'count' => Video::count()]);
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 500);
-        }
-    }
-
-    public function multidelete(Request $request)
-    {
-        try {
-            DB::beginTransaction();
-            $rows = Video::whereIn('id', (array)$request['id'])->get();
-            foreach ($rows as $row)
-                $row->delete();
-            DB::commit();
-            return response()->json(['message' => 'Your Videos has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => Video::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
