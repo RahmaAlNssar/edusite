@@ -34,7 +34,7 @@ class PostsController extends BackendController
     public function store(PostRequest $request)
     {
         try {
-            $post = Post::create($request->except(['id', 'image']), ['image' => $this->uploadImage($request->image, 'posts')]);
+            $post = Post::create($request->except(['id']));
             $post->tags()->attach($request->tags);
             toast('Your Post has been created!', 'success');
             return response()->json(['redirect' => route('backend.posts.index')]);
@@ -50,7 +50,7 @@ class PostsController extends BackendController
                 if ($post->image)
                     $this->remove($post->image, 'posts');
             }
-            $post->update(array_merge($request->except(['id', 'image']), ['image' => $this->uploadImage($request->image, 'posts')]));
+            $post->update($request->except(['id']));
             $post->tags()->sync($request->tags);
             toast('Your Post has been updated!', 'success');
             return response()->json(['redirect' => route('backend.posts.index')]);
