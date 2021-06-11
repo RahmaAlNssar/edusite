@@ -69,9 +69,9 @@
     </div>
     <div class="form-group overflow-hidden">
         <div class="col-12">
-            <button data-repeater-create class="btn btn-primary">
+            <span data-repeater-create class="btn btn-primary">
                 <i class="ft-plus"></i> Add
-            </button>
+            </span>
         </div>
     </div>
 </div>
