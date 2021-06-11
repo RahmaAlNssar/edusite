@@ -15,8 +15,8 @@ class PostObserve
      */
     public function created(Post $post)
     {
-        // $this->uploadImage($post);
-        // $post->saveQuietly();
+        $this->uploadImage($post);
+        $post->saveQuietly();
     }
 
     /**
@@ -34,7 +34,7 @@ class PostObserve
     {
         $src = explode('/', $post->image);
         if (in_array('tmp', $src) || in_array('temp', $src)) {
-            $posts->image = $this->upload($post->image, 'posts');
+            $post->image = $this->upload($post->image, 'posts');
         }
     }
 }

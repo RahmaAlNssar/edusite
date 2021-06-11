@@ -45,7 +45,7 @@ class PostsController extends BackendController
     public function store(PostRequest $request,Post $post)
     {
         try {
-        Post::create($request->except(['id','image']),['image'=>$this->upload($request->image,'posts')]);
+        Post::create($request->except(['id']));
         toast('Your Post has been created!', 'success');
             return response()->json(['redirect' => route('backend.posts.index')]);
     } catch (Exception $e) {

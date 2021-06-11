@@ -42,6 +42,14 @@
                     <span class="menu-title" data-i18n="nav.users.main">Posts</span>
                 </a>
             </li>
+
+
+            <li class="nav-item {{ active('sliders') }}">
+                <a href="{{ route('backend.sliders.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.users.main">Slider Images</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
