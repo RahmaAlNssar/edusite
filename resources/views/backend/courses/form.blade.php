@@ -2,12 +2,25 @@
 <div class="form-group">
     <label>Course Title:</label>
     <div class="input-group">
-        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-list"></i> </span>
+        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-header"></i> </span>
         </div>
-        <input type="text" class="form-control" name="title" value="{{ $row->title ?? old('title') }}"
-            placeholder="Course Tite">
+        <input type="text" class="form-control badge-text-maxlength" maxlength="50" name="title"
+            value="{{ $row->title ?? old('title') }}" placeholder="Course Tite" autocomplete="off">
     </div>
     <span class="red error" id="title-error"></span>
+</div>
+{{-- END COURSE Title --}}
+
+{{-- START COURSE Title --}}
+<div class="form-group">
+    <label>Short Description:</label>
+    <div class="input-group">
+        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-italic"></i> </span>
+        </div>
+        <input type="text" class="form-control badge-text-maxlength" name="short_desc" maxlength="75"
+            value="{{ $row->short_desc ?? old('short_desc') }}" placeholder="Short Description" autocomplete="off">
+    </div>
+    <span class="red error" id="short_desc-error"></span>
 </div>
 {{-- END COURSE Title --}}
 
@@ -34,8 +47,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-dollar-sign"></i> </span>
                         </div>
-                        <input type="number" class="form-control" name="price" value="{{ $row->price ?? old('price') }}"
-                            placeholder="Course Price" min="1">
+                        <input type="number" class="form-control badge-text-maxlength" maxlength="4" name="price"
+                            value="{{ $row->price ?? old('price') }}" placeholder="Course Price" min="1"
+                            autocomplete="off">
                     </div>
                     <span class="red error" id="price-error"></span>
                 </div>
@@ -43,6 +57,12 @@
             </div>
 
             <div class="col-md-6">
+                {{-- START COURSE DISCOUNT END DATE --}}
+                @include('backend.includes.forms.select-visibility')
+                {{-- END COURSE DISCOUNT END DATE --}}
+            </div>
+
+            <div class="col-md-4 discount">
                 {{-- START COURSE DISCOUNT --}}
                 <div class="form-group">
                     <label>Course Discount:</label>
@@ -50,15 +70,20 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-percent"></i> </span>
                         </div>
-                        <input type="number" class="form-control" name="discount" min="1" max="99.99"
-                            placeholder="Enter Value in %" value="{{ $row->discount ?? old('discount') }}">
+                        <<<<<<< HEAD <input type="number" class="form-control badge-text-maxlength" maxlength="2"
+                            name="discount" min="1" max="100" placeholder="Enter Value in %" autocomplete="off"
+                            value="{{ $row->discount ?? old('discount') }}">
+                            =======
+                            <input type="number" class="form-control" name="discount" min="1" max="99.99"
+                                placeholder="Enter Value in %" value="{{ $row->discount ?? old('discount') }}">
+                            >>>>>>> 9c73471aa9a36f6f90d019829b1131f406746063
                     </div>
                     <span class="red error" id="discount-error"></span>
                 </div>
                 {{-- START COURSE DISCOUNT --}}
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 removed">
                 {{-- START COURSE DISCOUNT START DATE --}}
                 <div class="form-group">
                     <label>Discount Start Date:</label>
@@ -66,7 +91,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
                         </div>
-                        <input type="date" class="form-control" name="start_date" min="{{ date('Y-m-d') }}"
+                        <input type="date" class="form-control" name="start_date"
+                            min="{{ $row->start_date ?? date('Y-m-d') }}"
                             value="{{ $row->start_date ?? old('start_date') }}">
                     </div>
                     <span class="red error" id="start_date-error"></span>
@@ -74,7 +100,7 @@
                 {{-- END COURSE DISCOUNT START DATE --}}
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4 removed">
                 {{-- START COURSE DISCOUNT END DATE --}}
                 <div class="form-group">
                     <label>Discount End Date:</label>
@@ -83,18 +109,14 @@
                             <span class="input-group-text"> <i class="fas fa-calendar-alt"></i> </span>
                         </div>
                         <input type="date" class="form-control" name="end_date"
-                            min="{{ date("Y-m-d", time() + 86400) }}" value="{{ $row->end_date ?? old('end_date') }}">
+                            min="{{ $row->start_date ?? date('Y-m-d', time() + 86400) }}"
+                            value="{{ $row->end_date ?? old('end_date') }}">
                     </div>
                     <span class="red error" id="end_date-error"></span>
                 </div>
                 {{-- END COURSE DISCOUNT END DATE --}}
             </div>
 
-            <div class="col-md-4">
-                {{-- START COURSE DISCOUNT END DATE --}}
-                @include('backend.includes.forms.select-visibility')
-                {{-- END COURSE DISCOUNT END DATE --}}
-            </div>
         </div>
     </div>
 
@@ -119,7 +141,7 @@
 {{-- START COURSE DESCRIPTION --}}
 <div class="form-group">
     <label>Course Descrption:</label>
-    <textarea class="summernote" name="description">{{ $row->description ?? old('description') }}</textarea>
-    <span class="red error" id="description-error"></span>
+    <textarea class="summernote" name="desc">{{ $row->desc ?? old('desc') }}</textarea>
+    <span class="red error" id="desc-error"></span>
 </div>
 {{-- END COURSE DESCRIPTION --}}

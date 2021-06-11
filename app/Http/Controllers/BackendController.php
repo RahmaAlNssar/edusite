@@ -2,25 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Traits\UploadFile;
-use Illuminate\Support\Facades\DB;
+use Exception;
+
 class BackendController extends Controller
 {
     use UploadFile;
 
-    public $dataTable;
-    public $model;
-    
-    public function __construct($dataTable,$model){
+    public $dataTable, $model;
 
+    public function __construct($dataTable, $model)
+    {
         $this->dataTable = $dataTable;
         $this->model = $model;
     }
-    public function getModel(){
-        return class_basename($this->model);
-    }
- 
 
     public function index()
     {
@@ -33,24 +30,27 @@ class BackendController extends Controller
             return response()->json($e->getMessage(), 500);
         }
     }
-   
-    public function append(){
-        return [];
-    }
+
     public function create()
     {
         try {
-            return view('backend.includes.pages.form-page',$this->append());
+            return view('backend.includes.pages.form-page', $this->append());
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
+    }
+
+    public function show($id)
+    {
+        $row = $this->model::findOrFail($id);
+        dd($row);
     }
 
     public function edit($id)
     {
         try {
             $row = $this->model::findOrFail($id);
-            return view('backend.includes.pages.form-page',$this->append(),compact('row'));
+            return view('backend.includes.pages.form-page', $this->append(), compact('row'));
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -61,26 +61,46 @@ class BackendController extends Controller
         try {
             $row = $this->model::findOrFail($id);
             $row->delete();
-            return response()->json(['message' => 'Your ' .$this->getModel().' has been deleted!', 'icon' => 'success', 'count' => $this->model::count()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted!', 'icon' => 'success', 'count' => $this->model::count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
-
     }
-        public function multidelete(Request $request)
-        {
-            try {
-                $ids = $this->model::whereIn('id', (array)$request['id'])->get();
-                DB::beginTransaction();
-                foreach ($ids as $id) {
-                    $id->delete();
-                }
-                DB::commit();
-                return response()->json(['message' => 'Your '. $this->getModel() .'has been deleted! (' . count($ids) . ')', 'icon' => 'success', 'count' => $this->model::count()]);
-            } catch (Exception $e) {
-                return response()->json($e->getMessage(), 500);
-            }
+
+    public function multidelete(Request $request)
+    {
+        try {
+            $rows = $this->model::whereIn('id', (array)$request['id'])->get();
+            DB::beginTransaction();
+            foreach ($rows as $row)
+                $row->delete();
+            DB::commit();
+            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->model::count()]);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
         }
     }
 
+    public function visibilityToggle($id)
+    {
+        try {
+            DB::beginTransaction();
+            $row = $this->model::findOrFail($id);
+            $row->update(['visibility' => !$row->visibility]);
+            DB::commit();
+            return response()->json(['message' => ' Visibility of Your ' . $this->getModel() . ' has been Changed!', 'icon' => 'success']);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+    }
 
+    public function getModel()
+    {
+        return class_basename($this->model);
+    }
+
+    public function append()
+    {
+        return [];
+    }
+}

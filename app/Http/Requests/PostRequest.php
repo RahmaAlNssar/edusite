@@ -25,11 +25,10 @@ class PostRequest extends FormRequest
     {
         return [
             'title'         => 'required|min:5|max:190',
-            'discount'      => 'nullable|numeric|min:0|max:99',
-            'descrption'   => 'required|min:5|string',
+            'desc'          => 'required|min:5|string',
             'category_id'   => 'required|exists:categories,id',
             'user_id'       => 'required|exists:users,id',
-            'image'         => 'required_without:id|mimes:jpg,jpeg,png',
+            'image'         => 'nullable|mimes:jpg,jpeg,png',
             'visibility'    => 'required|in:0,1',
         ];
     }

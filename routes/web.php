@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Frontend\FrontendController@index');
+
+Route::get('/course/{id}/{slug}', 'Frontend\FrontendController@course')->name('course');

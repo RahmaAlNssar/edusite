@@ -24,9 +24,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::resource('posts', 'PostsController');
         Route::post('posts/multidelete', 'PostsController@multidelete')->name('posts.multidelete');
+<<<<<<< HEAD
 
         Route::resource('sliders', 'SliderImageController');
         Route::post('sliders/multidelete', 'SliderImageController@multidelete')->name('sliders.multidelete');
+=======
+        Route::post('posts/visibility-toggle/{post}', 'PostsController@visibilityToggle')->name('posts.visibility-toggle');
+>>>>>>> a6af0ae86812d34c9b9650e61a63e1c53fc2a9e8
 
         Route::resource('users', 'usersController');
     });

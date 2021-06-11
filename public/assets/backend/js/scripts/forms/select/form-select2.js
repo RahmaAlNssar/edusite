@@ -25,6 +25,7 @@
         minimumResultsForSearch: Infinity,
         templateResult: iconFormat,
         templateSelection: iconFormat,
+        maximumSelectionLength: 6,
         escapeMarkup: function(es) { return es; }
     });
 

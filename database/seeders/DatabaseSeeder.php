@@ -9,6 +9,7 @@ use App\Models\Video;
 use App\Models\User;
 use App\Models\Tag;
 use App\Models\Post;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -33,11 +34,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
+<<<<<<< HEAD
         $this->call(PageSeeder::class);
+=======
+>>>>>>> a6af0ae86812d34c9b9650e61a63e1c53fc2a9e8
 
         User::factory(50)->create();
         Course::factory(10)->create();
         Post::factory(10)->create();
-      
     }
 }

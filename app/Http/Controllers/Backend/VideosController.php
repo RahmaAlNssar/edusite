@@ -6,7 +6,7 @@ use App\Http\Controllers\BackendController;
 use App\Http\Requests\VideoRequest;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\VideoDataTable;
-use Illuminate\Http\Request;
+use App\Traits\UploadFile;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Tag;
@@ -14,19 +14,20 @@ use Exception;
 
 class VideosController extends BackendController
 {
+    use UploadFile;
 
-    public function __construct(VideoDataTable $dataTable,Video $video){
-        parent::__construct($dataTable,$video);
-        
+    public function __construct(VideoDataTable $dataTable, Video $video)
+    {
+        parent::__construct($dataTable, $video);
     }
-    public function append(){
-     
+
+    public function append()
+    {
         return [
             'courses' => Course::select('id', 'title')->get(),
-             'tags' => Tag::all()
+            'tags' => Tag::all()
         ];
     }
-  
 
     public function store(VideoRequest $request)
     {
@@ -41,13 +42,6 @@ class VideosController extends BackendController
             return response()->json($e->getMessage(), 500);
         }
     }
-
-    public function show(Video $video)
-    {
-        dd($video);
-    }
-
-
 
     public function update(VideoRequest $request, Video $video)
     {
@@ -64,5 +58,4 @@ class VideosController extends BackendController
             return response()->json($e->getMessage(), 500);
         }
     }
-
 }

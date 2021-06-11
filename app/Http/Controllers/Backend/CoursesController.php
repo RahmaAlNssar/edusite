@@ -18,27 +18,28 @@ class CoursesController extends BackendController
 {
     use UploadFile;
 
-    public function __construct(CoursesDataTable $dataTable,Course $course){
-        parent::__construct($dataTable,$course);
-        
+    public function __construct(CoursesDataTable $dataTable, Course $course)
+    {
+        parent::__construct($dataTable, $course);
     }
-    
-   public function append(){
-     
-       return [
-        'categories' => Category::select('id', 'name', 'visibility')->get(),
-         'users' => User::select('id', 'name')->get(),
-         
-         'no_ajax' => ''
-       ];
-   }
+
+    public function append()
+    {
+
+        return [
+            'categories' => Category::select('id', 'name', 'visibility')->get(),
+            'users' => User::select('id', 'name')->get(),
+
+            'no_ajax' => ''
+        ];
+    }
 
 
     public function store(CourseRequest $request)
     {
         try {
             DB::beginTransaction();
-            Course::create($request->except(['id']));
+            Course::create(array_merge($request->except(['id', 'discount', 'start_date', 'end_date']), $this->checkIfNull($request)));
             DB::commit();
             toast('Your Course has been created!', 'success');
             return response()->json(['redirect' => route('backend.courses.index')]);
@@ -58,9 +59,9 @@ class CoursesController extends BackendController
             DB::beginTransaction();
             if ($request->has('image'))
                 $this->remove($course->image, 'courses');
-          $updated = $course->update(array_merge($request->except(['id','discount','start_date','end_date']),$this->checkIfNull($request)));
-         // DB::table('courses')->where([['id',$course->id],['price',0]])->update(['discount'=>0,'start_date'=>null,'end_date'=>null]);
-          //DB::table('courses')->where([['id',$course->id],['discount',0]])->update(['start_date'=>null,'end_date'=>null]);
+            $updated = $course->update(array_merge($request->except(['id', 'discount', 'start_date', 'end_date']), $this->checkIfNull($request)));
+            // DB::table('courses')->where([['id',$course->id],['price',0]])->update(['discount'=>0,'start_date'=>null,'end_date'=>null]);
+            //DB::table('courses')->where([['id',$course->id],['discount',0]])->update(['start_date'=>null,'end_date'=>null]);
             DB::commit();
             toast('Your Course has been updated!', 'success');
             return response()->json(['redirect' => route('backend.courses.index')]);
@@ -68,17 +69,16 @@ class CoursesController extends BackendController
             return response()->json($e->getMessage(), 500);
         }
     }
-    public function checkIfNull($request){
-        
-        if($request->price == null || $request->discount == null){
+    public function checkIfNull($request)
+    {
+
+        if ($request->price == null || $request->discount == null) {
             return [
-                'start_date'=>null,
-                'end_date'=>null,
-                'discount'=>null
+                'start_date' => null,
+                'end_date' => null,
+                'discount' => null
             ];
         }
         return [];
-      
     }
-  
 }
