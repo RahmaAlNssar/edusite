@@ -17,7 +17,7 @@
     <label>Tag Icon:</label>
     <div class="input-group">
         <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="la la-navicon"></i> </span>
+            <span class="input-group-text"> <i class="la la-fonticons"></i> </span>
         </div>
         <input type="text" class="form-control badge-text-maxlength" maxlength="20" name="icon"
             value="{{ $row->icon ?? old('icon') }}" placeholder="EX: fas fa-icons" autocomplete="off">

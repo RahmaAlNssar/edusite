@@ -23,7 +23,7 @@
                 <a href="javascript:void(0)">
                     <i class="la la-th-list"></i> <span class="menu-title">Courses</span>
                 </a>
-                <ul class="menu-content" style="">
+                <ul class="menu-content">
                     <li class="is-shown {{ active('courses', 'index') }}">
                         <a href="{{ active('courses', 'index') ? 'javascript:void(0)' : route('backend.courses.index') }}"
                             class="menu-item">
@@ -46,7 +46,7 @@
                 <a href="javascript:void(0)">
                     <i class="la la-file-video-o"></i> <span class="menu-title">Videos</span>
                 </a>
-                <ul class="menu-content" style="">
+                <ul class="menu-content">
                     <li class="is-shown {{ active('videos', 'index') }}">
                         <a href="{{ active('videos', 'index') ? 'javascript:void(0)' : route('backend.videos.index') }}"
                             class="menu-item">
@@ -69,7 +69,7 @@
                 <a href="javascript:void(0)">
                     <i class="la la-users"></i> <span class="menu-title">Users</span>
                 </a>
-                <ul class="menu-content" style="">
+                <ul class="menu-content">
                     <li class="is-shown {{ active('users', 'index') }}">
                         <a href="{{ active('users', 'index') ? 'javascript:void(0)' : route('backend.users.index') }}"
                             class="menu-item">
@@ -87,13 +87,12 @@
             </li>
             {{-- END USERS LINKS --}}
 
-
             {{-- START POSTS LINKS --}}
             <li class="nav-item has-sub {{ active('posts') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
                     <i class="la la-paper-plane"></i> <span class="menu-title">Posts</span>
                 </a>
-                <ul class="menu-content" style="">
+                <ul class="menu-content">
                     <li class="is-shown {{ active('posts', 'index') }}">
                         <a href="{{ active('posts', 'index') ? 'javascript:void(0)' : route('backend.posts.index') }}"
                             class="menu-item">
@@ -110,6 +109,29 @@
                 </ul>
             </li>
             {{-- END POSTS LINKS --}}
+
+            {{-- START SLIDERS LINKS --}}
+            <li class="nav-item has-sub {{ active('sliders') ? 'open' : '' }}">
+                <a href="javascript:void(0)">
+                    <i class="la la-sliders"></i> <span class="menu-title">Sliders</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="is-shown {{ active('sliders', 'index') }}">
+                        <a href="{{ active('sliders', 'index') ? 'javascript:void(0)' : route('backend.sliders.index') }}"
+                            class="menu-item">
+                            <i class="la la-eye"></i> <span class="menu-title">Show All Sliders</span>
+                        </a>
+                    </li>
+
+                    <li class="is-shown {{ active('sliders', 'create') }}">
+                        <a href="{{ active('sliders', 'create') ? 'javascript:void(0)' : route('backend.sliders.create') }}"
+                            class="menu-item">
+                            <i class="la la-plus-square"></i> <span class="menu-title">Create New Slider</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {{-- END SLIDERS LINKS --}}
         </ul>
     </div>
 </div>

@@ -7,7 +7,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => 'dashboard', 'as' => 'backend.'], function () {
         Route::get('/', 'DashboardController@index');
 
-
         Route::resource('categories', 'CategoriesController');
         Route::post('categories/multidelete', 'CategoriesController@multidelete')->name('categories.multidelete');
         Route::post('categories/visibility-toggle/{category}', 'CategoriesController@visibilityToggle')->name('categories.visibility-toggle');
@@ -24,7 +23,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::resource('posts', 'PostsController');
         Route::post('posts/multidelete', 'PostsController@multidelete')->name('posts.multidelete');
-        Route::post('posts/visibility-toggle/{post}', 'PostsController@visibilityToggle')->name('posts.visibility-toggle');
+
+        Route::resource('sliders', 'SlidersController');
+        Route::post('sliders/multidelete', 'SlidersController@multidelete')->name('sliders.multidelete');
 
         Route::resource('users', 'usersController');
     });

@@ -14,10 +14,10 @@ trait UploadFile
         return $name;
     }
 
-    public function uploadImage($file, $folder)
+    public function uploadImage($file, $folder, $width = 360, $height = 229)
     {
         image::make($file)
-            ->resize(360, 229, function ($constraint) {
+            ->resize($width, $height, function ($constraint) {
                 $constraint->aspectRatio();
             })
             ->save(public_path('uploads/' . $folder . '/' . $file->hashName()), 60);

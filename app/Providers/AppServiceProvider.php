@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Observers\SliderImageObserve;
 use App\Observers\CourseObserve;
 use App\Observers\VideoObserve;
 use App\Observers\PostObserve;
+use App\Models\SliderImage;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        SliderImage::observe(SliderImageObserve::class);
         Course::observe(CourseObserve::class);
         Video::observe(VideoObserve::class);
         Post::observe(PostObserve::class);

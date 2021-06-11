@@ -21,9 +21,11 @@
 @endsection
 
 @section('script')
+<script type="text/javascript" src="{{ path('vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/editors/summernote/summernote.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
+        $('.repeater-default').repeater();
         $('.summernote').summernote();
 
         if ($('input[name=discount]').val() >= 1) {
@@ -45,6 +47,6 @@
 
             }
         });
-});
+    });
 </script>
 @endsection

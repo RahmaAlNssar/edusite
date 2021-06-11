@@ -70,13 +70,9 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"> <i class="fas fa-percent"></i> </span>
                         </div>
-                        <<<<<<< HEAD <input type="number" class="form-control badge-text-maxlength" maxlength="2"
-                            name="discount" min="1" max="100" placeholder="Enter Value in %" autocomplete="off"
+                        <input type="number" class="form-control badge-text-maxlength" maxlength="2" name="discount"
+                            min="1" max="100" placeholder="Enter Value in %" autocomplete="off"
                             value="{{ $row->discount ?? old('discount') }}">
-                            =======
-                            <input type="number" class="form-control" name="discount" min="1" max="99.99"
-                                placeholder="Enter Value in %" value="{{ $row->discount ?? old('discount') }}">
-                            >>>>>>> 9c73471aa9a36f6f90d019829b1131f406746063
                     </div>
                     <span class="red error" id="discount-error"></span>
                 </div>
