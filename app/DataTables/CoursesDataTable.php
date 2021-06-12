@@ -87,7 +87,7 @@ class CoursesDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(0);
     }
 
     /**
@@ -98,6 +98,7 @@ class CoursesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('title')->width(300),
             Column::make('image')->orderable(false)->searchable(false),

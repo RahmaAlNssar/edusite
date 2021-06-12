@@ -64,7 +64,7 @@ class TagsDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(1);
+            ->orderBy(0);
     }
 
     /**
@@ -75,8 +75,8 @@ class TagsDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('id')->width(40)->addClass('text-center'),
             Column::make('name'),
             Column::make('icon')->width(60)->addClass('text-center'),
             Column::make('visibility')->title('Visibility')->width(100)->addClass('text-center'),

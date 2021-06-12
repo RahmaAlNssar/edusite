@@ -22,7 +22,7 @@ class SlidersDataTable extends DataTable
                 return $no_ajax = '';
             })
             ->editColumn('images', function ($slider) {
-                return view('backend.sliders.images', ['images' => $slider->images]);
+                return view('backend.sliders.images', ['slices' => $slider->slices]);
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
@@ -37,7 +37,7 @@ class SlidersDataTable extends DataTable
      */
     public function query(Slider $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('id', 'desc');
     }
 
     /**
@@ -56,7 +56,7 @@ class SlidersDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(0);
     }
 
     /**
@@ -67,8 +67,9 @@ class SlidersDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('name'),
+            Column::make('name')->width(150),
             Column::make('images')->orderable(false)->searchable(false),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];

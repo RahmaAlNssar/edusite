@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\User;
 
@@ -25,7 +25,7 @@ class CourseFactory extends Factory
     {
         return [
             'title'        =>  $this->faker->sentence(rand(5, 10)),
-            'short_desc'   =>  $this->faker->sentence(rand(5, 10)),
+            'short_desc'   =>  $this->faker->sentence(rand(4, 7)),
             'image'        =>  $this->faker->image(public_path('uploads/courses/'), 360, 229, 'courses', false),
             'desc'         =>  $this->faker->text(rand(300, 700)),
             'price'        =>  $this->faker->numberBetween(10, 600),

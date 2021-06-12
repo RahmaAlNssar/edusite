@@ -75,7 +75,7 @@ class VideoDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(0);
     }
 
     /**
@@ -86,6 +86,7 @@ class VideoDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('video')->width(100)->orderable(false)->searchable(false)->addClass('text-center'),
             Column::make('title')->width(250),

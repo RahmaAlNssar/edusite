@@ -13,9 +13,9 @@ class Slider extends Model
     public $timestamps = false;
 
     /*************************** Begin ATTRIBUTE Area ****************************/
-    public function images()
+    public function slices()
     {
-        return $this->hasMany(SliderImage::class);
+        return $this->hasMany(SliderImage::class, 'slider_id', 'id');
     }
     /*************************** End ATTRIBUTE Area ****************************/
 }

@@ -47,6 +47,7 @@ class UserDataTable extends DataTable
             ->parameters([
                 'responsive' => true,
             ])
+            ->orderBy(0)
             ->dom('Bfrtip');
     }
 
@@ -58,6 +59,7 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

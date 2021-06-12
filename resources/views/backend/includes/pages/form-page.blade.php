@@ -25,7 +25,17 @@
 <script type="text/javascript" src="{{ path('vendors/js/editors/summernote/summernote.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $('.repeater-default').repeater();
+        $('.repeater-slices').repeater({
+            show: function () {
+                $(this).slideDown();
+            },
+            hide: function(remove) {
+                if (confirm('Are you sure you want to remove this item?')) {
+                    $(this).slideUp(remove);
+                }
+            }
+        });
+
         $('.summernote').summernote();
 
         if ($('input[name=discount]').val() >= 1) {

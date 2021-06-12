@@ -64,7 +64,7 @@ class CategoriesDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(0);
     }
 
     /**
@@ -75,6 +75,7 @@ class CategoriesDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('order')->width(50)->addClass('text-center'),
             Column::make('name'),

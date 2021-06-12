@@ -74,7 +74,7 @@ class PostsDataTable extends DataTable
                 'responsive' => true,
             ])
             ->dom('Bfrtip')
-            ->orderBy(2);
+            ->orderBy(0);
     }
 
     /**
@@ -85,6 +85,7 @@ class PostsDataTable extends DataTable
     protected function getColumns()
     {
         return [
+            Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('title')->width(330),
             Column::make('image')->orderable(false)->searchable(false)->width(100),

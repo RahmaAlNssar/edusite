@@ -19,7 +19,7 @@ class CreateSliderImagesTable extends Migration
             $table->string('desc');
             $table->string('image');
             $table->unsignedBigInteger('slider_id');
-            // $table->foreign('slider_id')->references('id')->on('sliders')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('slider_id')->references('id')->on('sliders')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
