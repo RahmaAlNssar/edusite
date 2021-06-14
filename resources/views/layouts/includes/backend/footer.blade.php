@@ -40,14 +40,14 @@
 
 <script type="text/javascript">
     $('.badge-text-maxlength').maxlength({
-            alwaysShow: true,
-            separator: ' of ',
-            preText: 'You have ',
-            postText: ' chars remaining.',
-            validate: true,
-            warningClass: "badge badge-success",
-            limitReachedClass: "badge badge-danger",
-        });
+        alwaysShow: true,
+        separator: ' of ',
+        preText: 'You have ',
+        postText: ' chars remaining.',
+        validate: true,
+        warningClass: "badge badge-success",
+        limitReachedClass: "badge badge-danger",
+    });
 </script>
 @yield('script')
 @stack('script')

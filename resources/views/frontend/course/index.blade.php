@@ -1,7 +1,6 @@
 @extends('layouts.frontend')
 
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/plugins/colorbox/colorbox.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/course.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/course_responsive.css') }}">
 @endsection

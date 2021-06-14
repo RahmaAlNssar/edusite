@@ -24,7 +24,7 @@ class SliderImageFactory extends Factory
         return [
             'title'     =>  $this->faker->sentence(rand(3, 6)),
             'desc'      =>  $this->faker->sentence(rand(5, 7)),
-            'image'        =>  $this->faker->image(public_path('uploads/sliders/'), 360, 229, 'sliders', false),
+            'image'     =>  $this->faker->image(public_path('uploads/sliders/'), 360, 229, 'sliders', false),
             'slider_id' => 1,
         ];
     }

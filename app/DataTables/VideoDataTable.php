@@ -19,17 +19,17 @@ class VideoDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('video', function ($video) {
-                return '<video width="100%" height="70px" controls class="review-file"><source src="' . $video->video_path . '" type="' . $video->type . '">Your browser does not support the video tag.</video>';
-            })
             ->editColumn('title', function ($video) {
                 return Str::limit($video->title, 35) . '<hr> <span class="red">Course | </span> ' . Str::limit($video->course->title, 25);
             })
-            ->editColumn('description', function ($video) {
-                return Str::limit($video->description, 150);
+            ->editColumn('desc', function ($video) {
+                return Str::limit($video->desc, 150);
             })
             ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
+            })
+            ->addColumn('video', function ($video) {
+                return '<video width="200px" height="200px" controls><source src="' . $video->video_path . '"></video>';
             })
             ->filterColumn('title', function ($query, $keywords) {
                 return $query->where('title', 'like', '%' . $keywords . '%')
@@ -45,7 +45,7 @@ class VideoDataTable extends DataTable
             ->addColumn('tags', 'backend.includes.tables.tags')
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.videos.table-buttons')
-            ->rawColumns(['action', 'check', 'video', 'tags', 'description', 'title']);
+            ->rawColumns(['action', 'check', 'video', 'tags', 'desc', 'title']);
     }
 
     /**
@@ -74,6 +74,7 @@ class VideoDataTable extends DataTable
             ->parameters([
                 'responsive' => true,
             ])
+            ->pageLength(1)
             ->dom('Bfrtip')
             ->orderBy(0);
     }
@@ -88,10 +89,10 @@ class VideoDataTable extends DataTable
         return [
             Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('video')->width(100)->orderable(false)->searchable(false)->addClass('text-center'),
+            Column::make('video')->orderable(false)->searchable(false)->addClass('text-center'),
             Column::make('title')->width(250),
-            Column::make('description'),
-            Column::make('tags')->orderable(false)->width(100),
+            Column::make('desc')->width(250),
+            Column::make('tags')->orderable(false)->width(65),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }

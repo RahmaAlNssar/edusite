@@ -27,6 +27,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::resource('sliders', 'SlidersController');
         Route::post('sliders/multidelete', 'SlidersController@multidelete')->name('sliders.multidelete');
 
+        Route::post('slices/delete/{id}', 'SlicesController@destroy')->name('slices.destroy');
+
         Route::resource('users', 'usersController');
     });
 });

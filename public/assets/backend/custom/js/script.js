@@ -67,7 +67,6 @@ $(function () {
         e.preventDefault();
         let form = $(this);
 
-        form.find('.alert').remove();
         form.find('span.error').fadeOut(200);
         form.parent().addClass('load');
 
@@ -92,8 +91,13 @@ $(function () {
                 if (jqXhr.readyState == 0) {
                     return false;
                 } else if (jqXhr.status == 422) {
-                    $.each(jqXhr.responseJSON.errors, function(key, val) {
-                        form.find(`#${key}-error`).text(val).fadeIn(300);
+                    $.each(jqXhr.responseJSON.errors, function (key, val) {
+                        key = key.split('.');
+                        if (key.length > 1) {
+                            form.find(`input[name*='${key[0]}[${key[1]}][${key[2]}]']`).parent().next('span.error').text(val).fadeIn(300);
+                        } else {
+                            form.find(`#${key}-error`).text(val).fadeIn(300);
+                        }
                     });
                 } else {
                     if (jqXhr.responseJSON.line) {
@@ -125,7 +129,6 @@ $(function () {
                     type: "post",
                     data: data,
                     success: function (data, textStatus, jqXHR) {
-
                         toast(data.message, null, data.icon)
                         rows();
                         $('#recourds-count').text(data.count);

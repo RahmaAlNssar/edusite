@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
 
         User::factory(50)->create();
         Course::factory(10)->create();
+        $this->call(VideoSeeder::class);
         Post::factory(10)->create();
         Slider::factory(1)->create();
         SliderImage::factory(3)->create();

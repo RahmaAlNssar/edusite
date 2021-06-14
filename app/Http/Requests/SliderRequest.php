@@ -24,10 +24,10 @@ class SliderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'          => 'required|string|min:3|max:50|unique:sliders,name,' . $this->id,
-            'title'         => 'required|string|min:3|max:100',
-            'desc'          => 'required|string|min:3|max:100',
-            'image'         => 'required_without:id|mimes:jpg,jpeg,png',
+            'name'              => 'required|string|min:3|max:50|unique:sliders,name,' . $this->id,
+            'slices.*.title'    => 'required|string|min:3|max:100',
+            'slices.*.desc'     => 'required|string|min:3|max:100',
+            'slices.*.image'    => 'required_without:id|mimes:jpg,jpeg,png',
         ];
     }
 }

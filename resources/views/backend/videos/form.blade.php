@@ -16,14 +16,30 @@
 
         {{-- START VIDEO SRC --}}
         <div class="form-group">
-            <label>Upload Video:</label>
+            <label>Video SRC:</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="la la-file-video-o"></i> </span>
                 </div>
-                <input type="file" class="form-control" name="video" accept="video/*" onchange="previewFile(this)">
+                <input type="{{ $row->type ?? 'file' }}" class="form-control" id="urlORfile" accept="video/*"
+                    name="{{ $row->type ?? 'file' }}" onchange="previewFile(this)" placeholder="Write The Video Link!"
+                    value="{{ $row->url ?? '' }}">
+                <div class="input-group-append">
+                    <select name="type" class="form-control h-100">
+                        <option value="file"
+                            {{ (isset($row) && $row->type == 'file') ? 'selected' : (old('type') == 'file' ? 'selected' : '') }}>
+                            FILE
+                        </option>
+                        <option value="url"
+                            {{ (isset($row) && $row->type == 'url') ? 'selected' : (old('type') == 'url' ? 'selected' : '') }}>
+                            URL
+                        </option>
+                    </select>
+                </div>
+                <span class="red error" id="type-error"></span>
             </div>
-            <span class="red error" id="video-error"></span>
+            <span class="red error" id="file-error"></span>
+            <span class="red error" id="url-error"></span>
         </div>
         {{-- START VIDEO SRC --}}
 
@@ -35,7 +51,7 @@
     {{-- START VIDEO PREVIEW --}}
     <div class="col-md-5">
         <video width="100%" height="250px" controls>
-            <source src="{{ $row->video_path ?? '' }}" type="{{ $row->type ?? 'video/mp4' }}" id="show-file">
+            <source src="{{ $row->video_path ?? '' }}" type="{{ $row->video_type ?? 'video/mp4' }}" id="show-file">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -51,10 +67,21 @@
     <div class="col-md-12">
         <div class="form-group">
             <label>Video Description:</label>
-            <textarea class="summernote" name="description"
-                placeholder="Your Description">{{ $row->description ?? '' }}</textarea>
-            <span class="red error" id="description-error"></span>
+            <textarea class="summernote" name="desc">{{ $row->desc ?? '' }}</textarea>
+            <span class="red error" id="desc-error"></span>
         </div>
     </div>
     {{-- START VIDEO DESCRIPTION --}}
 </div>
+
+
+@push('script')
+<script>
+    $(document).ready(function () {
+        $('input#urlORfile').attr('type', $('select[name="type"]').val()).attr('name', $('select[name="type"]').val());
+        $('select[name="type"]').change(function () {
+            $('input#urlORfile').attr('type', $(this).val()).attr('name', $(this).val());
+        });
+    });
+</script>
+@endpush

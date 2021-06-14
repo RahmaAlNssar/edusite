@@ -23,40 +23,5 @@
 @section('script')
 <script type="text/javascript" src="{{ path('vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/editors/summernote/summernote.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.repeater-slices').repeater({
-            show: function () {
-                $(this).slideDown();
-            },
-            hide: function(remove) {
-                if (confirm('Are you sure you want to remove this item?')) {
-                    $(this).slideUp(remove);
-                }
-            }
-        });
-
-        $('.summernote').summernote();
-
-        if ($('input[name=discount]').val() >= 1) {
-            $('input[type=date]').closest('.col-md-4').slideDown(300);
-            $('input[name=discount]').closest('.col-md-12').removeClass('col-md-12').addClass('col-md-4');
-        } else {
-            $('input[type=date]').closest('.col-md-4').slideUp(300);
-            $('input[name=discount]').closest('.col-md-4').removeClass('col-md-4').addClass('col-md-12');
-        }
-
-        $('input[name=discount]').change(function () {
-            if ($(this).val() >= 1) {
-                $('input[type=date]').closest('.col-md-4').slideDown(300);
-                $(this).closest('.col-md-12').removeClass('col-md-12').addClass('col-md-4');
-
-            } else {
-                $('input[type=date]').closest('.col-md-4').slideUp(300);
-                $(this).closest('.col-md-4').removeClass('col-md-4').addClass('col-md-12');
-
-            }
-        });
-    });
-</script>
+<script type="text/javascript" src="{{ asset('assets/backend/custom/js/packages.js') }}"></script>
 @endsection

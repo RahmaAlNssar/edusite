@@ -23,11 +23,12 @@ class VideoRequest extends FormRequest
      */
     public function rules()
     {
-        $video = isset($this->id) ? '' : 'required|';
         return [
             'title'         => 'required|min:3|max:190|',
-            'description'   => 'required|string|min:5',
-            'video'         => 'required_without:id|mimes:mp4,mov,ogg|file|max:1000000',
+            'desc'          => 'required|string|min:5',
+            'file'          => 'required_without:url|nullable|mimes:mp4,mov,ogg|file|max:100000',
+            'url'           => 'required_without:file|nullable|url',
+            'type'          => 'required|in:file,url',
             'course_id'     => 'required|exists:courses,id'
         ];
     }

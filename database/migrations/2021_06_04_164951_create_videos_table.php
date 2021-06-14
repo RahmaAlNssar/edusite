@@ -17,9 +17,11 @@ class CreateVideosTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->text('description');
-            $table->string('video');
-            $table->string('type')->nullable();
+            $table->text('desc');
+            $table->string('file')->nullable();
+            $table->string('url')->nullable();
+            $table->string('video_type')->default('video/mp4');
+            $table->string('type')->default('video');
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
 

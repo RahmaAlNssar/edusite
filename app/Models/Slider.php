@@ -15,7 +15,7 @@ class Slider extends Model
     /*************************** Begin ATTRIBUTE Area ****************************/
     public function slices()
     {
-        return $this->hasMany(SliderImage::class, 'slider_id', 'id');
+        return $this->hasMany(SliderImage::class);
     }
     /*************************** End ATTRIBUTE Area ****************************/
 }
