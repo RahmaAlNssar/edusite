@@ -17,8 +17,6 @@
         @foreach ($row->slices as $slice)
         @include('backend.sliders.form-body')
         @endforeach
-        {{ $slice = null }}
-        @include('backend.sliders.form-body')
         @else
         @include('backend.sliders.form-body')
         @endif

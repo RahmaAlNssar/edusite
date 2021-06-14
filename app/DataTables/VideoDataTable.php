@@ -20,16 +20,16 @@ class VideoDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->editColumn('title', function ($video) {
-                return Str::limit($video->title, 35) . '<hr> <span class="red">Course | </span> ' . Str::limit($video->course->title, 25);
+                return $video->title . '<hr> <span class="red">Course | </span> ' . $video->course->title;
             })
             ->editColumn('desc', function ($video) {
-                return Str::limit($video->desc, 150);
+                return Str::limit($video->desc, 250);
             })
             ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
             })
             ->addColumn('video', function ($video) {
-                return '<video width="200px" height="200px" controls><source src="' . $video->video_path . '"></video>';
+                return '<iframe src="' . $video->video_path . '" frameborder="0"></iframe>';
             })
             ->filterColumn('title', function ($query, $keywords) {
                 return $query->where('title', 'like', '%' . $keywords . '%')
@@ -74,7 +74,7 @@ class VideoDataTable extends DataTable
             ->parameters([
                 'responsive' => true,
             ])
-            ->pageLength(1)
+            ->pageLength(10)
             ->dom('Bfrtip')
             ->orderBy(0);
     }
@@ -89,7 +89,7 @@ class VideoDataTable extends DataTable
         return [
             Column::make('id')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
-            Column::make('video')->orderable(false)->searchable(false)->addClass('text-center'),
+            Column::make('video')->orderable(false)->searchable(false)->addClass('text-center')->width(100),
             Column::make('title')->width(250),
             Column::make('desc')->width(250),
             Column::make('tags')->orderable(false)->width(65),

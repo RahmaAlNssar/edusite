@@ -4,7 +4,9 @@ $(document).ready(function () {
             $(this).slideDown();
         },
         hide: function (remove) {
-            let ele = $(this);
+            let ele    = $(this),
+                delBtn = ele.find('span[data-repeater-delete]');
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -15,7 +17,7 @@ $(document).ready(function () {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    if (!$('span.remove-slice').data('href')) {
+                    if (ele.find('input[type="hidden"]').val() == '') {
                         Swal.fire({
                             'title': 'Removing',
                             'text': 'The Slice has been deleted!',
@@ -23,30 +25,32 @@ $(document).ready(function () {
                         });
                         ele.slideUp(remove);
                         return true;
+                    } else {
+                        $.ajax({
+                            url: delBtn.data('href'),
+                            type: "post",
+                            success: function (data, textStatus, jqXHR) {
+                                ele.slideUp(remove);
+                                Swal.fire({
+                                    'title': 'Removing',
+                                    'text': data.message,
+                                    'icon': 'success'
+                                });
+                            },
+                            error: function (jqXHR) {
+                                if (jqXHR.readyState == 0)
+                                    return false;
+                                Swal.fire({
+                                    'title': 'File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')',
+                                    'text': jqXHR.responseJSON.message,
+                                    'icon': 'error'
+                                });
+                            },
+                        });
                     }
-                    $.ajax({
-                        url: $('span.remove-slice').data('href'),
-                        type: "post",
-                        success: function (data, textStatus, jqXHR) {
-                            ele.slideUp(remove);
-                            Swal.fire({
-                                'title': 'Removing',
-                                'text': data.message,
-                                'icon': 'success'
-                            });
-                        },
-                        error: function (jqXHR) {
-                            if (jqXHR.readyState == 0)
-                                return false;
-                            Swal.fire({
-                                'title': 'File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')',
-                                'text': jqXHR.responseJSON.message,
-                                'icon': 'error'
-                            });
-                        },
-                    });
                 }
             });
+
         }
     });
 

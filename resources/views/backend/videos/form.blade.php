@@ -23,7 +23,7 @@
                 </div>
                 <input type="{{ $row->type ?? 'file' }}" class="form-control" id="urlORfile" accept="video/*"
                     name="{{ $row->type ?? 'file' }}" onchange="previewFile(this)" placeholder="Write The Video Link!"
-                    value="{{ $row->url ?? '' }}">
+                    value="{{ $row->url ?? '' }}" autocomplete="off">
                 <div class="input-group-append">
                     <select name="type" class="form-control h-100">
                         <option value="file"
@@ -51,8 +51,7 @@
     {{-- START VIDEO PREVIEW --}}
     <div class="col-md-5">
         <video width="100%" height="250px" controls>
-            <source src="{{ $row->video_path ?? '' }}" type="{{ $row->video_type ?? 'video/mp4' }}" id="show-file">
-            Your browser does not support the video tag.
+            <source src="{{ $row->video_path ?? '' }}" id="show-file">
         </video>
     </div>
     {{-- END VIDEO PREVIEW --}}

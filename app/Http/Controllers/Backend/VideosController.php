@@ -11,7 +11,6 @@ use App\Models\Course;
 use App\Models\Video;
 use App\Models\Tag;
 use Exception;
-use Illuminate\Http\Request;
 
 class VideosController extends BackendController
 {
@@ -48,13 +47,13 @@ class VideosController extends BackendController
     {
         try {
             DB::beginTransaction();
+            if (($request->has('file') || $request->url) && $video->file)
+                $this->remove($video->file, 'videos');
+
             if ($request->type == 'file')
                 $video->url = null;
             else
                 $video->file = null;
-
-            if (($request->has('file') || $request->url) && $video->file)
-                $this->remove($video->file, 'videos');
 
             $video->update($request->except(['id', 'tags']));
             $video->tags()->sync($request->tags);

@@ -10,7 +10,7 @@ class Video extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'slug', 'desc', 'file', 'video_type', 'type', 'course_id'];
+    protected $fillable = ['title', 'slug', 'desc', 'file', 'url', 'type', 'course_id'];
 
     /*************************** Begin RELATIONS Area ****************************/
     public function course()
@@ -37,7 +37,6 @@ class Video extends Model
     {
         if ($this->type == 'file')
             return asset('uploads/videos/' . $this->file);
-
         return $this->url;
     } // To Return The Image Path
 }

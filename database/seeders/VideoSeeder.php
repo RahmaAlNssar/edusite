@@ -21,7 +21,7 @@ class VideoSeeder extends Seeder
         for ($i = 0; $i < 15; $i++) {
             $video = Video::create([
                 'title'        =>  $faker->sentence(rand(5, 10)),
-                'url'          =>  'https://www.youtube.com/watch?v=9m6NwwVTlME&list=PLvNu8E-aj20njrvWNIutPOb8ip1xoLjW2&index=' . rand(1, 80),
+                'url'          =>  'https://marketplace.canva.com/EAD8ATWwGKQ/1/0/800w/canva-yellow-and-black-companies-remote-work-16%3A9-video-30H71nWosEs.mp4',
                 'type'         =>  'url',
                 'desc'         =>  $faker->text(rand(50, 200)),
                 'course_id'    =>  Course::select('id')->whereVisibility(true)->inRandomOrder()->first()->id,

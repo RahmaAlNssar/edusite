@@ -8,5 +8,7 @@ function previewFile(file) {
                 file.nextElementSibling.children[0].setAttribute('src', e.target.result);
         }
         reader.readAsDataURL(file.files[0]);
+    } else {
+        $('#show-file').attr('src', file.value).parent()[0].load();
     }
 }

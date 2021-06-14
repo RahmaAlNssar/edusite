@@ -49,7 +49,7 @@ class SlidersController extends BackendController
                 toast('Your Slider has been deleted!', 'success');
                 return response()->json(['redirect' => route('backend.sliders.index')]);
             }
-            DB::transaction();
+            DB::beginTransaction();
             $slider->update($request->all());
             foreach ($request->slices as $slice) {
                 if ($slice['id']) {
