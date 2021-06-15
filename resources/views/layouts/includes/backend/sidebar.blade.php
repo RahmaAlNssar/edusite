@@ -2,6 +2,14 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation">
 
+            {{-- START DASHBOARD LINK --}}
+            <li class="nav-item {{ active('dashboard') }}">
+                <a href="{{ active('dashboard') ? 'javascript:void(0)' : route('backend.dashboard') }}">
+                    <i class="la la-home"></i> <span class="menu-title">Dashboard</span>
+                </a>
+            </li>
+            {{-- START DASHBOARD LINK --}}
+
             {{-- START CATEGORIES LINKS --}}
             <li class="nav-item {{ active('categories') }}">
                 <a href="{{ active('categories') ? 'javascript:void(0)' : route('backend.categories.index') }}">

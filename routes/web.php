@@ -1,13 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', 'Frontend\FrontendController@index');
-Route::view('/welcome', 'welcome');
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+    Auth::routes();
 
-Route::get('/course/{id}/{slug}', 'Frontend\FrontendController@course')->name('course');
+    Route::get('/', 'Frontend\FrontendController@index')->name('/');
+    Route::get('/course/{id}/{slug}', 'Frontend\FrontendController@course')->name('course');
+    Route::view('/welcome', 'welcome');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});

@@ -10,15 +10,18 @@ function active($model, $method = null)
 {
     $url =  explode('/', request()->path());
 
-    if (in_array($model, $url) && $method === null) {
+    if (end($url) === $model && $model == 'dashboard')
         return 'active';
-    }
-    if (in_array($model, $url) && in_array($method, $url)) {
+
+    if (in_array($model, $url) && $model != 'dashboard' && $method === null)
         return 'active';
-    }
-    if (in_array($model, $url) && end($url) === $model && $method === 'index') {
+
+    if (in_array($model, $url) && $model != 'dashboard' && in_array($method, $url))
         return 'active';
-    }
+
+    if (in_array($model, $url) && $model != 'dashboard' && end($url) === $model && $method === 'index')
+        return 'active';
+
     return '';
 } // end of active function
 

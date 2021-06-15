@@ -7,7 +7,7 @@
                         class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
                             class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{ route('/') }}">
                         <img class="brand-logo" alt="modern admin logo" src="{{ path('images/logo/logo.png') }}">
                         <h3 class="brand-text">Modern Admin</h3>
                     </a>
@@ -42,8 +42,7 @@
                             <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a>
                             <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
                             <div class="dropdown-divider"></div>
-                            {{-- <form id="logout-form" action="{{ route('admin.logout') }}" method="POST"> --}}
-                            <form id="logout-form" action="#" method="POST">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="dropdown-item btn red">
                                     <i class="ft-power"></i> Logout

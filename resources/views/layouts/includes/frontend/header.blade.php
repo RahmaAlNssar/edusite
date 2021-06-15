@@ -36,40 +36,43 @@
                                 <div class="logo_container">
                                     <a href="#">
                                         <div class="logo_text">Unic<span>at</span></div>
-                                    </a>
-                                </div>
-                                <nav class="main_nav_contaner ml-auto">
-                                    {{-- START INCLUDE HEADER MENU SECTION --}}
-                                    @include('layouts.includes.frontend.menu')
-                                    {{-- END INCLUDE HEADER MENU SECTION --}}
-                                    <div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
-
-                                    <!-- Hamburger -->
-
-                                    <div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="hamburger menu_mm">
-                                        <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
-                                    </div>
-                                </nav>
-
+                                        {{-- <div class="logo_text">
+                                            <img src="{{ asset('assets/frontend/images/logo.png') }}" width="100px">
+                                </div> --}}
+                                </a>
                             </div>
+                            <nav class="main_nav_contaner ml-auto">
+                                {{-- START INCLUDE HEADER MENU SECTION --}}
+                                @include('layouts.includes.frontend.menu')
+                                {{-- END INCLUDE HEADER MENU SECTION --}}
+                                <div class="search_button"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+                                <!-- Hamburger -->
+
+                                <div class="shopping_cart"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </div>
+                                <div class="hamburger menu_mm">
+                                    <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+                                </div>
+                            </nav>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+    </div>
+    </header>
 
-        <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
-            <div class="menu_close_container">
-                <div class="menu_close">
-                    <div></div>
-                    <div></div>
-                </div>
+    <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+        <div class="menu_close_container">
+            <div class="menu_close">
+                <div></div>
+                <div></div>
             </div>
-            <nav class="menu_nav">
-                {{-- START INCLUDE HEADER MENU SECTION --}}
-                @include('layouts.includes.frontend.menu')
-                {{-- END INCLUDE HEADER MENU SECTION --}}
-            </nav>
         </div>
+        <nav class="menu_nav">
+            {{-- START INCLUDE HEADER MENU SECTION --}}
+            @include('layouts.includes.frontend.menu')
+            {{-- END INCLUDE HEADER MENU SECTION --}}
+        </nav>
+    </div>

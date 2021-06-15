@@ -18,7 +18,15 @@
                             </li>
                         </ul>
                         <div class="top_bar_login ml-auto">
-                            <div class="login_button"><a href="#">Register or Login</a></div>
+                            <div class="login_button">
+                                @auth
+                                <a href="javascript:void(0);"
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST">@csrf</form>
+                                @else
+                                <a href="{{ route('login') }}">Login | Register</a>
+                                @endauth
+                            </div>
                         </div>
                     </div>
                 </div>
