@@ -18,10 +18,6 @@
     <link rel="stylesheet" type="text/css" href="{{ path('fonts/fontawesome/css/all.min.css') }}">
     {{-- ************** END FONTS AWESOME ************** --}}
 
-    {{-- ************** BEGIN VENDOR CSS ************** --}}
-    <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/icheck.css') }}">
-    {{-- ************** END VENDOR CSS ************** --}}
-
     @if (App::isLocale('ar'))
     <link rel="stylesheet" type="text/css" href="{{ path('css-rtl/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('css-rtl/app.css') }}">
@@ -29,11 +25,12 @@
     <link rel="stylesheet" type="text/css" href="{{ path('css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('css/app.css') }}">
     @endif
+
+    @yield('stype')
 </head>
 
 <body class="vertical-layout vertical-menu 1-column   menu-expanded blank-page blank-page" data-open="click"
     data-menu="vertical-menu" data-col="1-column">
-    <!-- ////////////////////////////////////////////////////////////////////////////-->
     <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
@@ -43,18 +40,18 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="col-md-4 col-10 box-shadow-2 p-0">
                             <div class="card border-grey border-lighten-3 m-0">
-                                <div class="card-header border-0">
+                                <div class="card-header border-0 pb-0">
                                     <div class="card-title text-center">
                                         <div class="p-1">
                                             <img src="{{ path('images/logo/logo-dark.png') }}" alt="branding logo">
                                         </div>
                                     </div>
-                                    <h6 class="card-subtitle line-on-side text-muted text-center font-medium-2 pt-2">
+                                    <h6 class="card-subtitle line-on-side text-muted text-center font-medium-2 p-0">
                                         <span>@yield('form_title')</span>
                                     </h6>
                                 </div>
                                 <div class="card-content">
-                                    <div class="card-body">
+                                    <div class="card-body pt-0">
                                         @yield('content')
                                     </div>
                                 </div>
@@ -68,16 +65,7 @@
 
     <script type="text/javascript" src="{{ path('vendors/js/vendors.min.js') }}"></script>
     <script type="text/javascript" src="{{ path('vendors/js/forms/icheck/icheck.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            if($('.chk-remember').length){
-                $('.chk-remember').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                });
-            }
-        });
-    </script>
+    @yield('script')
 </body>
 
 </html>

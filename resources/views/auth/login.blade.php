@@ -3,17 +3,22 @@
 @section('page_title', 'Login')
 @section('form_title', 'Login with ' . config('app.name'))
 
+@section('stype')
+<link rel="stylesheet" type="text/css" href="{{ path('vendors/css/forms/icheck/icheck.css') }}">
+@endsection
+
 @section('content')
 <form action="{{ route('login') }}" method="POST">
     @csrf
 
     <!-- BEGIN USER NAME INPUT -->
     <fieldset class="form-group">
+        <label for="email">Email :</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i></span>
             </div>
-            <input type="email" name="email" class="form-control @error('email')is-invalid @enderror"
+            <input type="email" id="email" name="email" class="form-control @error('email')is-invalid @enderror"
                 value="{{ old('email') ?? 'admin@app.com' }}" autofocus required placeholder="Type your email..."
                 autocomplete="email">
         </div>
@@ -25,12 +30,12 @@
 
     <!-- BEGIN USER PASSWORD INPUT -->
     <fieldset class="form-group">
+        <label for="password">Password :</label>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fas fa-eye-slash toggle-password"></i>
-                </span>
+                <span class="input-group-text toggle-password"> <i class="fas fa-eye-slash"></i></span>
             </div>
-            <input type="password" name="password" value="{{ old('password') ?? 123 }}" required
+            <input type="password" id="password" name="password" value="{{ old('password') ?? 123 }}" required
                 autocomplete="current-password" placeholder="Type your password..."
                 class="form-control @error('password') is-invalid @enderror">
         </div>
@@ -61,4 +66,26 @@
 </form>
 
 <p class="text-center">Don't have an account ? <a href="{{ route('register') }}" class="card-link">Register</a></p>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.chk-remember').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+        });
+
+        $('.toggle-password').click(function () {
+            let icon = $(this).find('i'); input = icon.parent().parent();
+            if (icon.hasClass('fa-eye-slash')) {
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                input.next('input').attr('type', 'text');
+            } else {
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                input.next('input').attr('type', 'password');
+            }
+        });
+    });
+</script>
 @endsection

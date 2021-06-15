@@ -6,50 +6,58 @@ $(document).ready(function () {
         hide: function (remove) {
             let ele    = $(this),
                 delBtn = ele.find('span[data-repeater-delete]');
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    if (ele.find('input[type="hidden"]').val() == '') {
-                        Swal.fire({
-                            'title': 'Removing',
-                            'text': 'The Slice has been deleted!',
-                            'icon': 'success'
-                        });
-                        ele.slideUp(remove);
-                        return true;
-                    } else {
-                        $.ajax({
-                            url: delBtn.data('href'),
-                            type: "post",
-                            success: function (data, textStatus, jqXHR) {
-                                ele.slideUp(remove);
-                                Swal.fire({
-                                    'title': 'Removing',
-                                    'text': data.message,
-                                    'icon': 'success'
-                                });
-                            },
-                            error: function (jqXHR) {
-                                if (jqXHR.readyState == 0)
-                                    return false;
-                                Swal.fire({
-                                    'title': 'File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')',
-                                    'text': jqXHR.responseJSON.message,
-                                    'icon': 'error'
-                                });
-                            },
-                        });
+            if ($('div[data-repeater-item]').length > 1) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (ele.find('input[type="hidden"]').val() == '') {
+                            Swal.fire({
+                                'title': 'Removing',
+                                'text': 'The Slice has been deleted!',
+                                'icon': 'success'
+                            });
+                            ele.slideUp(remove);
+                            return true;
+                        } else {
+                            $.ajax({
+                                url: delBtn.data('href'),
+                                type: "post",
+                                success: function (data, textStatus, jqXHR) {
+                                    ele.slideUp(remove);
+                                    Swal.fire({
+                                        'title': 'Removing',
+                                        'text': data.message,
+                                        'icon': 'success'
+                                    });
+                                },
+                                error: function (jqXHR) {
+                                    if (jqXHR.readyState == 0)
+                                        return false;
+                                    Swal.fire({
+                                        'title': 'File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')',
+                                        'text': jqXHR.responseJSON.message,
+                                        'icon': 'error'
+                                    });
+                                },
+                            });
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                Swal.fire({
+                    'title': 'Warning',
+                    'text': 'Must have more than 1 slice!',
+                    'icon': 'warning',
+                });
+            }
+
 
         }
     });

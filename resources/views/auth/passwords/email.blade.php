@@ -8,11 +8,12 @@
     @csrf
     <!-- BEGIN USER NAME INPUT -->
     <fieldset class="form-group">
+        <label for="email">Email :</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fas fa-envelope"></i></span>
             </div>
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+            <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
                 value="{{ old('email') ?? 'admin@app.com' }}" autofocus required placeholder="Type your email..."
                 autocomplete="email">
         </div>

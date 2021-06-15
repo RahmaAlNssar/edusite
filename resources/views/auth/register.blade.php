@@ -9,13 +9,14 @@
 
     <!-- BEGIN USER NAME INPUT -->
     <fieldset class="form-group">
+        <label for="name">Name :</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i></span>
             </div>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                value="{{ old('name') ?? 'admin' }}" autofocus required placeholder="Type your name..."
-                autocomplete="name">
+            <input type="text" id="name" name="name" value="{{ old('name') ?? 'admin' }}" maxlength="20"
+                class="form-control @error('name') is-invalid @enderror badge-text-maxlength" autofocus required
+                placeholder="Type your name..." autocomplete="name">
         </div>
         @error('name')
         <span class="is-invalid red" role="alert"> <strong> {{ $message }} </strong> </span>
@@ -25,13 +26,14 @@
 
     <!-- BEGIN USER EMAIL INPUT -->
     <fieldset class="form-group">
+        <label for="email">Email :</label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i></span>
             </div>
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                value="{{ old('email') ?? 'admin@app.com' }}" autofocus required placeholder="Type your email..."
-                autocomplete="email">
+            <input type="email" id="email" name="email" maxlength="30" autocomplete="email"
+                class="form-control @error('email') is-invalid @enderror badge-text-maxlength"
+                value="{{ old('email') ?? 'admin@app.com' }}" autofocus required placeholder="Type your email...">
         </div>
         @error('email')
         <span class="is-invalid red" role="alert"> <strong> {{ $message }} </strong> </span>
@@ -41,14 +43,14 @@
 
     <!-- BEGIN USER PASSWORD INPUT -->
     <fieldset class="form-group">
+        <label for="password">Password :</label>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fas fa-eye-slash toggle-password"></i>
-                </span>
+                <span class="input-group-text toggle-password"> <i class="fas fa-eye-slash"></i></span>
             </div>
-            <input type="password" name="password" value="{{ old('password') ?? 123 }}" required
-                autocomplete="current-password" placeholder="Type your password..."
-                class="form-control @error('password') is-invalid @enderror">
+            <input type="password" id="password" name="password" value="{{ old('password') ?? 123 }}" required
+                autocomplete="current-password" placeholder="Type your password..." maxlength="20"
+                class="form-control @error('password') is-invalid @enderror badge-text-maxlength">
         </div>
         @error('password')
         <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -58,14 +60,15 @@
 
     <!-- BEGIN USER PASSWORD CONFIRMATION INPUT -->
     <fieldset class="form-group">
+        <label for="password_confirmation">Password Confirmation :</label>
         <div class="input-group">
             <div class="input-group-prepend">
-                <span class="input-group-text"> <i class="fas fa-eye-slash toggle-password"></i>
-                </span>
+                <span class="input-group-text toggle-password"> <i class="fas fa-eye-slash"></i></span>
             </div>
-            <input type="password" name="password_confirmation" value="{{ old('password_confirmation') ?? 123 }}"
-                required autocomplete="current-password" placeholder="Type your password confirmation..."
-                class="form-control @error('password_confirmation') is-invalid @enderror">
+            <input type="password" id="password_confirmation" name="password_confirmation"
+                value="{{ old('password_confirmation') ?? 123 }}" required autocomplete="current-password"
+                placeholder="Type your password confirmation..." maxlength="20"
+                class="form-control @error('password_confirmation') is-invalid @enderror badge-text-maxlength">
         </div>
         @error('password_confirmation')
         <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -77,4 +80,34 @@
 </form>
 
 <p class="text-center">Already have an account ? <a href="{{ route('login') }}" class="card-link">Login</a></p>
+@endsection
+
+@section('script')
+
+<script type="text/javascript" src="{{ path('vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}"></script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.badge-text-maxlength').maxlength({
+            alwaysShow: true,
+            separator: ' of ',
+            preText: 'You have ',
+            postText: ' chars remaining.',
+            validate: true,
+            warningClass: "badge badge-success",
+            limitReachedClass: "badge badge-danger",
+        });
+
+        $('.toggle-password').click(function () {
+            let icon = $(this).find('i'); input = icon.parent().parent();
+            if (icon.hasClass('fa-eye-slash')) {
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                input.next('input').attr('type', 'text');
+            } else {
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                input.next('input').attr('type', 'password');
+            }
+        });
+    });
+</script>
 @endsection

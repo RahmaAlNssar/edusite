@@ -6,7 +6,6 @@ use App\Http\Controllers\BackendController;
 use App\DataTables\SlidersDataTable;
 use App\Http\Requests\SliderRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use App\Models\SliderImage;
 use App\Traits\UploadFile;
 use App\Models\Slider;
@@ -41,7 +40,7 @@ class SlidersController extends BackendController
         }
     }
 
-    public function update(Request $request, Slider $slider)
+    public function update(SliderRequest $request, Slider $slider)
     {
         try {
             if (!$request->slices) {
