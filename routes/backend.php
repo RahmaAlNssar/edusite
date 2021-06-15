@@ -1,6 +1,5 @@
 <?php
 
-use GuzzleHttp\Middleware;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 

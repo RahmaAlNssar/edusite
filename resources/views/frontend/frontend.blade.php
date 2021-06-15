@@ -11,7 +11,6 @@
 @include('frontend.includes.slider')
 
 <!-- Features -->
-
 <div class="features">
     <div class="container">
         <div class="row">

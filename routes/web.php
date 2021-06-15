@@ -9,8 +9,4 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::get('/', 'Frontend\FrontendController@index')->name('/');
     Route::get('/course/{id}/{slug}', 'Frontend\FrontendController@course')->name('course');
-    Route::view('/welcome', 'welcome');
-
-
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
