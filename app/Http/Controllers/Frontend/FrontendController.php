@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SliderImage;
 use App\Models\Course;
+use Illuminate\Contracts\Session\Session;
 
 class FrontendController extends Controller
 {

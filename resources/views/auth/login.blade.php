@@ -6,18 +6,19 @@
 @section('content')
 <form action="{{ route('login') }}" method="POST">
     @csrf
+
     <!-- BEGIN USER NAME INPUT -->
     <fieldset class="form-group">
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-envelope"></i></span>
             </div>
-            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+            <input type="email" name="email" class="form-control @error('email')is-invalid @enderror"
                 value="{{ old('email') ?? 'admin@app.com' }}" autofocus required placeholder="Type your email..."
                 autocomplete="email">
         </div>
         @error('email')
-        <span class="invalid-feedback" role="alert"> <strong> {{ $message }} </strong> </span>
+        <span class="is-invalid red" role="alert"> <strong> {{ $message }} </strong> </span>
         @enderror
     </fieldset>
     <!-- END USER NAME INPUT -->
@@ -34,7 +35,7 @@
                 class="form-control @error('password') is-invalid @enderror">
         </div>
         @error('password')
-        <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
+        <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
         @enderror
     </fieldset>
     <!-- END USER PASSWORD INPUT -->

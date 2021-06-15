@@ -18,7 +18,7 @@
                 autocomplete="name">
         </div>
         @error('name')
-        <span class="invalid-feedback" role="alert"> <strong> {{ $message }} </strong> </span>
+        <span class="is-invalid red" role="alert"> <strong> {{ $message }} </strong> </span>
         @enderror
     </fieldset>
     <!-- END USER NAME INPUT -->
@@ -34,7 +34,7 @@
                 autocomplete="email">
         </div>
         @error('email')
-        <span class="invalid-feedback" role="alert"> <strong> {{ $message }} </strong> </span>
+        <span class="is-invalid red" role="alert"> <strong> {{ $message }} </strong> </span>
         @enderror
     </fieldset>
     <!-- END USER EMAIL INPUT -->
@@ -51,7 +51,7 @@
                 class="form-control @error('password') is-invalid @enderror">
         </div>
         @error('password')
-        <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
+        <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
         @enderror
     </fieldset>
     <!-- END USER PASSWORD INPUT -->
@@ -68,7 +68,7 @@
                 class="form-control @error('password_confirmation') is-invalid @enderror">
         </div>
         @error('password_confirmation')
-        <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
+        <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
         @enderror
     </fieldset>
     <!-- END USER PASSWORD CONFIRMATION INPUT -->

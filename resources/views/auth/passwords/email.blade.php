@@ -17,7 +17,7 @@
                 autocomplete="email">
         </div>
         @error('email')
-        <span class="invalid-feedback" role="alert"> <strong> {{ $message }}
+        <span class="is-invalid red" role="alert"> <strong> {{ $message }}
             </strong> </span>
         @enderror
     </fieldset>

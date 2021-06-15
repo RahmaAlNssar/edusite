@@ -10,8 +10,6 @@
 {{-- Slider --}}
 @include('frontend.includes.slider')
 
-
-
 <!-- Features -->
 
 <div class="features">
