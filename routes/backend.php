@@ -4,6 +4,16 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], function () {
+        Route::get('login', 'LoginController@show_login')->name('show.login');
+        Route::post('login', 'LoginController@login')->name('login');
+
+        Route::get('forgot/password', 'ForgetPasswordController@forgot_password')->name('forgot.password');
+        Route::post('forgot/password', 'ForgetPasswordController@send_password')->name('send.password');
+    });
+
+
     Route::group(['prefix' => 'dashboard', 'as' => 'backend.'], function () {
         Route::get('/', 'DashboardController@index');
 
