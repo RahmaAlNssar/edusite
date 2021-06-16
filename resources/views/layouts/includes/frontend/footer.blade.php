@@ -13,7 +13,7 @@
                             <div class="footer_section footer_about">
                                 <div class="footer_logo_container">
                                     <a href="#">
-                                        <div class="footer_logo_text">Unic<span>at</span></div>
+                                        <div class="footer_logo_text">{{ config('app.name') }}</div>
                                     </a>
                                 </div>
                                 <div class="footer_about_text">

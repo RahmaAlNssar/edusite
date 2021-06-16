@@ -16,7 +16,9 @@
         <div class="row courses_row">
 
             @forelse ($courses as $course)
-            @include('frontend.includes.course-card')
+            <div class="col-lg-4 course_col">
+                @include('frontend.includes.course-card')
+            </div>
             @empty
             <p class="text-center">no courses found</p>
             @endforelse

@@ -2,6 +2,8 @@
 @include('layouts.includes.frontend.header')
 {{-- END INCLUDE HEADER, NAVBAR SECTION --}}
 
+@yield('home')
+
 @yield('content')
 
 {{-- START INCLUDE FOOTER SECTION --}}
