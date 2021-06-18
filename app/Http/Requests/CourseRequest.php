@@ -25,7 +25,6 @@ class CourseRequest extends FormRequest
     {
         return [
             'title'         => 'required|min:5|max:50',
-            'short_desc'    => 'required|min:5|max:75',
             'price'         => 'nullable|numeric|min:1',
             'discount'      => 'nullable|numeric|min:1|max:100',
             'start_date'    => 'required_with:discount|required_with:end_date|nullable|date',

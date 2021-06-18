@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Str;
 use App\Models\Course;
 
 class CoursesDataTable extends DataTable
@@ -31,6 +32,9 @@ class CoursesDataTable extends DataTable
             })
             ->editColumn('image', function ($course) {
                 return '<img src="' . $course->image_url . '" class="img-thumbnail" width="150px">';
+            })
+            ->editColumn('desc', function ($course) {
+                return Str::limit($course->desc, 200, '...');
             })
             ->editColumn('title', function ($course) {
                 return $course->title . '<hr> <span class="red">Category | </span> ' . $course->category->name;
@@ -102,7 +106,7 @@ class CoursesDataTable extends DataTable
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('title')->width(300),
             Column::make('image')->orderable(false)->searchable(false),
-            Column::make('short_desc')->width(200),
+            Column::make('desc')->width(200),
             Column::make('price'),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];

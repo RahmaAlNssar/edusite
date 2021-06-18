@@ -11,19 +11,6 @@
 </div>
 {{-- END COURSE Title --}}
 
-{{-- START COURSE Title --}}
-<div class="form-group">
-    <label>Short Description:</label>
-    <div class="input-group">
-        <div class="input-group-prepend"> <span class="input-group-text"> <i class="la la-italic"></i> </span>
-        </div>
-        <input type="text" class="form-control badge-text-maxlength" name="short_desc" maxlength="75"
-            value="{{ $row->short_desc ?? old('short_desc') }}" placeholder="Short Description" autocomplete="off">
-    </div>
-    <span class="red error" id="short_desc-error"></span>
-</div>
-{{-- END COURSE Title --}}
-
 <div class="row">
     <div class="col-md-8">
         <div class="row px-0">

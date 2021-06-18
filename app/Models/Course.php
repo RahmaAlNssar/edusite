@@ -10,7 +10,7 @@ class Course extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillable = ['title', 'slug', 'image', 'desc', 'short_desc', 'price', 'start_date', 'end_date', 'discount', 'visibility', 'category_id', 'user_id'];
+    protected $fillable = ['title', 'slug', 'image', 'desc', 'price', 'start_date', 'end_date', 'discount', 'visibility', 'category_id', 'user_id'];
 
     /*************************** Begin RELATIONS Area ****************************/
     public function category()

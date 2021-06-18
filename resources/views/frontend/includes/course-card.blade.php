@@ -14,7 +14,7 @@
                 {{ $course->user->name }}
             </a>
         </div>
-        <div class="course_text" style="max-height: 50px; overflow: hidden">
+        <div class="course_text" style="max-height: 75px; overflow: hidden">
             <p>{!! $course->desc !!}</p>
         </div>
     </div>

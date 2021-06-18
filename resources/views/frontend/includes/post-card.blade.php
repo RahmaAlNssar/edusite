@@ -11,10 +11,10 @@
         </h3>
         <div class="course_teacher d-flex justify-content-between pt-2 pb-3">
             <a href="{{ route('blog', ['id' => $post->user_id, 'teacher' => $post->user->name]) }}"
-                style="font-weight: bold;color: #b5b8be;text-transform: uppercase;">
+                style="color: #b5b8be">
                 {{ $post->user->name }}
             </a>
-            <span style="font-weight: 400;color: #b5b8be;text-transform: uppercase;">
+            <span style="color: #b5b8be">
                 {{ $post->created_at->diffForHumans() }}
             </span>
         </div>

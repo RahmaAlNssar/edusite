@@ -275,7 +275,7 @@
 
             <!-- Course Sidebar -->
             <div class="col-lg-4">
-                {{-- @include('frontend.courses.single.sidebar') --}}
+                @include('frontend.courses.single.sidebar')
             </div>
         </div>
     </div>
