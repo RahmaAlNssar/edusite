@@ -3,8 +3,8 @@
     <div class="sidebar_tags">
         <ul class="tags_list">
             @foreach ($tags as $tag)
-            <li> <a href="{{ route('blog', ['tag' => $tag->slug]) }}">{{ $tag->name }}
-                    ({{ $tag->posts->count() }})</a> </li>
+            <li> <a href="{{ route('courses', ['tag' => $tag->slug]) }}">{{ $tag->name }}
+                    ({{ $tag->videos->count() }})</a> </li>
             @endforeach
         </ul>
     </div>

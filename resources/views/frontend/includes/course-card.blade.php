@@ -3,25 +3,30 @@
     </div>
     <div class="course_body">
         <h3 class="course_title" style="max-height: 28px; overflow: hidden">
-            <a href="{{ route('course', [$course->id, $course->slug]) }}" data-toggle="tooltip"
+            <a href="{{ route('course', ['id' => $course->id, 'title' => $course->slug]) }}" data-toggle="tooltip"
                 title="{{ $course->title }}">
                 {{ $course->title }}
             </a>
         </h3>
-        <div class="course_teacher">{{ $course->user->name }}</div>
+        <div class="course_teacher" style="max-height: 22px;overflow: hidden;">
+            <a href="{{ route('courses', ['id' => $course->user_id, 'teacher' => $course->user->name]) }}"
+                style="color: #14bdee; font-weight: bold">
+                {{ $course->user->name }}
+            </a>
+        </div>
         <div class="course_text" style="max-height: 50px; overflow: hidden">
-            <p>{!! $course->short_desc !!}</p>
+            <p>{!! $course->desc !!}</p>
         </div>
     </div>
     <div class="course_footer">
-        <div class="course_footer_content d-flex flex-row align-items-center justify-content-start">
+        <div class="course_footer_content d-flex flex-row align-items-center justify-content-between">
             <div class="course_info">
                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                 <span>20 Student</span>
             </div>
             <div class="course_info">
                 <i class="fa fa-star" aria-hidden="true"></i>
-                <span>5 Rate</span>
+                <span>5 Ratings</span>
             </div>
             <div class="course_price ml-auto">
                 @if ($course->discount)

@@ -1,5 +1,5 @@
 <div class="sidebar_section">
-    <div class="sidebar_section_title">Latest Courses</div>
+    <div class="sidebar_section_title">Latest Posts</div>
     <div class="sidebar_latest">
         @foreach ($latest as $item)
         <div class="latest d-flex flex-row align-items-start justify-content-start">
@@ -8,16 +8,10 @@
             </div>
             <div class="latest_content">
                 <div class="latest_title" style="height: 52px;overflow: hidden;">
-                    <a href="{{ route('course', ['id' => $item->id, 'title' => $item->slug]) }}" data-toggle="tooltip"
+                    <a href="{{ route('post', ['id' => $item->id, 'title' => $item->slug]) }}" data-toggle="tooltip"
                         title="{{ $item->title }}">{{ $item->title }}</a>
                 </div>
-                <div class="latest_price">
-                    @if ($item->discount)
-                    {{ $item->total() }}
-                    @else
-                    {{ $item->price ? '$' . $item->price : 'FREE' }}
-                    @endif
-                </div>
+                <div class="latest_date">{{ $item->created_at->diffForHumans() }}</div>
             </div>
         </div>
         @endforeach

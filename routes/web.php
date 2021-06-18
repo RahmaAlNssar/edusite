@@ -15,5 +15,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::get('/courses', 'Frontend\FrontendController@courses')->name('courses');
 
-    Route::get('/course/{id}/{slug}', 'Frontend\FrontendController@course')->name('course');
+    Route::get('/blog', 'Frontend\FrontendController@blog')->name('blog');
+
+    Route::get('/course', 'Frontend\FrontendController@course')->name('course');
+    Route::get('/post', 'Frontend\FrontendController@post')->name('post');
 });

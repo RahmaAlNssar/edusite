@@ -35,7 +35,9 @@
                             <div class="header_content d-flex flex-row align-items-center justify-content-start">
                                 <div class="logo_container">
                                     <a href="{{ route('/') }}">
-                                        <div class="logo_text">{{ config('app.name') }}</div>
+                                        <div class="logo_text">
+                                            <img src="{{ asset('assets/frontend/images/logo.png') }}" width="100px">
+                                        </div>
                                     </a>
                                 </div>
                                 <nav class="main_nav_contaner ml-auto">

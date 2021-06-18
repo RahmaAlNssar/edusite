@@ -13,7 +13,9 @@
                             <div class="footer_section footer_about">
                                 <div class="footer_logo_container">
                                     <a href="#">
-                                        <div class="footer_logo_text">{{ config('app.name') }}</div>
+                                        <div class="footer_logo_text">
+                                            <img src="{{ asset('assets/frontend/images/logo-alt.png') }}" width="100px">
+                                        </div>
                                     </a>
                                 </div>
                                 <div class="footer_about_text">

@@ -1,5 +1,5 @@
 <div class="courses_search_container">
-    <form action="{{ route('courses') }}" method="get" id="courses_search_form"
+    <form action="{{ route('blog') }}" method="get" id="courses_search_form"
         class="courses_search_form d-flex flex-row align-items-center justify-content-start">
         <input type="search" class="courses_search_input" name="search" placeholder="Search Courses"
             value="{{ request()->search ?? '' }}">
@@ -17,9 +17,9 @@
 <div class="courses_container">
     <div class="row courses_row">
 
-        @forelse ($courses as $course)
+        @forelse ($posts as $post)
         <div class="col-lg-6 course_col">
-            @include('frontend.includes.course-card')
+            @include('frontend.includes.post-card')
         </div>
         @empty
         <p class="text-center">no courses found</p>
@@ -27,6 +27,6 @@
 
     </div>
     <div class="d-flex justify-content-center">
-        {!! $courses->appends(request()->query())->links() !!}
+        {!! $posts->appends(request()->query())->links() !!}
     </div>
 </div>
