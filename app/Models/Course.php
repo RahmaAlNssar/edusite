@@ -18,6 +18,11 @@ class Course extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);

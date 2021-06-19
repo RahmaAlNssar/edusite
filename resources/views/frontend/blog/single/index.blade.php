@@ -64,130 +64,26 @@
                     </div>
                 </div>
                 <!-- Comments -->
-                <div class="comments_container">
-                    <div class="comments_title"><span>30</span> Comments</div>
-                    <ul class="comments_list">
-                        <li>
-                            <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                <div class="comment_image">
-                                    <div><img src="images/comment_1.jpg" alt=""></div>
-                                </div>
-                                <div class="comment_content">
-                                    <div
-                                        class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_author"><a href="#">Jennifer Aniston</a></div>
-                                        <div class="comment_rating">
-                                            <div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
-                                        </div>
-                                        <div class="comment_time ml-auto">October 19,2018</div>
-                                    </div>
-                                    <div class="comment_text">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the
-                                            majority have alteration in some form, by injected humour.</p>
-                                    </div>
-                                    <div
-                                        class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up"
-                                                    aria-hidden="true"></i><span>108</span></a></div>
-                                        <div class="comment_extra comment_reply"><a href="#"><i
-                                                    class="fa fa-pencil-square-o"
-                                                    aria-hidden="true"></i><span>Reply</span></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <ul>
-                                <li>
-                                    <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                        <div class="comment_image">
-                                            <div><img src="images/comment_2.jpg" alt=""></div>
-                                        </div>
-                                        <div class="comment_content">
-                                            <div
-                                                class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                                <div class="comment_author"><a href="#">John Smith</a></div>
-                                                <div class="comment_rating">
-                                                    <div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i>
-                                                    </div>
-                                                </div>
-                                                <div class="comment_time ml-auto">October 19,2018</div>
-                                            </div>
-                                            <div class="comment_text">
-                                                <p>There are many variations of passages of Lorem Ipsum available, but
-                                                    the majority have alteration in some form, by injected humour.</p>
-                                            </div>
-                                            <div
-                                                class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                                <div class="comment_extra comment_likes"><a href="#"><i
-                                                            class="fa fa-thumbs-up"
-                                                            aria-hidden="true"></i><span>108</span></a></div>
-                                                <div class="comment_extra comment_reply"><a href="#"><i
-                                                            class="fa fa-pencil-square-o"
-                                                            aria-hidden="true"></i><span>Reply</span></a></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                <div class="comment_image">
-                                    <div><img src="images/comment_3.jpg" alt=""></div>
-                                </div>
-                                <div class="comment_content">
-                                    <div
-                                        class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_author"><a href="#">Jane Austen</a></div>
-                                        <div class="comment_rating">
-                                            <div class="rating_r rating_r_4"><i></i><i></i><i></i><i></i><i></i></div>
-                                        </div>
-                                        <div class="comment_time ml-auto">October 19,2018</div>
-                                    </div>
-                                    <div class="comment_text">
-                                        <p>There are many variations of passages of Lorem Ipsum available, but the
-                                            majority have alteration in some form, by injected humour.</p>
-                                    </div>
-                                    <div
-                                        class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                        <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up"
-                                                    aria-hidden="true"></i><span>108</span></a></div>
-                                        <div class="comment_extra comment_reply"><a href="#"><i
-                                                    class="fa fa-pencil-square-o"
-                                                    aria-hidden="true"></i><span>Reply</span></a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="add_comment_container">
-                        <div class="add_comment_title">Write a comment</div>
-                        <div class="add_comment_text">Your email address will not be published. Required fields are
-                            marked *</div>
-                        <form action="#" class="comment_form">
+                @include('frontend.includes.comments-section', ['comments' => $post->comments])
+
+                <div class="add_comment_container">
+                    <div class="add_comment_title">Write a comment</div>
+                    <div class="add_comment_text">
+                        @auth
+                        <form action="{{ route('post.comment', $post) }}" class="comment_form" method="POST">
+                            @csrf
                             <div>
-                                <div class="form_title">Review*</div>
-                                <textarea class="comment_input comment_textarea" required="required"></textarea>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 input_col">
-                                    <div class="form_title">Name*</div>
-                                    <input type="text" class="comment_input" required="required">
-                                </div>
-                                <div class="col-md-6 input_col">
-                                    <div class="form_title">Email*</div>
-                                    <input type="text" class="comment_input" required="required">
-                                </div>
-                            </div>
-                            <div class="comment_notify">
-                                <input type="checkbox" id="checkbox_notify" name="regular_checkbox"
-                                    class="regular_checkbox checkbox_account" checked>
-                                <label for="checkbox_notify"><i class="fa fa-check" aria-hidden="true"></i></label>
-                                <span>Notify me of new posts by email</span>
+                                <div class="form_title">Write your comment :</div>
+                                <textarea class="comment_input comment_textarea" required="required"
+                                    name="comment"></textarea>
                             </div>
                             <div>
                                 <button type="submit" class="comment_button trans_200">submit</button>
                             </div>
                         </form>
+                        @else
+                        You must be <a href="{{ route('login') }}">logged</a> in to post a comment.
+                        @endauth
                     </div>
                 </div>
             </div>

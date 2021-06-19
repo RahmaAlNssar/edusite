@@ -29,4 +29,12 @@ class User extends Authenticatable
     {
         return $this->attributes['password'] = Hash::make(($value));
     } // Auto Hash Password
+
+    public function getImageUrlAttribute()
+    {
+        if ($this->image)
+            return asset('uploads/user/' . $this->image);
+        else
+            return 'https://lh3.googleusercontent.com/proxy/9SXf-woW9vnVgpf7pGE70AJWvAwjwmYO3u0FkdQmmtVyMW0KG3CRfSkPU0CWFdpoaJQ6eBsv5HSxNuXibCnF2o6To0_D3zrKuJSZz6wInY8pzQn8nY8-S7S_zg5iiV_UZE2W4NU3zZstsA';
+    } // return image path
 }

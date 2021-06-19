@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Post;
 use App\Models\Tag;
+use Exception;
 
 class FrontendController extends Controller
 {
@@ -89,11 +90,9 @@ class FrontendController extends Controller
         })->with('user')->paginate(6);
 
         if ($posts) {
-            $latest  = Post::whereVisibility(1)->latest()->take(3)->get();
+            $latest  = Post::whereVisibility(1)->orderBy('updated_at', 'desc')->take(3)->get();
             $tags    = Tag::whereVisibility(1)->whereHas('posts')->take(10)->get();
-            $categories = Category::whereVisibility(1)->whereHas('posts', function ($query) {
-                return $query->whereVisibility(1);
-            })->get();
+            $categories = Category::whereVisibility(1)->whereVisible('posts')->get();
             return view('frontend.blog.index', compact('latest', 'tags', 'categories', 'posts'));
         }
         return abort(404);
@@ -111,6 +110,30 @@ class FrontendController extends Controller
             return view('frontend.blog.single.index', compact('latest', 'tags', 'categories', 'post'));
         }
         return abort(404);
+    }
+
+    public function postComment(Request $request, Post $post)
+    {
+        try {
+            if ($post->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
+                toast('Your Comment has been added!', 'success');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function courseComment(Request $request, Course $course)
+    {
+        try {
+            if ($course->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
+                toast('Your Comment has been added!', 'success');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function about()

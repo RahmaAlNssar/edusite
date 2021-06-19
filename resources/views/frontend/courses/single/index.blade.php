@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 
 @section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/blog_single.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/blog_single_responsive.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/course.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/course_responsive.css') }}">
 @endsection
@@ -144,126 +146,27 @@
                                 </div>
 
                                 <!-- Comments -->
-                                <div class="comments_container">
-                                    <ul class="comments_list">
-                                        <li>
-                                            <div
-                                                class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                                <div class="comment_image">
-                                                    <div><img src="{{ asset('assets/frontend/images/comment_1.jpg') }}"
-                                                            alt=""></div>
-                                                </div>
-                                                <div class="comment_content">
-                                                    <div
-                                                        class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_author"><a href="#">Milley Cyrus</a></div>
-                                                        <div class="comment_rating">
-                                                            <div class="rating_r rating_r_4">
-                                                                <i></i><i></i><i></i><i></i><i></i></div>
-                                                        </div>
-                                                        <div class="comment_time ml-auto">1 day ago</div>
-                                                    </div>
-                                                    <div class="comment_text">
-                                                        <p>There are many variations of passages of Lorem Ipsum
-                                                            available, but the majority have alteration in some form, by
-                                                            injected humour.</p>
-                                                    </div>
-                                                    <div
-                                                        class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_extra comment_likes"><a href="#"><i
-                                                                    class="fa fa-heart"
-                                                                    aria-hidden="true"></i><span>15</span></a></div>
-                                                        <div class="comment_extra comment_reply"><a href="#"><i
-                                                                    class="fa fa-reply"
-                                                                    aria-hidden="true"></i><span>Reply</span></a></div>
-                                                    </div>
-                                                </div>
+                                @include('frontend.includes.comments-section', ['comments' => $course->comments])
+
+                                <div class="add_comment_container">
+                                    <div class="add_comment_title">Write a comment</div>
+                                    <div class="add_comment_text">
+                                        @auth
+                                        <form action="{{ route('course.comment', $course) }}" class="comment_form"
+                                            method="POST">
+                                            @csrf
+                                            <div>
+                                                <div class="form_title">Write your comment :</div>
+                                                <textarea class="comment_input comment_textarea" required="required"
+                                                    name="comment"></textarea>
                                             </div>
-                                            <ul>
-                                                <li>
-                                                    <div
-                                                        class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                                        <div class="comment_image">
-                                                            <div><img
-                                                                    src="{{ asset('assets/frontend/images/comment_2.jpg') }}"
-                                                                    alt=""></div>
-                                                        </div>
-                                                        <div class="comment_content">
-                                                            <div
-                                                                class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                                                <div class="comment_author"><a href="#">John Tyler</a>
-                                                                </div>
-                                                                <div class="comment_rating">
-                                                                    <div class="rating_r rating_r_4">
-                                                                        <i></i><i></i><i></i><i></i><i></i></div>
-                                                                </div>
-                                                                <div class="comment_time ml-auto">1 day ago</div>
-                                                            </div>
-                                                            <div class="comment_text">
-                                                                <p>There are many variations of passages of Lorem Ipsum
-                                                                    available, but the majority have alteration in some
-                                                                    form, by injected humour.</p>
-                                                            </div>
-                                                            <div
-                                                                class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                                                <div class="comment_extra comment_likes"><a href="#"><i
-                                                                            class="fa fa-heart"
-                                                                            aria-hidden="true"></i><span>15</span></a>
-                                                                </div>
-                                                                <div class="comment_extra comment_reply"><a href="#"><i
-                                                                            class="fa fa-reply"
-                                                                            aria-hidden="true"></i><span>Reply</span></a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <div
-                                                class="comment_item d-flex flex-row align-items-start jutify-content-start">
-                                                <div class="comment_image">
-                                                    <div><img src="{{ asset('assets/frontend/images/comment_3.jpg') }}"
-                                                            alt=""></div>
-                                                </div>
-                                                <div class="comment_content">
-                                                    <div
-                                                        class="comment_title_container d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_author"><a href="#">Milley Cyrus</a></div>
-                                                        <div class="comment_rating">
-                                                            <div class="rating_r rating_r_4">
-                                                                <i></i><i></i><i></i><i></i><i></i></div>
-                                                        </div>
-                                                        <div class="comment_time ml-auto">1 day ago</div>
-                                                    </div>
-                                                    <div class="comment_text">
-                                                        <p>There are many variations of passages of Lorem Ipsum
-                                                            available, but the majority have alteration in some form, by
-                                                            injected humour.</p>
-                                                    </div>
-                                                    <div
-                                                        class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                                                        <div class="comment_extra comment_likes"><a href="#"><i
-                                                                    class="fa fa-heart"
-                                                                    aria-hidden="true"></i><span>15</span></a></div>
-                                                        <div class="comment_extra comment_reply"><a href="#"><i
-                                                                    class="fa fa-reply"
-                                                                    aria-hidden="true"></i><span>Reply</span></a></div>
-                                                    </div>
-                                                </div>
+                                            <div>
+                                                <button type="submit" class="comment_button trans_200">submit</button>
                                             </div>
-                                        </li>
-                                    </ul>
-                                    <div class="add_comment_container">
-                                        <div class="add_comment_title">Add a review</div>
-                                        <div class="add_comment_text">
-                                            @auth
-                                            Form Here
-                                            @else
-                                            You must be <a href="{{ route('login') }}">logged</a> in to post a comment.
-                                            @endauth
-                                        </div>
+                                        </form>
+                                        @else
+                                        You must be <a href="{{ route('login') }}">logged</a> in to post a comment.
+                                        @endauth
                                     </div>
                                 </div>
                             </div>

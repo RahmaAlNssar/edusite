@@ -26,7 +26,12 @@ class Category extends Model
     }
 
     /*************************** Begin SCOPE Area *********************************/
-
+    public function scopewhereVisible($query, $model)
+    {
+        return $query->whereHas($model, function ($q) {
+            return $q->whereVisibility(1);
+        });
+    }
 
 
     /*************************** Begin ATTRIBUTES Area ****************************/

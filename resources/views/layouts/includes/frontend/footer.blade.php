@@ -135,6 +135,10 @@
 <script src="{{ asset('assets/frontend/plugins/parallax-js-master/parallax.min.js') }}"></script>
 <script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 
+{{-- ************** START SWEETALERT JS ************** --}}
+@include('sweetalert::alert')
+{{-- ************** END SWEETALERT JS ************** --}}
+
 @yield('script')
 </body>
 

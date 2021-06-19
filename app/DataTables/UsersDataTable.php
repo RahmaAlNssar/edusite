@@ -6,7 +6,7 @@ use App\Models\User;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class UsersDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -17,8 +17,15 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)
-            ->addColumn('action', 'user.action');
+            ->eloquent($query)->addColumn('no_ajax', function () {
+                return $no_ajax = '';
+            })
+            ->editColumn('image', function ($user) {
+                return '<img src="' . $user->image_url . '" class="img-thumbnail" width="150px">';
+            })
+            ->addColumn('check', 'backend.includes.tables.checkbox')
+            ->addColumn('action', 'backend.includes.buttons.table-buttons')
+            ->rawColumns(['action', 'check', 'image']);
     }
 
     /**
@@ -43,12 +50,12 @@ class UserDataTable extends DataTable
             ->setTableId('user-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->setTableAttribute('class', 'table table-striped table-bordered  w-100 dataTable')
+            ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
             ->parameters([
                 'responsive' => true,
             ])
-            ->orderBy(0)
-            ->dom('Bfrtip');
+            ->dom('Bfrtip')
+            ->orderBy(0);
     }
 
     /**
@@ -60,15 +67,11 @@ class UserDataTable extends DataTable
     {
         return [
             Column::make('id')->hidden(),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
-            Column::make('updated_at'),
+            Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
+            Column::make('name')->width(300),
+            Column::make('email')->orderable(false)->searchable(false),
+            // Column::make('image')->width(200),
+            Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center'),
         ];
     }
 

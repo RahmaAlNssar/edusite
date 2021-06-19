@@ -19,4 +19,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
     Route::get('/course', 'Frontend\FrontendController@course')->name('course');
     Route::get('/post', 'Frontend\FrontendController@post')->name('post');
+
+    Route::post('/post/comment/{post}', 'Frontend\FrontendController@postComment')->name('post.comment');
+    Route::post('/course/comment/{course}', 'Frontend\FrontendController@courseComment')->name('course.comment');
 });
