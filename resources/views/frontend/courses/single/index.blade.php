@@ -90,7 +90,10 @@
                                             <li>
                                                 <div class="dropdown_item">
                                                     <div class="dropdown_item_title">
-                                                        <span>Lecture {{ ++$index }}: </span> {{ $video->title }}
+                                                        <a
+                                                            href="{{ route('course.video', ['video' => $video->id, 'title' => $video->slug]) }}">
+                                                            Lecture {{ ++$index }}: {{ $video->title }}
+                                                        </a>
                                                     </div>
                                                     <div class="dropdown_item_text">{!! $video->desc !!}</div>
                                                 </div>

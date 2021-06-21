@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Course;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Video;
+use App\Models\Visitor;
 use Exception;
 
 class FrontendController extends Controller
@@ -63,6 +65,30 @@ class FrontendController extends Controller
         if ($course) {
             $latest = Course::whereVisibility(1)->whereHas('videos')->latest()->take(3)->get();
             return view('frontend.courses.single.index', compact('course', 'latest'));
+        }
+        return abort(404);
+    }
+
+    public function videos(Request $request)
+    {
+        $course = Course::whereId($request->id)->whereSlug($request->course)->whereVisibility(1)->with(['user', 'videos'])->first();
+        if ($course) {
+            $latest = Video::where('course_id', '<>', $course->id)->latest()->take(15)->get();
+            return view('frontend.videos.index', compact('course', 'latest'));
+        }
+        return abort(404);
+    }
+
+    public function video(Request $request, $id)
+    {
+        $video = Video::whereId($request->video)->whereSlug($request->title)->first();
+        if ($video) {
+            if ($video->visitors()->checkIfVisitor() == 0)
+                $video->visitors()->create(['ip_address' => request()->ip(), 'agent' => request()->userAgent()]);
+
+            $visitors = $video->visitors->count();
+            $list   = Video::whereCourseId($video->course_id)->get();
+            return view('frontend.videos.single.index', compact('video', 'list', 'visitors'));
         }
         return abort(404);
     }
@@ -128,6 +154,18 @@ class FrontendController extends Controller
     {
         try {
             if ($course->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
+                toast('Your Comment has been added!', 'success');
+                return redirect()->back();
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function videoComment(Request $request, Video $video)
+    {
+        try {
+            if ($video->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
                 toast('Your Comment has been added!', 'success');
                 return redirect()->back();
             }

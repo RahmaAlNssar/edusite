@@ -14,7 +14,7 @@
                 {{ $course->user->name }}
             </a>
         </div>
-        <div class="course_text" style="max-height: 75px; overflow: hidden">
+        <div class="course_text" style="max-height: 54px; overflow: hidden">
             <p>{!! $course->desc !!}</p>
         </div>
     </div>
@@ -36,5 +36,7 @@
                 @endif
             </div>
         </div>
+        <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
+            class="btn btn-outline-info d-block w-100"> Show Videos </a>
     </div>
 </div>

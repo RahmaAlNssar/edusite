@@ -1,4 +1,4 @@
-<div class="comments_container">
+<div class="comments_container mt-3">
     <div class="comments_title"><span>{{ $comments->count() }}</span> Comments</div>
     <ul class="comments_list">
         @foreach ($comments as $comment)

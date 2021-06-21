@@ -26,6 +26,8 @@
                     <div class="feature_text ml-auto">{{ $course->videos->count() }}</div>
                 </div>
             </div>
+            <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
+                class="btn btn-outline-info d-block w-100 mt-4"> Show Videos </a>
         </div>
     </div>
 

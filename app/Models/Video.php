@@ -23,6 +23,16 @@ class Video extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function visitors()
+    {
+        return $this->morphMany(Visitor::class, 'visitorable');
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable');
