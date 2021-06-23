@@ -24,6 +24,16 @@ class Post extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function visitors()
+    {
+        return $this->morphMany(Visitor::class, 'visitorable');
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

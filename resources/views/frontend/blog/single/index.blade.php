@@ -52,14 +52,20 @@
                             @endforeach
                         </ul>
                     </div>
-                    <div class="blog_social ml-lg-auto">
-                        <span>Share: </span>
+                    <div class="blog_social ml-lg-auto d-flex justify-content-between">
                         <ul>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+                            <li> <span> <i style="color:#14bdee" class="fa fa-eye"></i> {{ $visitors }} </span> </li>
+                            <li>
+                                @auth
+                                <a href="{{ route('post.like', $post) }}">
+                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $post->likes->count() }}
+                                </a>
+                                @else
+                                <span>
+                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $post->likes->count() }}
+                                </span>
+                                @endauth
+                            </li>
                         </ul>
                     </div>
                 </div>

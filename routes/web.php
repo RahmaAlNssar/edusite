@@ -18,12 +18,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/blog', 'Frontend\FrontendController@blog')->name('blog');
 
     Route::get('/course', 'Frontend\FrontendController@course')->name('course');
-    Route::post('/course/comment/{course}', 'Frontend\FrontendController@courseComment')->name('course.comment');
+    Route::post('/course/comment/{course}', 'Frontend\CommentsController@courseComment')->name('course.comment');
+    Route::post('/course/vote/{course}', 'Frontend\RatingsController@vote')->name('course.vote');
+
     Route::get('/course/videos/{course}', 'Frontend\FrontendController@videos')->name('course.videos');
     Route::get('/course/video/{video}', 'Frontend\FrontendController@video')->name('course.video');
-    Route::post('/video/comment/{video}', 'Frontend\FrontendController@videoComment')->name('video.comment');
+    Route::post('/video/comment/{video}', 'Frontend\CommentsController@videoComment')->name('video.comment');
+    Route::get('/video/like/{video}', 'Frontend\LikesController@videoLike')->name('video.like');
+
 
 
     Route::get('/post', 'Frontend\FrontendController@post')->name('post');
-    Route::post('/post/comment/{post}', 'Frontend\FrontendController@postComment')->name('post.comment');
+    Route::post('/post/comment/{post}', 'Frontend\CommentsController@postComment')->name('post.comment');
+    Route::get('/post/like/{post}', 'Frontend\LikesController@postLike')->name('post.like');
 });

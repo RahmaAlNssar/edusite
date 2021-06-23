@@ -23,6 +23,11 @@ class Course extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function ratings()
+    {
+        return $this->morphMany(Rating::class, 'ratingable');
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);
@@ -52,4 +57,12 @@ class Course extends Model
     {
         return '$' . ($this->price - ($this->price * $this->discount / 100));
     } // return the price after discount
+
+    public function starsChart($star)
+    {
+        if ($this->ratings()->whereStar($star)->count())
+            return $this->ratings()->whereStar($star)->count() / $this->ratings()->count() * 100;
+
+        return 0;
+    }
 }

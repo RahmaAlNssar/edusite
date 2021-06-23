@@ -7,11 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\SliderImage;
 use App\Models\Category;
 use App\Models\Course;
+use App\Models\Video;
 use App\Models\Post;
 use App\Models\Tag;
-use App\Models\Video;
-use App\Models\Visitor;
-use Exception;
 
 class FrontendController extends Controller
 {
@@ -127,51 +125,20 @@ class FrontendController extends Controller
     public function post(Request $request)
     {
         $post = Post::whereId($request->id)->whereSlug($request->title)->whereVisibility(1)->with('user')->first();
+
         if ($post) {
+            if ($post->visitors()->checkIfVisitor() == 0)
+                $post->visitors()->create(['ip_address' => request()->ip(), 'agent' => request()->userAgent()]);
+
+            $visitors   = $post->visitors->count();
             $latest     = Post::whereVisibility(1)->latest()->take(3)->get();
             $tags       = Tag::whereVisibility(1)->whereHas('posts')->take(10)->get();
             $categories = Category::whereVisibility(1)->whereHas('posts', function ($query) {
                 return $query->whereVisibility(1);
             })->get();
-            return view('frontend.blog.single.index', compact('latest', 'tags', 'categories', 'post'));
+            return view('frontend.blog.single.index', compact('latest', 'tags', 'categories', 'post', 'visitors'));
         }
         return abort(404);
-    }
-
-    public function postComment(Request $request, Post $post)
-    {
-        try {
-            if ($post->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
-                toast('Your Comment has been added!', 'success');
-                return redirect()->back();
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function courseComment(Request $request, Course $course)
-    {
-        try {
-            if ($course->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
-                toast('Your Comment has been added!', 'success');
-                return redirect()->back();
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function videoComment(Request $request, Video $video)
-    {
-        try {
-            if ($video->comments()->create(array_merge($request->only('comment'), ['user_id' => auth()->id()]))) {
-                toast('Your Comment has been added!', 'success');
-                return redirect()->back();
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
     }
 
     public function about()

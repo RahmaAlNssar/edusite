@@ -15,7 +15,22 @@
                     <div class="comment_author d-flex align-items-center">
                         <a href="#">{{ $video->course->user->name }}</a> <br>
                     </div>
-                    <div class="float-right"><i class="mt-1">Views: {{ $visitors }}</i></div>
+                    <div class="blog_social ml-lg-auto d-flex justify-content-between">
+                        <ul>
+                            <li> <span> <i style="color:#14bdee" class="fa fa-eye"></i> {{ $visitors }} </span> </li>
+                            <li>
+                                @auth
+                                <a href="{{ route('video.like', $video) }}">
+                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $video->likes->count() }}
+                                </a>
+                                @else
+                                <span>
+                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $video->likes->count() }}
+                                </span>
+                                @endauth
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
