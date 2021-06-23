@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="courses_button trans_200"><a href="#">view all courses</a></div>
+                <div class="courses_button trans_200"><a href="{{ route('courses') }}">view all courses</a></div>
             </div>
         </div>
     </div>

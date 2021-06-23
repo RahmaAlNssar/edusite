@@ -24,7 +24,6 @@
         @empty
         <p class="text-center">no courses found</p>
         @endforelse
-
     </div>
     <div class="d-flex justify-content-center">
         {!! $posts->appends(request()->query())->links() !!}

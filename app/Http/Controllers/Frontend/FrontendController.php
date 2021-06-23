@@ -84,9 +84,9 @@ class FrontendController extends Controller
             if ($video->visitors()->checkIfVisitor() == 0)
                 $video->visitors()->create(['ip_address' => request()->ip(), 'agent' => request()->userAgent()]);
 
-            $visitors = $video->visitors->count();
             $list   = Video::whereCourseId($video->course_id)->get();
-            return view('frontend.videos.single.index', compact('video', 'list', 'visitors'));
+            $random = Video::where('course_id', '<>', $video->course_id)->take(10)->get();
+            return view('frontend.videos.single.index', compact('video', 'list', 'random'));
         }
         return abort(404);
     }

@@ -31,5 +31,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::resource('users', 'UsersController');
         Route::post('users/multidelete', 'UsersController@multidelete')->name('users.multidelete');
+
+        Route::resource('comments', 'CommentsController')->only(['index', 'destroy', 'create']);
+        Route::post('comments/multidelete', 'CommentsController@multidelete')->name('comments.multidelete');
     });
 });

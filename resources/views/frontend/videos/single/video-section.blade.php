@@ -1,14 +1,14 @@
 <div class="courses_container">
     <div class="row courses_row">
-        <div class="my-4">
-            <h3 class="mt-3">{{ $video->title }}</h3>
-        </div>
-        <video class="w-100 mb-3" controls>
+        <video class="w-100 mt-5 mb-3" controls>
             <source src="{{ $video->video_path }}">
         </video>
-        <div class="comment_item d-flex justify-content-start pt-0 w-100">
+        <div>
+            <h3> {{ $video->title }} </h3>
+        </div>
+        <div class="comment_item d-flex justify-content-start pt-3 w-100">
             <div class="comment_image">
-                <div> <img src="{{ $video->course->user->image_url }}"></div>
+                <div> <img src="{{ $video->course->user->image_url }}" alt="{{ $video->course->user->name }}"></div>
             </div>
             <div class="comment_content align-self-center">
                 <div class="comment_title_container d-flex justify-content-between">
@@ -17,16 +17,19 @@
                     </div>
                     <div class="blog_social ml-lg-auto d-flex justify-content-between">
                         <ul>
-                            <li> <span> <i style="color:#14bdee" class="fa fa-eye"></i> {{ $visitors }} </span> </li>
+                            <li> <span class="mr-5"> <i class="fa fa-eye"></i> {{ $video->visitors->count() }} </span>
+                            </li>
                             <li>
                                 @auth
-                                <a href="{{ route('video.like', $video) }}">
-                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $video->likes->count() }}
+                                <a href="{{ route('video.like', $video) }}"
+                                    {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}>
+                                    <i class="fa fa-thumbs-up"
+                                        {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}></i>
+                                    {{ $video->likes->count() }}
                                 </a>
                                 @else
-                                <span>
-                                    <i style="color:#14bdee" class="fa fa-thumbs-up"></i> {{ $video->likes->count() }}
-                                </span>
+                                <span> <i style="color: #a5a5a5" class="fa fa-thumbs-up"></i>
+                                    {{ $video->likes->count() }}</span>
                                 @endauth
                             </li>
                         </ul>

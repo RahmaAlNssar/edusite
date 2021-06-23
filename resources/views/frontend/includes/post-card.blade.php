@@ -20,4 +20,16 @@
         </div>
         <div class="blog_post_text" style="height: 85px;overflow: hidden;">{!! $post->desc !!}</div>
     </div>
+    <div class="course_footer_content d-flex flex-row align-items-center justify-content-between px-5">
+        <span> <i class="fa fa-eye"></i> {{ $post->visitors->count() }} </span>
+
+        @auth
+        <a href="{{ route('post.like', $post) }}"
+            {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}>
+            <i class="fa fa-thumbs-up"></i> {{ $post->likes->count() }}
+        </a>
+        @else
+        <span> <i style="color: #a5a5a5" class="fa fa-thumbs-up"></i> {{ $post->likes->count() }}</span>
+        @endauth
+    </div>
 </div>

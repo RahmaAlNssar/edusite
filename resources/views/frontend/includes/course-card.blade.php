@@ -21,12 +21,8 @@
     <div class="course_footer">
         <div class="course_footer_content d-flex flex-row align-items-center justify-content-between">
             <div class="course_info">
-                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                <span>20 Student</span>
-            </div>
-            <div class="course_info">
                 <i class="fa fa-star" aria-hidden="true"></i>
-                <span>5 Ratings</span>
+                <span>{{ round($course->ratings()->avg('star'), 1) }} Ratings</span>
             </div>
             <div class="course_price ml-auto">
                 @if ($course->discount)
