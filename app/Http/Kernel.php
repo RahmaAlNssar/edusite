@@ -69,5 +69,6 @@ class Kernel extends HttpKernel
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         'IsAdmin'                 => \App\Http\Middleware\IsAdmin::class,
+        'AdminOrTeacher'          => \App\Http\Middleware\AdminOrTeacher::class,
     ];
 }

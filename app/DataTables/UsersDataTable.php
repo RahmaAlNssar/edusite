@@ -17,7 +17,8 @@ class UsersDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)->addColumn('no_ajax', function () {
+            ->eloquent($query)
+            ->addColumn('no_ajax', function () {
                 return $no_ajax = '';
             })
             ->editColumn('image', function ($user) {

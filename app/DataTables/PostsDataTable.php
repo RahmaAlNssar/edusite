@@ -19,9 +19,6 @@ class PostsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('no_ajax', function () {
-                return $no_ajax = '';
-            })
             ->filterColumn('visibility', function ($query, $keywords) {
                 $keywords = strtolower($keywords);
                 if ($keywords == 'visible') {
@@ -43,7 +40,9 @@ class PostsDataTable extends DataTable
                 return $post->visibility == 0 ? 'bg-primary bg-accent-1' : '';
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
-            ->addColumn('action', 'backend.includes.buttons.table-buttons')
+            ->addColumn('action', function ($post) {
+                return view('backend.includes.buttons.table-buttons', ['user_id' => $post->user_id, 'id' => $post->id, 'no_ajax' => '']);
+            })
             ->rawColumns(['action', 'check', 'desc', 'image', 'title']);
     }
 
@@ -55,7 +54,7 @@ class PostsDataTable extends DataTable
      */
     public function query(Post $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->author();
     }
 
     /**

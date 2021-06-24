@@ -21,4 +21,10 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /*************************** Begin SCOPE Area *********************************/
+    public function scopePermission($query)
+    {
+    }
+    /*************************** End SCOPE Area *********************************/
 }

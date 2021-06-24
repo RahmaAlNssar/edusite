@@ -37,7 +37,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CategorySeeder::class);
         $this->call(TagSeeder::class);
-
         User::factory(50)->create();
         Course::factory(10)->create();
         $this->call(VideoSeeder::class);

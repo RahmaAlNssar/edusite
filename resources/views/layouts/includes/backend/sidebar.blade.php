@@ -10,6 +10,7 @@
             </li>
             {{-- START DASHBOARD LINK --}}
 
+            @if (auth()->user()->is_admin)
             {{-- START CATEGORIES LINKS --}}
             <li class="nav-item {{ active('categories') }}">
                 <a href="{{ active('categories') ? 'javascript:void(0)' : route('backend.categories.index') }}">
@@ -17,7 +18,9 @@
                 </a>
             </li>
             {{-- START CATEGORIES LINKS --}}
+            @endif
 
+            @if (auth()->user()->is_admin)
             {{-- START TAGS LINKS --}}
             <li class="nav-item {{ active('tags') }}">
                 <a href="{{ active('tags') ? 'javascript:void(0)' : route('backend.tags.index') }}">
@@ -25,6 +28,7 @@
                 </a>
             </li>
             {{-- START TAGS LINKS --}}
+            @endif
 
             {{-- START COURSES LINKS --}}
             <li class="nav-item has-sub {{ active('courses') ? 'open' : '' }}">
@@ -72,6 +76,7 @@
             </li>
             {{-- END VIDEOS LINKS --}}
 
+            @if (auth()->user()->is_admin)
             {{-- START USERS LINKS --}}
             <li class="nav-item has-sub {{ active('users') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
@@ -94,6 +99,7 @@
                 </ul>
             </li>
             {{-- END USERS LINKS --}}
+            @endif
 
             {{-- START POSTS LINKS --}}
             <li class="nav-item has-sub {{ active('posts') ? 'open' : '' }}">
@@ -118,6 +124,7 @@
             </li>
             {{-- END POSTS LINKS --}}
 
+            @if (auth()->user()->is_admin)
             {{-- START SLIDERS LINKS --}}
             <li class="nav-item has-sub {{ active('sliders') ? 'open' : '' }}">
                 <a href="javascript:void(0)">
@@ -140,6 +147,7 @@
                 </ul>
             </li>
             {{-- END SLIDERS LINKS --}}
+            @endif
 
             {{-- START COMMENTS LINKS --}}
             <li class="nav-item {{ active('comments') }}">

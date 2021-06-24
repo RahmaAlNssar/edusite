@@ -28,8 +28,6 @@ class Tag extends Model
 
     /*************************** Begin SCOPE Area *********************************/
 
-
-
     /*************************** Begin ATTRIBUTES Area ****************************/
     public function sluggable(): array
     {

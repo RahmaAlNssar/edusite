@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $fillable = ['name', 'email', 'password', 'is_admin'];
+    protected $fillable = ['name', 'email', 'password', 'is_admin', 'is_teacher'];
 
     protected $hidden = ['password', 'remember_token',];
 
@@ -24,9 +24,15 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     /*************************** Begin SCOPE Area *********************************/
-
-
+    public function scopePermission($query)
+    {
+    }
     /*************************** Begin ATTRIBUTES Area ****************************/
     public function setPasswordAttribute($value)
     {

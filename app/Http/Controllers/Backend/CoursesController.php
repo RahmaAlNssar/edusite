@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\UploadFile;
 use App\Models\Category;
 use App\Models\Course;
-use App\Models\User;
 use Exception;
 
 class CoursesController extends BackendController
@@ -25,7 +24,6 @@ class CoursesController extends BackendController
     {
         return [
             'categories' => Category::select('id', 'name', 'visibility')->get(),
-            'users' => User::select('id', 'name')->get(),
             'no_ajax' => ''
         ];
     }
@@ -46,6 +44,10 @@ class CoursesController extends BackendController
     public function update(CourseRequest $request, Course $course)
     {
         try {
+            if (method_exists($course, 'checkAuthor') && $course->checkAuthor()) {
+                toast('you can\'t visit this page', 'warning');
+                return response()->json(['redirect' => route('backend.courses.index')]);
+            }
             DB::beginTransaction();
             if ($request->has('image'))
                 $this->remove($course->image, 'courses');
@@ -64,9 +66,10 @@ class CoursesController extends BackendController
             return [
                 'start_date' => null,
                 'end_date'   => null,
-                'discount'   => null
+                'discount'   => null,
+                'user_id'    => auth()->id()
             ];
         }
-        return [];
+        return ['user_id' => auth()->id()];
     }
 }

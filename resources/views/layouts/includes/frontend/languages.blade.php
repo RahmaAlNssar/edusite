@@ -16,3 +16,21 @@
         @endforeach
     </div>
 </div>
+
+@auth
+<div class="shopping_cart">
+    <a class="dropdown-toggle nav-link" id="dropdown-flag" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <span class="selected-language">
+            {{ auth()->user()->name }}
+        </span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+        <a class="dropdown-item" href="{{ route('backend.dashboard') }}"> Dashboard </a>
+
+        <a href="javascript:void(0);" class="dropdown-item" style="color: red"
+            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST">@csrf</form>
+    </div>
+</div>
+@endauth

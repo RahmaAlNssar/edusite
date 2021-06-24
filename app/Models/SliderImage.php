@@ -12,17 +12,17 @@ class SliderImage extends Model
     protected $fillable = ['title', 'desc', 'image', 'slider_id'];
     public $timestamps = false;
 
-    /*************************** Begin ATTRIBUTES Area ****************************/
-
-    /*************************** End ATTRIBUTES Area ****************************/
-
-
     /*************************** Begin RELATIONS Area ****************************/
     public function slider()
     {
         return $this->belongsTo(Slider::class);
     }
     /*************************** End RELATIONS Area ****************************/
+
+    /*************************** Begin SCOPE Area *********************************/
+
+    /*************************** End SCOPE Area *********************************/
+
 
     /*************************** Begin ATTRIBUTES Area ****************************/
     public function getImageUrlAttribute()

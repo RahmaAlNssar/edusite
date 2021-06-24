@@ -21,9 +21,6 @@ class CoursesDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('no_ajax', function () {
-                return $no_ajax = '';
-            })
             ->editColumn('price', function ($course) {
                 if ($course->discount != null) {
                     return $course->total() . '<br> <del class="red">$' . $course->price . '</del>';
@@ -60,7 +57,9 @@ class CoursesDataTable extends DataTable
                 return $course->visibility == 0 ? 'bg-primary bg-accent-1' : '';
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
-            ->addColumn('action', 'backend.includes.buttons.table-buttons')
+            ->addColumn('action', function ($course) {
+                return view('backend.includes.buttons.table-buttons', ['user_id' => $course->user_id, 'id' => $course->id, 'no_ajax' => '']);
+            })
             ->rawColumns(['action', 'check', 'image', 'visibility', 'price', 'title']);
     }
 
@@ -72,7 +71,7 @@ class CoursesDataTable extends DataTable
      */
     public function query(Course $model)
     {
-        return $model->newQuery()->with('category');
+        return $model->newQuery()->with('category')->author();
     }
 
     /**

@@ -46,6 +46,10 @@ class VideosController extends BackendController
     public function update(VideoRequest $request, Video $video)
     {
         try {
+            if (method_exists($video, 'checkAuthor') && $video->checkAuthor()) {
+                toast('you can\'t visit this page', 'warning');
+                return redirect()->back();
+            }
             DB::beginTransaction();
             if (($request->has('file') || $request->url) && $video->file)
                 $this->remove($video->file, 'videos');

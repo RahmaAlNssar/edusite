@@ -23,6 +23,17 @@ class UserSeeder extends Seeder
             'remember_token'    => Str::random(10),
             'email_verified_at' => now(),
             'is_admin'          => 1,
+            'is_teacher'        => 0,
+        ]);
+
+        User::insert([
+            'name'              => 'Teacher',
+            'email'             => 'teacher@app.com',
+            'password'          => Hash::make(123),
+            'remember_token'    => Str::random(10),
+            'email_verified_at' => now(),
+            'is_admin'          => 0,
+            'is_teacher'        => 1,
         ]);
     }
 }

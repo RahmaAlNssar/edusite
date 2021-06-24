@@ -31,7 +31,6 @@ class CourseRequest extends FormRequest
             'end_date'      => 'required_with:discount|required_with:start_date|nullable|date|after_or_equal:start_date',
             'desc'          => 'required|min:5|string',
             'category_id'   => 'required|exists:categories,id',
-            'user_id'       => 'required|exists:users,id',
             'image'         => 'required_without:id|mimes:jpg,jpeg,png',
             'visibility'    => 'required|in:0,1',
         ];

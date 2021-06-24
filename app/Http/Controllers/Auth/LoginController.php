@@ -45,7 +45,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        return auth()->user()->is_admin
+        return auth()->user()->is_admin || auth()->user()->is_teacher
             ? $this->redirectTo = RouteServiceProvider::DASHBOARD
             : $this->redirectTo = RouteServiceProvider::HOME;
     }

@@ -14,13 +14,7 @@
 <div class="row">
     <div class="col-md-8">
         <div class="row px-0">
-            <div class="col-md-6">
-                {{-- START COURSE CATEGORY --}}
-                @include('backend.includes.forms.select-user')
-                {{-- START COURSE CATEGORY --}}
-            </div>
-
-            <div class="col-md-6">
+            <div class="col-md-12">
                 {{-- START COURSE CATEGORY --}}
                 @include('backend.includes.forms.select-category')
                 {{-- START COURSE CATEGORY --}}

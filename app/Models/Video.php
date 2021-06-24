@@ -39,7 +39,13 @@ class Video extends Model
     }
 
     /*************************** Begin SCOPE Area *********************************/
-
+    public function scopeAuthor($query)
+    {
+        if (auth()->user()->is_teacher)
+            return $query->whereHas('course', function ($q) {
+                return $q->whereUserId(auth()->id());
+            });
+    }
 
 
     /*************************** Begin ATTRIBUTES Area ****************************/
@@ -54,4 +60,11 @@ class Video extends Model
             return asset('uploads/videos/' . $this->file);
         return $this->url;
     } // To Return The Image Path
+
+    public function checkAuthor()
+    {
+        if ($this->course->user_id != auth()->id())
+            return true;
+        return false;
+    }
 }

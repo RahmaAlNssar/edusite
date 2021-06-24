@@ -56,8 +56,12 @@ class Post extends Model
         return asset('uploads/posts/' . $this->image);
     } // return image path
 
+    public function scopeAuthor($query)
+    {
+        if (auth()->user()->is_teacher)
+            return $query->whereUserId(auth()->id());
+    }
     /*************************** END SCOPE Area ****************************/
-
 
     /*************************** Begin ATTRIBUTES Area ****************************/
     public function visibilityType()
@@ -65,6 +69,13 @@ class Post extends Model
         return $this->visibility == 1
             ? '<a href="' . route('backend.posts.visibility-toggle', $this->id) . '" class="btn btn-success btn-sm visibility-toggle"> <i class="fas fa-lightbulb"></i>&nbsp; Visible</a>'
             : '<a href="' . route('backend.posts.visibility-toggle', $this->id) . '" class="btn btn-warning btn-sm visibility-toggle"> <i class="far fa-lightbulb"></i>&nbsp; Hidden</a>';
+    }
+
+    public function checkAuthor()
+    {
+        if ($this->user_id != auth()->id())
+            return true;
+        return false;
     }
     /*************************** END ATTRIBUTES Area ****************************/
 }

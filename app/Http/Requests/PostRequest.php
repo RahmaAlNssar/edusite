@@ -27,7 +27,6 @@ class PostRequest extends FormRequest
             'title'         => 'required|min:5|max:190',
             'desc'          => 'required|min:5|string',
             'category_id'   => 'required|exists:categories,id',
-            'user_id'       => 'required|exists:users,id',
             'image'         => 'nullable|mimes:jpg,jpeg,png',
             'visibility'    => 'required|in:0,1',
         ];

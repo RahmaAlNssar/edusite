@@ -25,9 +25,6 @@ class VideoDataTable extends DataTable
             ->editColumn('desc', function ($video) {
                 return Str::limit($video->desc, 250);
             })
-            ->addColumn('no_ajax', function () {
-                return $no_ajax = '';
-            })
             ->addColumn('video', function ($video) {
                 return '<iframe src="' . $video->video_path . '" frameborder="0"></iframe>';
             })
@@ -44,7 +41,9 @@ class VideoDataTable extends DataTable
             })
             ->addColumn('tags', 'backend.includes.tables.tags')
             ->addColumn('check', 'backend.includes.tables.checkbox')
-            ->addColumn('action', 'backend.videos.table-buttons')
+            ->addColumn('action', function ($video) {
+                return view('backend.includes.buttons.table-buttons', ['user_id' => $video->course->user_id, 'id' => $video->id, 'no_ajax' => '']);
+            })
             ->rawColumns(['action', 'check', 'video', 'tags', 'desc', 'title']);
     }
 
@@ -56,7 +55,7 @@ class VideoDataTable extends DataTable
      */
     public function query(Video $model)
     {
-        return $model->newQuery()->with(['course', 'tags']);
+        return $model->newQuery()->with(['course', 'tags'])->author();
     }
 
     /**

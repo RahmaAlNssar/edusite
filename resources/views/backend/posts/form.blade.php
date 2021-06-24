@@ -16,12 +16,6 @@
         <div class="row px-0">
             <div class="col-md-12">
                 {{-- START POSTS CATEGORY --}}
-                @include('backend.includes.forms.select-user')
-                {{-- START POSTS CATEGORY --}}
-            </div>
-
-            <div class="col-md-12">
-                {{-- START POSTS CATEGORY --}}
                 @include('backend.includes.forms.select-category')
                 {{-- START POSTS CATEGORY --}}
             </div>
@@ -31,6 +25,12 @@
                 @include('backend.includes.forms.select-visibility')
                 {{-- END POSTS DISCOUNT END DATE --}}
             </div>
+
+            <div class="col-md-12">
+                {{-- START POSTS CATEGORY --}}
+                @include('backend.includes.forms.select-tag')
+                {{-- START POSTS CATEGORY --}}
+            </div>
         </div>
     </div>
 
@@ -38,10 +38,6 @@
         @include('backend.includes.forms.input-file', ['image' => $row->image_url ?? null])
     </div>
 </div>
-
-{{-- START POSTS CATEGORY --}}
-@include('backend.includes.forms.select-tag')
-{{-- START POSTS CATEGORY --}}
 
 {{-- START POSTS DESCRIPTION --}}
 <div class="form-group">

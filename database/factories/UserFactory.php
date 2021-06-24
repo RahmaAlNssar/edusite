@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'image'             => $this->faker->image(public_path('uploads/users/'), 100, 100, 'user', false),
             'password'          => 123,
             'remember_token'    => Str::random(10),
+            'is_teacher'        => rand(0, 1)
         ];
     }
 

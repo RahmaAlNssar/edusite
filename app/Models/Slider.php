@@ -18,4 +18,10 @@ class Slider extends Model
         return $this->hasMany(SliderImage::class);
     }
     /*************************** End ATTRIBUTE Area ****************************/
+
+    /*************************** Begin Scope Area ****************************/
+    public function scopePermission($query)
+    {
+    }
+    /*************************** End Scope Area ****************************/
 }

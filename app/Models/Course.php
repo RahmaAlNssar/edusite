@@ -39,7 +39,11 @@ class Course extends Model
     }
 
     /*************************** Begin SCOPE Area *********************************/
-
+    public function scopeAuthor($query)
+    {
+        if (auth()->user()->is_teacher)
+            return $query->whereUserId(auth()->id());
+    }
 
 
     /*************************** Begin ATTRIBUTES Area ****************************/
@@ -64,5 +68,12 @@ class Course extends Model
             return $this->ratings()->whereStar($star)->count() / $this->ratings()->count() * 100;
 
         return 0;
+    }
+
+    public function checkAuthor()
+    {
+        if ($this->user_id != auth()->id())
+            return true;
+        return false;
     }
 }
