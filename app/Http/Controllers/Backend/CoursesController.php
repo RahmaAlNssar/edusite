@@ -67,9 +67,14 @@ class CoursesController extends BackendController
                 'start_date' => null,
                 'end_date'   => null,
                 'discount'   => null,
-                'user_id'    => auth()->id()
+                'user_id' => auth()->id()
             ];
         }
-        return ['user_id' => auth()->id()];
+        return [
+            'start_date' => $request->start_date,
+            'end_date'   => $request->end_date,
+            'discount'   => $request->discount,
+            'user_id' => auth()->id()
+        ];
     }
 }

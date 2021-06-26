@@ -25,7 +25,7 @@ class BackendController extends Controller
             if (request()->ajax())
                 return $this->dataTable->render('backend.includes.tables.rows');
 
-            return view('backend.includes.pages.index-page', ['count' => $this->model::permission()->count(), 'no_ajax' => '']);
+            return view('backend.includes.pages.index-page', ['count' => $this->model::author()->count(), 'no_ajax' => '']);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -67,7 +67,7 @@ class BackendController extends Controller
         try {
             $row = $this->model::findOrFail($id);
             $row->delete();
-            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted!', 'icon' => 'success', 'count' => $this->model::permission()->count()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted!', 'icon' => 'success', 'count' => $this->model::author()->count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -81,7 +81,7 @@ class BackendController extends Controller
             foreach ($rows as $row)
                 $row->delete();
             DB::commit();
-            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->model::permission()->count()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->model::author()->count()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

@@ -45,7 +45,6 @@ class Course extends Model
             return $query->whereUserId(auth()->id());
     }
 
-
     /*************************** Begin ATTRIBUTES Area ****************************/
     public function sluggable(): array
     {

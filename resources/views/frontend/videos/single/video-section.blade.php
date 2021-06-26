@@ -21,15 +21,14 @@
                             </li>
                             <li>
                                 @auth
-                                <a href="{{ route('video.like', $video) }}"
-                                    {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}>
-                                    <i class="fa fa-thumbs-up"
-                                        {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}></i>
-                                    {{ $video->likes->count() }}
+                                <a href="{{ route('video.like', $video) }}" class="click-like" style="color:#a5a5a5">
+                                    <i
+                                        class=" {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
+                                    <span class="like-count">{{ $video->likes->count() }}</span>
                                 </a>
                                 @else
-                                <span> <i style="color: #a5a5a5" class="fa fa-thumbs-up"></i>
-                                    {{ $video->likes->count() }}</span>
+                                <span> <i class="fa fa-thumbs-up"></i> <span
+                                        class="like-count">{{ $video->likes->count() }}</span></span>
                                 @endauth
                             </li>
                         </ul>

@@ -9,7 +9,7 @@
 
     <!-- BEGIN USER NAME INPUT -->
     <fieldset class="form-group">
-        <label for="name">Name :</label>
+        <label for="name">Name : <small class="text-muted warning">Write your full name.</small> </label>
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text"> <i class="fa fa-user"></i></span>
@@ -75,6 +75,24 @@
         @enderror
     </fieldset>
     <!-- END USER PASSWORD CONFIRMATION INPUT -->
+
+    <!-- BEGIN USER TYPE INPUT -->
+    <fieldset class="form-group">
+        <label>Teacher ? : <small class="text-muted warning">If you wanna be a teacher, select 'Yes'.</small></label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text toggle-password"> <i class="fas fa-eye-slash"></i></span>
+            </div>
+            <select name="is_teacher" class="form-control @error('is_teacher') is-invalid @enderror">
+                <option value="0" {{ old('is_teacher') == 0 ? 'selected' : '' }}>No</option>
+                <option value="1" {{ old('is_teacher') == 1 ? 'selected' : '' }}>Yes</option>
+            </select>
+        </div>
+        @error('is_teacher')
+        <span class="is-invalid red" role="alert"> <strong>{{ $message }}</strong> </span>
+        @enderror
+    </fieldset>
+    <!-- END USER TYPE INPUT -->
 
     <button type="submit" class="btn btn-info btn-lg btn-block"><i class="fas fa-unlock-alt"></i> Register</button>
 </form>

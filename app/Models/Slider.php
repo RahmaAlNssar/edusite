@@ -20,7 +20,7 @@ class Slider extends Model
     /*************************** End ATTRIBUTE Area ****************************/
 
     /*************************** Begin Scope Area ****************************/
-    public function scopePermission($query)
+    public function scopeAuthor($query)
     {
     }
     /*************************** End Scope Area ****************************/

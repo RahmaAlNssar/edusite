@@ -2,7 +2,7 @@
     <div class="comments_title"><span>{{ $comments->count() }}</span> Comments</div>
     <ul class="comments_list">
         @foreach ($comments as $comment)
-        <li>
+        <li id="comment_{{ $comment->id }}">
             <div class="comment_item d-flex flex-row align-items-start jutify-content-start">
                 <div class="comment_image">
                     <div><img src="{{ $comment->user->image_url }}" alt="{{ $comment->user->name }}"></div>
@@ -14,10 +14,6 @@
                     </div>
                     <div class="comment_text">
                         <p>{{ $comment->comment }}</p>
-                    </div>
-                    <div class="comment_extras d-flex flex-row align-items-center justify-content-start">
-                        <div class="comment_extra comment_likes"><a href="#"><i class="fa fa-thumbs-up"
-                                    aria-hidden="true"></i><span>108</span></a></div>
                     </div>
                 </div>
             </div>

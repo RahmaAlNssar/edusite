@@ -58,15 +58,14 @@
                             </li>
                             <li>
                                 @auth
-                                <a href="{{ route('post.like', $post) }}"
-                                    {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}>
-                                    <i class="fa fa-thumbs-up"
-                                        {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'style=color:#14bdee' : 'style=color:#a5a5a5' }}></i>
-                                    {{ $post->likes->count() }}
+                                <a href="{{ route('post.like', $post) }}" class="click-like">
+                                    <i
+                                        class=" {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
+                                    <span class="like-count">{{ $post->likes->count() }}</span>
                                 </a>
                                 @else
-                                <span> <i style="color: #a5a5a5" class="fa fa-thumbs-up"></i>
-                                    {{ $post->likes->count() }}</span>
+                                <span> <i class="fa fa-thumbs-up"></i>
+                                    <span class="like-count">{{ $post->likes->count() }}</span></span>
                                 @endauth
                             </li>
                         </ul>

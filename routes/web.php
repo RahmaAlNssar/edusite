@@ -31,4 +31,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/post', 'Frontend\FrontendController@post')->name('post');
     Route::post('/post/comment/{post}', 'Frontend\CommentsController@postComment')->name('post.comment');
     Route::get('/post/like/{post}', 'Frontend\LikesController@postLike')->name('post.like');
+
+
+    Route::get('/payment', 'FatoorahController@payment')->name('payment');
 });

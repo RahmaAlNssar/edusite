@@ -16,7 +16,7 @@ class LikesController extends Controller
         else
             $video->likes()->create(['user_id' => auth()->id()]);
 
-        return redirect()->back();
+        return response()->json(['count' => $video->likes()->count()]);
     }
 
     public function postLike(Post $post)
@@ -26,6 +26,6 @@ class LikesController extends Controller
         else
             $post->likes()->create(['user_id' => auth()->id()]);
 
-        return redirect()->back();
+        return response()->json(['count' => $post->likes()->count()]);
     }
 }

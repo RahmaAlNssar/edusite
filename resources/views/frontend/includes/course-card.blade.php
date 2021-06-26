@@ -34,5 +34,6 @@
         </div>
         <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
             class="btn btn-outline-info d-block w-100"> Show Videos </a>
+        {{-- <a href="{{ route('payment') }}" class="btn btn-outline-info d-block w-100"> Payment </a> --}}
     </div>
 </div>

@@ -42,8 +42,9 @@
                             <div class="card border-grey border-lighten-3 m-0">
                                 <div class="card-header border-0 pb-0">
                                     <div class="card-title text-center">
-                                        <div class="p-1">
-                                            <img src="{{ path('images/logo/logo-dark.png') }}" alt="branding logo">
+                                        <div class="pb-1">
+                                            <img src="{{ asset('assets/frontend/images/logo.png') }}" width="125px"
+                                                alt="logo">
                                         </div>
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center font-medium-2 p-0">

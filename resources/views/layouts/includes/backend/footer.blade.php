@@ -49,6 +49,18 @@
         limitReachedClass: "badge badge-danger",
     });
 </script>
+
+
+{{-- START PUSHER SCRIPT --}}
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('6447b47e7ae98410707d', {cluster: 'mt1'});
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) { alert(JSON.stringify(data)); });
+</script>
+{{-- END PUSHER SCRIPT --}}
 @yield('script')
 @stack('script')
 
