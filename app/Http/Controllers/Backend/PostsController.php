@@ -33,7 +33,7 @@ class PostsController extends BackendController
     public function store(PostRequest $request)
     {
         try {
-            $post = Post::create(array_merge($request->except(['id']), ['user_id', auth()->id()]));
+            $post = Post::create(array_merge($request->except(['id']), ['user_id' => auth()->id()]));
             $post->tags()->attach($request->tags);
             toast('Your Post has been created!', 'success');
             return response()->json(['redirect' => route('backend.posts.index')]);

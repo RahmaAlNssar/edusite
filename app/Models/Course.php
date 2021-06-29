@@ -28,6 +28,11 @@ class Course extends Model
         return $this->morphMany(Rating::class, 'ratingable');
     }
 
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);
@@ -58,7 +63,10 @@ class Course extends Model
 
     public function Total()
     {
-        return '$' . ($this->price - ($this->price * $this->discount / 100));
+        if ($this->discount)
+            return '$' . ($this->price - ($this->price * $this->discount / 100));
+
+        return $this->price ? '$' . $this->price : 'FREE';
     } // return the price after discount
 
     public function starsChart($star)

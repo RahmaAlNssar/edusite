@@ -10,7 +10,7 @@
             </a>
         </h3>
         <div class="course_teacher d-flex justify-content-between pt-2 pb-3">
-            <a href="{{ route('blog', ['id' => $post->user_id, 'teacher' => $post->user->name]) }}"
+            <a href="{{ route('profile', ['id' => $post->user_id, 'name' => $post->user->name]) }}"
                 style="color: #b5b8be">
                 {{ $post->user->name }}
             </a>

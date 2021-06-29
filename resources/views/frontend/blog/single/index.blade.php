@@ -27,7 +27,9 @@
                     <div class="blog_meta">
                         <ul>
                             <li>Post on <a href="#">{{ $post->created_at->diffForHumans() }}</a></li>
-                            <li>By <a href="#">{{ $post->user->name }}</a></li>
+                            <li>By
+                                <a href="{{ route('profile', ['id' => $post->user_id, 'name' => $post->user->name]) }}">
+                                    {{ $post->user->name }}</a></li>
                             <li>
                                 Category <a href="{{ route('blog', ['category' => $post->category->slug]) }}">
                                     {{ $post->category->name }}

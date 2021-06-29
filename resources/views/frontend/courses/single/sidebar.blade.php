@@ -8,6 +8,15 @@
                 <small class="pr-2"> <del> ${{ $course->price }} </del> </small> {{ $course->total() }}
                 @else {{ $course->price ? '$' . $course->price : 'FREE' }}
                 @endif
+
+                <span class="float-right">
+                    @auth
+                    <a href="{{ route('course.like', $course) }}" class="click-like">
+                        <i
+                            class=" {{ $course->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
+                    </a>
+                    @endauth
+                </span>
             </div>
 
             <!-- Features -->
@@ -21,8 +30,8 @@
 
                 <!-- Feature -->
                 <div class="feature d-flex flex-row align-items-center justify-content-start">
-                    <div class="feature_title"><i class="fa fa-file-text-o"
-                            aria-hidden="true"></i><span>Lectures:</span></div>
+                    <div class="feature_title"><i class="fa fa-play" aria-hidden="true"></i><span>Lectures:</span>
+                    </div>
                     <div class="feature_text ml-auto">{{ $course->videos->count() }}</div>
                 </div>
             </div>
@@ -36,7 +45,7 @@
         <div class="sidebar_section_title">Teacher</div>
         <div class="sidebar_teacher">
             <div class="teacher_title_container d-flex flex-row align-items-center justify-content-start">
-                <div class="teacher_image"><img src="{{ asset('assets/frontend/images/teacher.jpg') }}" alt=""></div>
+                <div class="teacher_image"><img src="{{ $course->user->image_url }}" alt=""></div>
                 <div class="teacher_title">
                     <div class="teacher_name">
                         <a href="{{ route('courses', ['id' => $course->user_id, 'teacher' => $course->user->name]) }}">

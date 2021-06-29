@@ -141,6 +141,22 @@ class FrontendController extends Controller
         return abort(404);
     }
 
+    public function showFavorites()
+    {
+        return view('layouts.includes.frontend.favorites');
+    }
+
+    public function showNotifications()
+    {
+        return view('layouts.includes.frontend.notifications');
+    }
+
+    public function clearNotifications()
+    {
+        auth()->user()->notifications()->delete();
+        return redirect()->back();
+    }
+
     public function about()
     {
         return view('frontend.about.index');

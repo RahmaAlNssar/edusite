@@ -23,6 +23,16 @@ class Like extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopeFavorites($query)
+    {
+        return $query->where('likeable_type', 'App\Models\Course');
+    }
+
+    public function course()
+    {
+        return Course::where('id', $this->likeable_id)->first();
+    }
+
 
     /*************************** Begin SCOPE Area *********************************/
     public function scopeCheckIfVisitor($query)

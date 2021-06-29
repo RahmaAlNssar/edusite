@@ -9,7 +9,7 @@
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 @endsection
 
-@section('page_title', ' | Post')
+@section('page_title', ' | Course')
 
 @section('home')
 @include('frontend.includes.breadcrumbs', [
@@ -33,7 +33,7 @@
                             <div class="course_info_title">Teacher:</div>
                             <div class="course_info_text">
                                 <a
-                                    href="{{ route('courses', ['id' => $course->user_id, 'teacher' => $course->user->name]) }}">
+                                    href="{{ route('profile', ['id' => $course->user_id, 'name' => $course->user->name]) }}">
                                     {{ $course->user->name }}
                                 </a>
                             </div>

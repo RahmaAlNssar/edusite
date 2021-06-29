@@ -8,11 +8,12 @@
                 {{ $course->title }}
             </a>
         </h3>
-        <div class="course_teacher" style="max-height: 22px;overflow: hidden;">
-            <a href="{{ route('courses', ['id' => $course->user_id, 'teacher' => $course->user->name]) }}"
+        <div class="course_teacher d-flex justify-content-between" style="max-height: 22px;overflow: hidden;">
+            <a href="{{ route('profile', ['id' => $course->user_id, 'name' => $course->user->name]) }}"
                 style="color: #14bdee; font-weight: bold">
                 {{ $course->user->name }}
             </a>
+            <span style="font-size: 14px;color: #76777a;">{{ $course->created_at->diffForHumans() }}</span>
         </div>
         <div class="course_text" style="max-height: 54px; overflow: hidden">
             <p>{!! $course->desc !!}</p>
@@ -24,7 +25,21 @@
                 <i class="fa fa-star" aria-hidden="true"></i>
                 <span>{{ round($course->ratings()->avg('star'), 1) }} Ratings</span>
             </div>
-            <div class="course_price ml-auto">
+
+            <div class="course_info">
+                @auth
+                <a href="{{ route('course.like', $course) }}" class="click-like">
+                    <i style="color: red"
+                        class=" {{ $course->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
+                    <span class="like-count">{{ $course->likes->count() }}</span>
+                </a>
+                @else
+                <i class="fa fa-thumbs-up" style="color: red"></i>
+                <span class="like-count">{{ $course->likes->count() }}</span>
+                @endauth
+            </div>
+
+            <div class="course_price">
                 @if ($course->discount)
                 <span>${{ $course->price }}</span>{{ $course->total() }}
                 @else
@@ -32,8 +47,8 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
-            class="btn btn-outline-info d-block w-100"> Show Videos </a>
         {{-- <a href="{{ route('payment') }}" class="btn btn-outline-info d-block w-100"> Payment </a> --}}
     </div>
+    <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
+        class="btn btn-outline-info d-block w-100" style="border-radius: 0 0 .25rem .25rem;"> Show Videos </a>
 </div>

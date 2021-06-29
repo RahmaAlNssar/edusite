@@ -29,7 +29,9 @@ class VideoRequest extends FormRequest
             'file'          => 'required_without:url|nullable|mimes:mp4,mov,ogg|file|max:100000',
             'url'           => 'required_without:file|nullable|url',
             'type'          => 'required|in:file,url',
-            'course_id'     => 'required|exists:courses,id'
+            'course_id'     => 'required|exists:courses,id',
+            'tags'          => 'required|array|min:1|max:6',
+
         ];
     }
 }

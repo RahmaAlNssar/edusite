@@ -58,7 +58,7 @@ class CoursesDataTable extends DataTable
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', function ($course) {
-                return view('backend.includes.buttons.table-buttons', ['user_id' => $course->user_id, 'id' => $course->id, 'no_ajax' => '']);
+                return view('backend.courses.show-button', ['id' => $course->id, 'slug' => $course->slug, 'visibility' => $course->visibility, 'user_id' => $course->user_id, 'no_ajax' => '']);
             })
             ->rawColumns(['action', 'check', 'image', 'visibility', 'price', 'title']);
     }
@@ -102,6 +102,7 @@ class CoursesDataTable extends DataTable
     {
         return [
             Column::make('id')->hidden(),
+            Column::make('visibility')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('title')->width(300),
             Column::make('image')->orderable(false)->searchable(false),

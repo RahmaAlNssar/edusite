@@ -14,25 +14,11 @@ class NewNotification implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-    public $comment;
-    public $image;
-    public $title;
-    public $name;
-    public $date;
-    public $url;
-    public $id;
+    public $data;
 
     public function __construct($data)
     {
-        $this->message  = $data['message'];
-        $this->comment  = $data['comment'];
-        $this->image    = $data['image'];
-        $this->title    = $data['title'];
-        $this->name     = $data['name'];
-        $this->date     = $data['date'];
-        $this->url      = $data['url'];
-        $this->id       = $data['id'];
+        $this->data = $data;
     }
 
     public function broadcastOn()

@@ -36,7 +36,12 @@
                                 <img src="{{ auth()->user()->image_url }}" alt="avatar"><i></i></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
+                            <a class="dropdown-item primary" href="{{ route('profile') }}">
+                                <i class="ft-user"></i> Profile
+                            </a>
+                            <a class="dropdown-item info" href="{{ route('profile') }}">
+                                <i class="ft-edit"></i> Edit Profile
+                            </a>
                             <a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
                             <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a>
                             <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
@@ -71,98 +76,62 @@
                     <!-- END SELECT THE LANGUAGES -->
 
 
+                    <!-- START NOTIFICATIONS SECTION -->
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
-                            <span
-                                class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
+                            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">
+                                {{ auth()->user()->unReadNotifications->count() }}
+                            </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <h6 class="dropdown-header m-0">
                                     <span class="grey darken-2">Notifications</span>
                                 </h6>
-                                <span class="notification-tag badge badge-default badge-danger float-right m-0">5
-                                    New</span>
+                                @if (auth()->user()->unReadNotifications->count())
+                                <span class="notification-tag badge badge-default badge-danger float-right m-0">
+                                    {{ auth()->user()->unReadNotifications->count() }} New
+                                </span>
+                                @endif
                             </li>
+
                             <li class="scrollable-container media-list w-100">
-                                <a href="javascript:void(0)">
+                                @forelse (auth()->user()->notifications as $notify)
+                                <a href="{{ $notify->data['url'] }}" onclick="{{ $notify->markAsRead() }}">
                                     <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                                        <div class="media-left align-self-center">
+                                            <img class="avatar avatar-online" src='{{ $notify->data['image'] }}'
+                                                style="width: 50px !important">
+                                        </div>
                                         <div class="media-body">
-                                            <h6 class="media-heading">You have new order!</h6>
-                                            <p class="notification-text font-small-3 text-muted">Lorem ipsum dolor
-                                                sit amet, consectetuer elit.</p>
+                                            <h6 class="media-heading">{{ $notify->data['title'] }}</h6>
+                                            <p class="notification-text font-small-3 text-muted">
+                                                {{ $notify->data['message'] }}
+                                            </p>
                                             <small>
                                                 <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">30 minutes ago</time>
+                                                    datetime="2015-06-11T18:29:20+08:00">{{ $notify->data['date'] }}</time>
                                             </small>
                                         </div>
                                     </div>
                                 </a>
+                                @empty
                                 <a href="javascript:void(0)">
                                     <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading red darken-1">99% Server load</h6>
-                                            <p class="notification-text font-small-3 text-muted">Aliquam tincidunt
-                                                mauris eu risus.</p>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">Five hour ago</time>
-                                            </small>
-                                        </div>
+                                        <p class="notification-text font-small-3 text-muted">No Notifications</p>
                                     </div>
                                 </a>
-                                <a href="javascript:void(0)">
-                                    <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                class="ft-alert-triangle icon-bg-circle bg-yellow bg-darken-3"></i>
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading yellow darken-3">Warning notifixation</h6>
-                                            <p class="notification-text font-small-3 text-muted">Vestibulum auctor
-                                                dapibus neque.</p>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">Today</time>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                class="ft-check-circle icon-bg-circle bg-cyan"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading">Complete the task</h6>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">Last week</time>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <div class="media">
-                                        <div class="media-left align-self-center"><i
-                                                class="ft-file icon-bg-circle bg-teal"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading">Generate monthly report</h6>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">Last month</time>
-                                            </small>
-                                        </div>
-                                    </div>
+                                @endforelse
+                            </li>
+                            <li class="dropdown-menu-footer">
+                                <a class="dropdown-item text-muted text-center red"
+                                    href="{{ route('clear.notifications') }}">Delete all notifications
                                 </a>
                             </li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center"
-                                    href="javascript:void(0)">Read all notifications</a></li>
                         </ul>
                     </li>
+                    <!-- END NOTIFICATIONS SECTION -->
+
                     <li class="dropdown dropdown-notification nav-item">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-mail">
                             </i></a>

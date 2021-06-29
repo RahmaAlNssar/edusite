@@ -31,7 +31,14 @@ class PostsDataTable extends DataTable
                 return '<img src="' . $post->image_url . '" class="img-thumbnail" width="150px">';
             })
             ->editColumn('title', function ($post) {
-                return $post->title . '<hr> <span class="red">Category | </span> ' . $post->category->name;
+                return $post->title . '<hr> <span class="red">Category | </span> ' . $post->category->name . '<hr> <span class="red">Author | </span> ' . $post->user->name;
+            })
+            ->filterColumn('title', function ($query, $keywords) {
+                return $query->where('title', 'like', '%' . $keywords . '%')->orWhereHas('category', function ($q) use ($keywords) {
+                    return $q->where('name', 'like', '%' . $keywords . '%');
+                })->orWhereHas('user', function ($q) use ($keywords) {
+                    return $q->where('name', 'like', '%' . $keywords . '%');
+                });
             })
             ->editColumn('desc', function ($post) {
                 return Str::limit($post->desc, 200);
@@ -41,7 +48,7 @@ class PostsDataTable extends DataTable
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', function ($post) {
-                return view('backend.includes.buttons.table-buttons', ['user_id' => $post->user_id, 'id' => $post->id, 'no_ajax' => '']);
+                return view('backend.posts.show-button', ['id' => $post->id, 'slug' => $post->slug, 'visibility' => $post->visibility, 'user_id' => $post->user_id, 'no_ajax' => '']);
             })
             ->rawColumns(['action', 'check', 'desc', 'image', 'title']);
     }
@@ -85,6 +92,7 @@ class PostsDataTable extends DataTable
     {
         return [
             Column::make('id')->hidden(),
+            Column::make('visibility')->hidden(),
             Column::make('check')->title('<input type="checkbox" id="check-all">')->exportable(false)->printable(false)->orderable(false)->searchable(false)->width(15)->addClass('text-center'),
             Column::make('title')->width(330),
             Column::make('image')->orderable(false)->searchable(false)->width(100),

@@ -20,6 +20,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/course', 'Frontend\FrontendController@course')->name('course');
     Route::post('/course/comment/{course}', 'Frontend\CommentsController@courseComment')->name('course.comment');
     Route::post('/course/vote/{course}', 'Frontend\RatingsController@vote')->name('course.vote');
+    Route::get('/course/like/{course}', 'Frontend\LikesController@CourseLike')->name('course.like');
 
     Route::get('/course/videos/{course}', 'Frontend\FrontendController@videos')->name('course.videos');
     Route::get('/course/video/{video}', 'Frontend\FrontendController@video')->name('course.video');
@@ -31,6 +32,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/post', 'Frontend\FrontendController@post')->name('post');
     Route::post('/post/comment/{post}', 'Frontend\CommentsController@postComment')->name('post.comment');
     Route::get('/post/like/{post}', 'Frontend\LikesController@postLike')->name('post.like');
+
+
+    Route::get('clear/notifications', 'Frontend\FrontendController@clearNotifications')->name('clear.notifications');
+    Route::get('show/notifications', 'Frontend\FrontendController@showNotifications')->name('show.notifications');
+    Route::get('show/favorites', 'Frontend\FrontendController@showFavorites')->name('show.favorites');
+
+    Route::get('profile', 'Frontend\ProfileController@index')->name('profile');
+    Route::get('profile/courses', 'Frontend\ProfileController@courses')->name('profile.courses');
+    Route::get('profile/posts', 'Frontend\ProfileController@posts')->name('profile.posts');
+    Route::get('profile/videos', 'Frontend\ProfileController@videos')->name('profile.videos');
 
 
     Route::get('/payment', 'FatoorahController@payment')->name('payment');

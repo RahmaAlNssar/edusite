@@ -42,7 +42,7 @@ class VideoDataTable extends DataTable
             ->addColumn('tags', 'backend.includes.tables.tags')
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', function ($video) {
-                return view('backend.includes.buttons.table-buttons', ['user_id' => $video->course->user_id, 'id' => $video->id, 'no_ajax' => '']);
+                return view('backend.videos.show-button', ['id' => $video->id, 'slug' => $video->slug, 'visibility' => $video->course->visibility, 'user_id' => $video->course->user_id, 'no_ajax' => '']);
             })
             ->rawColumns(['action', 'check', 'video', 'tags', 'desc', 'title']);
     }
