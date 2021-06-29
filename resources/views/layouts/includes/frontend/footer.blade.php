@@ -241,8 +241,8 @@
             url: like.attr('href'),
             type: "get",
             success: function (data, textStatus, jqXHR) {
-                if(data.favorites_count)
-                    $('#favorites_count').text(data.favorites_count);
+                if(data.favorites_count >= 0)
+                    $('#favorites_count').html(data.favorites_count);
 
                 if (like.find('i').hasClass('fas')) {
                     icon.removeClass('fas').addClass('far');

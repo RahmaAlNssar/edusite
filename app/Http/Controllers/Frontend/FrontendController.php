@@ -141,11 +141,6 @@ class FrontendController extends Controller
         return abort(404);
     }
 
-    public function showFavorites()
-    {
-        return view('layouts.includes.frontend.favorites');
-    }
-
     public function showNotifications()
     {
         return view('layouts.includes.frontend.notifications');

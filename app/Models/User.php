@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasMany(Course::class);
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     /*************************** Begin SCOPE Area *********************************/
     public function scopeAuthor($query)
     {

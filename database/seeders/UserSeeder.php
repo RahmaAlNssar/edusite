@@ -39,5 +39,16 @@ class UserSeeder extends Seeder
             'is_admin'          => 0,
             'is_teacher'        => 1,
         ]);
+
+        User::insert([
+            'name'              => 'user',
+            'email'             => 'user@app.com',
+            'password'          => Hash::make(123),
+            'image'             => $faker->image(public_path('uploads/users/'), 200, 200, 'user', false),
+            'remember_token'    => Str::random(10),
+            'email_verified_at' => now(),
+            'is_admin'          => 0,
+            'is_teacher'        => 0,
+        ]);
     }
 }

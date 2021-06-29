@@ -12,29 +12,6 @@ use Carbon\Carbon;
 
 class LikesController extends Controller
 {
-    public function CourseLike(Course $course)
-    {
-        $like = $course->likes()->whereUserId(auth()->id())->first();
-        if ($like) {
-            $like->delete();
-        } else {
-            $data = [
-                'message'     => auth()->user()->name . ' added your course to favorites list.',
-                'image'       => auth()->user()->image_url,
-                'name'        => auth()->user()->name,
-                'title'       => $course->title,
-                'date'        => Carbon::parse(now())->diffForHumans(),
-                'url'         => route('course', ['id' => $course->id, 'title' => $course->slug]),
-            ];
-
-            $course->likes()->create(['user_id' => auth()->id()]);
-            if (auth()->id() != $course->user_id)
-                Notification::send($course->user, new AddLike($data));
-        }
-
-        return response()->json(['count' => $course->likes()->count(), 'favorites_count' => auth()->user()->likes()->favorites()->count()]);
-    }
-
     public function videoLike(Video $video)
     {
         if ($video->likes()->whereUserId(auth()->id())->count()) {

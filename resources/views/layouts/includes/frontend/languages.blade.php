@@ -43,7 +43,7 @@
         <a class="nav-link nav-link-label" id="favorite_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-heart"> </i>
             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
-                id="favorites_count">{{ auth()->user()->likes()->favorites()->count() }}</span>
+                id="favorites_count">{{ auth()->user()->favorites()->count() }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
             <li class="dropdown-menu-header">

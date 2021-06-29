@@ -33,6 +33,11 @@ class Course extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     public function videos()
     {
         return $this->hasMany(Video::class);

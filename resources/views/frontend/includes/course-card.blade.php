@@ -28,14 +28,14 @@
 
             <div class="course_info">
                 @auth
-                <a href="{{ route('course.like', $course) }}" class="click-like">
+                <a href="{{ route('course.favorite', $course) }}" class="click-like">
                     <i style="color: red"
-                        class=" {{ $course->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
-                    <span class="like-count">{{ $course->likes->count() }}</span>
+                        class=" {{ $course->favorites()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
+                    <span class="like-count">{{ $course->favorites()->count() }}</span>
                 </a>
                 @else
                 <i class="fa fa-thumbs-up" style="color: red"></i>
-                <span class="like-count">{{ $course->likes->count() }}</span>
+                <span class="like-count">{{ $course->favorites()->count() }}</span>
                 @endauth
             </div>
 
