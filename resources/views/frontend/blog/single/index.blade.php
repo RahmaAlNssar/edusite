@@ -16,7 +16,7 @@
 ])
 @endsection
 @section('content')
-<div class="blog">
+<div class="blog" style="padding: 50px 0">
     <div class="container">
         <div class="row">
 
@@ -28,7 +28,7 @@
                         <ul>
                             <li>Post on <a href="#">{{ $post->created_at->diffForHumans() }}</a></li>
                             <li>By
-                                <a href="{{ route('profile', ['id' => $post->user_id, 'name' => $post->user->name]) }}">
+                                <a href="{{ route('profile', ['id' => $post->user_id]) }}">
                                     {{ $post->user->name }}</a></li>
                             <li>
                                 Category <a href="{{ route('blog', ['category' => $post->category->slug]) }}">
@@ -60,14 +60,14 @@
                             </li>
                             <li>
                                 @auth
-                                <a href="{{ route('post.like', $post) }}" class="click-like">
+                                <a href="{{ route('post.like', $post) }}" class="user_click">
                                     <i
                                         class=" {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
-                                    <span class="like-count">{{ $post->likes->count() }}</span>
+                                    <span class="count">{{ $post->likes->count() }}</span>
                                 </a>
                                 @else
                                 <span> <i class="fa fa-thumbs-up"></i>
-                                    <span class="like-count">{{ $post->likes->count() }}</span></span>
+                                    <span class="count">{{ $post->likes->count() }}</span></span>
                                 @endauth
                             </li>
                         </ul>

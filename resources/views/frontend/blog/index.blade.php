@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-<div class="courses">
+<div class="courses" style="padding: 50px 0">
     <div class="container">
         <div class="row">
 

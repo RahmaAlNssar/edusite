@@ -27,6 +27,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="dropdown-flag">
         <a class="dropdown-item" href="{{ route('backend.dashboard') }}"> Dashboard </a>
+        <a class="dropdown-item" href="{{ route('profile') }}"> Profile </a>
 
         <a href="javascript:void(0);" class="dropdown-item" style="color: red"
             onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
@@ -42,7 +43,7 @@
 
         <a class="nav-link nav-link-label" id="favorite_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-heart"> </i>
-            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
+            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
                 id="favorites_count">{{ auth()->user()->favorites()->count() }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
@@ -66,8 +67,8 @@
 
         <a class="nav-link nav-link-label" id="noty_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-bell"> </i>
-            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow notif-count"
-                id="notification_count">{{ auth()->user()->unreadNotifications->count() }}</span>
+            <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
+                id="notif-count">{{ auth()->user()->unreadNotifications->count() }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
             <li class="dropdown-menu-header">

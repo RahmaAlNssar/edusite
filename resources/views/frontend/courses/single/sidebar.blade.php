@@ -11,7 +11,7 @@
 
                 <span class="float-right">
                     @auth
-                    <a href="{{ route('course.favorite', $course) }}" class="click-like">
+                    <a href="{{ route('course.favorite', $course) }}" class="user_click">
                         <i
                             class=" {{ $course->favorites()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
                     </a>

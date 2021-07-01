@@ -44,6 +44,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('profile/courses', 'Frontend\ProfileController@courses')->name('profile.courses');
     Route::get('profile/posts', 'Frontend\ProfileController@posts')->name('profile.posts');
     Route::get('profile/videos', 'Frontend\ProfileController@videos')->name('profile.videos');
+    Route::get('profile/follow', 'Frontend\ProfileController@follow')->name('profile.follow');
 
 
     Route::get('/payment', 'FatoorahController@payment')->name('payment');

@@ -15,6 +15,12 @@
                     </div>
                     <div class="media-body">
                         <nav class="navbar navbar-light navbar-profile align-self-end">
+                            @if (auth()->user() && auth()->id() != $user->id)
+                            <a href="{{ route('profile.follow', ['id' => $user->id]) }}"
+                                class="user_click btn btn-primary btn-sm">
+                                {{ auth()->user()->follows()->whereFollowId($user->id)->count() ? 'UNFollow' : 'Follow' }}
+                            </a>
+                            @endif
                             <button class="navbar-toggler d-sm-none" type="button" data-toggle="collapse"
                                 aria-expanded="false" aria-label="Toggle navigation"></button>
                             <nav class="navbar navbar-expand-lg ml-auto">

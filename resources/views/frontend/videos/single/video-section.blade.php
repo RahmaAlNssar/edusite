@@ -13,7 +13,9 @@
             <div class="comment_content align-self-center">
                 <div class="comment_title_container d-flex justify-content-between">
                     <div class="comment_author d-flex align-items-center">
-                        <a href="#">{{ $video->course->user->name }}</a> <br>
+                        <a href="{{ route('profile', ['id' => $video->course->user_id]) }}">
+                            {{ $video->course->user->name }}</a>
+                        <br>
                     </div>
                     <div class="blog_social ml-lg-auto d-flex justify-content-between">
                         <ul>
@@ -21,14 +23,14 @@
                             </li>
                             <li>
                                 @auth
-                                <a href="{{ route('video.like', $video) }}" class="click-like" style="color:#a5a5a5">
+                                <a href="{{ route('video.like', $video) }}" class="user_click" style="color:#a5a5a5">
                                     <i
                                         class=" {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
-                                    <span class="like-count">{{ $video->likes->count() }}</span>
+                                    <span class="count">{{ $video->likes->count() }}</span>
                                 </a>
                                 @else
                                 <span> <i class="fa fa-thumbs-up"></i> <span
-                                        class="like-count">{{ $video->likes->count() }}</span></span>
+                                        class="count">{{ $video->likes->count() }}</span></span>
                                 @endauth
                             </li>
                         </ul>

@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-<div class="course" style="padding-top: 40px">
+<div class="course" style="padding: 50px 0">
     <div class="container">
         <div class="row">
 
@@ -32,8 +32,7 @@
                         <div class="course_info_item">
                             <div class="course_info_title">Teacher:</div>
                             <div class="course_info_text">
-                                <a
-                                    href="{{ route('profile', ['id' => $course->user_id, 'name' => $course->user->name]) }}">
+                                <a href="{{ route('profile', ['id' => $course->user_id]) }}">
                                     {{ $course->user->name }}
                                 </a>
                             </div>

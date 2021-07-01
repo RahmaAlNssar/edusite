@@ -13,6 +13,12 @@
                     {{ $user->is_admin ? 'Admin' : 'Teacher' }}
                 </h3>
             </li>
+
+            <li class="nav-item mt-2">
+                <h3 class="text-center">
+                    Followers: <span id="followers_count">{{ $user->followers()->count() }}</span>
+                </h3>
+            </li>
         </ul>
     </div>
 </div>

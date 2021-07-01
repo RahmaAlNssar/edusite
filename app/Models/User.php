@@ -44,6 +44,16 @@ class User extends Authenticatable
         return $this->hasMany(Favorite::class);
     }
 
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follower_id', 'follow_id', 'id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follow_id', 'follower_id', 'id');
+    }
+
     /*************************** Begin SCOPE Area *********************************/
     public function scopeAuthor($query)
     {

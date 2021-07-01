@@ -232,26 +232,24 @@
     });
 
     // Add Like
-    $(document).on('click', '.click-like', function (e) {
+    $(document).on('click', '.user_click', function (e) {
         e.preventDefault();
-        let like    = $(this);
+        let btn     = $(this);
         let icon    = $(this).find('i');
-        let counter = $(this).find('.like-count');
+        let counter = $(this).find('.count');
         $.ajax({
-            url: like.attr('href'),
+            url: btn.attr('href'),
             type: "get",
             success: function (data, textStatus, jqXHR) {
-                if(data.favorites_count >= 0)
+                if(data.favorites_count)
                     $('#favorites_count').html(data.favorites_count);
 
-                if (like.find('i').hasClass('fas')) {
+                if (btn.find('i').hasClass('fas'))
                     icon.removeClass('fas').addClass('far');
-                    counter.empty().html(data.count);
-                }
-                else {
+                else
                     icon.removeClass('far').addClass('fas');
-                    counter.empty().html(data.count);
-                }
+
+                counter.empty().html(data.count);
             },
         });
     });
@@ -260,7 +258,7 @@
     $('#noty_click').click(function () {
         $('#notification_list').empty().load("{{ route('show.notifications') }}");
         setTimeout(function () {
-            $('#notification_count').text(0);
+            $('#notif-count').text(0);
         }, 2000);
     });
 

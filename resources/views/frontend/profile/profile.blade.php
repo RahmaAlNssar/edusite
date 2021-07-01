@@ -29,6 +29,21 @@
 {{-- START FOOTER SECTION --}}
 <script type="text/javascript" src="{{ path('vendors/js/vendors.min.js') }}"></script>
 
+<script>
+    $(document).on('click', '.user_click', function (e) {
+        e.preventDefault();
+        let btn = $(this);
+        $.ajax({
+            url: btn.attr('href'),
+            type: "get",
+            success: function (data, textStatus, jqXHR) {
+                btn.empty().html(data.type ? 'Follow' : 'UNFollow');
+                $('#followers_count').html(data.count);
+            },
+        });
+    });
+</script>
+
 @yield('script')
 @stack('script')
 
