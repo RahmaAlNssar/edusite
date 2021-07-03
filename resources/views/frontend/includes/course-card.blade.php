@@ -33,7 +33,7 @@
                     <span class="count">{{ $course->favorites()->count() }}</span>
                 </a>
                 @else
-                <i class="fa fa-thumbs-up" style="color: red"></i>
+                <i class="fas fa-heart" style="color: red"></i>
                 <span class="count">{{ $course->favorites()->count() }}</span>
                 @endauth
             </div>

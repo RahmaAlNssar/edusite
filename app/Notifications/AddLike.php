@@ -11,21 +11,11 @@ class AddLike extends Notification
 {
     use Queueable;
 
-    public $message;
-    public $image;
-    public $title;
-    public $name;
-    public $date;
-    public $url;
+    public $data;
 
     public function __construct($data)
     {
-        $this->message  = $data['message'];
-        $this->image    = $data['image'];
-        $this->title    = $data['title'];
-        $this->name     = $data['name'];
-        $this->date     = $data['date'];
-        $this->url      = $data['url'];
+        $this->data  = $data;
     }
 
     /**
@@ -41,13 +31,6 @@ class AddLike extends Notification
 
     public function toArray($notifiable)
     {
-        return [
-            'message'  => $this->message,
-            'image'    => $this->image,
-            'title'    => $this->title,
-            'name'     => $this->name,
-            'date'     => $this->date,
-            'url'      => $this->url,
-        ];
+        return $this->data;
     }
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\NewLike;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Controller;
 use App\Notifications\AddLike;
-use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
 use Carbon\Carbon;
@@ -29,6 +29,7 @@ class LikesController extends Controller
                 Notification::send($video->course->user, new AddLike($data));
             $video->likes()->create(['user_id' => auth()->id()]);
         }
+        event(new NewLike(['count' => $video->likes()->count()]));
 
         return response()->json(['count' => $video->likes()->count()]);
     }
@@ -51,7 +52,7 @@ class LikesController extends Controller
                 Notification::send($post->user, new AddLike($data));
             $post->likes()->create(['user_id' => auth()->id()]);
         }
-
+        event(new NewLike(['count' => $post->likes()->count()]));
         return response()->json(['count' => $post->likes()->count()]);
     }
 }

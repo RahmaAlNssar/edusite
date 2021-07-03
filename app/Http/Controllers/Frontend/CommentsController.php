@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\NewComment;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\AddComment;
-use App\Events\NewNotification;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Video;
@@ -42,7 +42,7 @@ class CommentsController extends Controller
                 })->get();
                 Notification::send($users, new AddComment($data));
 
-                event(new NewNotification($data));
+                event(new NewComment($data));
                 DB::commit();
                 return response()->json($data);
             }
@@ -76,8 +76,7 @@ class CommentsController extends Controller
                     return $query->where('commentable_type', 'App\Models\Video')->where('commentable_id', $video->id);
                 })->get();
                 Notification::send($users, new AddComment($data));
-
-                event(new NewNotification($data));
+                event(new NewComment($data));
                 DB::commit();
                 return response()->json($data);
             }
@@ -111,8 +110,7 @@ class CommentsController extends Controller
                     return $query->where('commentable_type', 'App\Models\Post')->where('commentable_id', $post->id);
                 })->get();
                 Notification::send($users, new AddComment($data));
-
-                event(new NewNotification($data));
+                event(new NewComment($data));
                 DB::commit();
                 return response()->json(['comment' => $comment->comment, 'id' => $comment->id, 'image' => auth()->user()->image_url, 'name' => auth()->user()->name, 'date' => $comment->created_at->diffForHumans()]);
             }

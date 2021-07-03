@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class NewNotification implements ShouldBroadcast
+class NewLike implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -23,11 +23,11 @@ class NewNotification implements ShouldBroadcast
 
     public function broadcastOn()
     {
-        return new Channel('new-notification');
+        return ['new-like'];
     }
 
-    public function broadcastAs()
+    public function broadcastWith()
     {
-        return 'new-notification';
+        return $this->data;
     }
 }

@@ -11,8 +11,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('/about', 'Frontend\FrontendController@about')->name('about');
     Route::get('/contact', 'Frontend\FrontendController@contact')->name('contact');
 
-
-
     Route::get('/courses', 'Frontend\FrontendController@courses')->name('courses');
 
     Route::get('/blog', 'Frontend\FrontendController@blog')->name('blog');
@@ -41,6 +39,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::get('show/notifications', 'Frontend\FrontendController@showNotifications')->name('show.notifications');
 
     Route::get('profile', 'Frontend\ProfileController@index')->name('profile');
+    Route::get('profile/edit', 'Frontend\ProfileController@edit')->name('profile.edit');
+    Route::put('profile/update', 'Frontend\ProfileController@update')->name('profile.update');
+    Route::put('profile/update/password', 'Frontend\ProfileController@changePassword')->name('profile.update.password');
     Route::get('profile/courses', 'Frontend\ProfileController@courses')->name('profile.courses');
     Route::get('profile/posts', 'Frontend\ProfileController@posts')->name('profile.posts');
     Route::get('profile/videos', 'Frontend\ProfileController@videos')->name('profile.videos');

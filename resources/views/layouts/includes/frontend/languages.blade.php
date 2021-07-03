@@ -68,7 +68,7 @@
         <a class="nav-link nav-link-label" id="noty_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-bell"> </i>
             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
-                id="notif-count">{{ auth()->user()->unreadNotifications->count() }}</span>
+                id="notify-count">{{ auth()->user()->unreadNotifications->count() }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
             <li class="dropdown-menu-header">

@@ -1,5 +1,7 @@
 @extends('frontend.profile.profile')
 
+<title>Profile</title>
+
 @section('content')
 <div id="user-profile">
     <div class="row">
@@ -21,15 +23,24 @@
                                 {{ auth()->user()->follows()->whereFollowId($user->id)->count() ? 'UNFollow' : 'Follow' }}
                             </a>
                             @endif
+
+                            @if (auth()->id() === $user->id)
+                            <a class="nav-link btn btn-sm btn-info active" id="baseIcon-tab21" data-toggle="tab"
+                                aria-controls="tabIcon21" aria-expanded="true"
+                                href="{{ route('profile.edit', ['id' => $user->id]) }}">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            @endif
+
                             <button class="navbar-toggler d-sm-none" type="button" data-toggle="collapse"
                                 aria-expanded="false" aria-label="Toggle navigation"></button>
                             <nav class="navbar navbar-expand-lg ml-auto">
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                     <ul class="nav nav-tabs nav-underline">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="baseIcon-tab21" data-toggle="tab"
-                                                aria-controls="tabIcon21" aria-expanded="true"
-                                                href="{{ route('profile.courses') }}">
+                                            <a class="nav-link {{ auth()->id() === $user->id ? '' : 'active' }}"
+                                                id="baseIcon-tab21" data-toggle="tab" aria-controls="tabIcon21"
+                                                aria-expanded="true" href="{{ route('profile.courses') }}">
                                                 <i class="la la-list"></i> Courses
                                             </a>
                                         </li>
@@ -83,11 +94,44 @@
         } // AJAX CODE TO LOAD THE DATA TABLE
 
         rows($('a[aria-controls="tabIcon21"].active').attr('href'));
+
         $('a[aria-controls="tabIcon21"]').click(function (e) {
             e.preventDefault();
+            $('a[aria-controls="tabIcon21"]').removeClass('active');
+            $(this).addClass('active')
             rows($(this).attr('href'));
         });
 
+        $('body').on('submit', 'form.submit-form', function(e) {
+            e.preventDefault();
+            let form = $(this);
+            form.find('span.error').fadeOut(200);
+            form.parent().addClass('load');
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                data: new FormData($(this)[0]),
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function (data, textStatus, jqXHR) {
+                    form.trigger("reset");
+                    const Toast = Swal.mixin();
+                    Toast.fire({icon: 'success', text: data.message});
+                },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    if (jqXhr.status == 422) {
+                        $.each(jqXhr.responseJSON.errors, function (key, val) {
+                            form.find(`#${key}-error`).text(val).fadeIn(300);
+                        });
+                    } else {
+                        const Toast = Swal.mixin();
+                        Toast.fire({icon: 'error', text: jqXhr.responseJSON.message});
+                    }
+                },
+                complete: function() { form.parent().removeClass('load'); }
+            });
+        }); // WHEN SUBMIT THE FORM SEND DATA TO CONTROLLER
     });
 </script>
 @endsection

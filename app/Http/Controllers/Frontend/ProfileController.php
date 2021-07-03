@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Requests\ValidatePasswordRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ValidateInformationsRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
@@ -16,6 +19,36 @@ class ProfileController extends Controller
             return view('frontend.profile.index', ['user' => User::whereId($this->profileId())->first()]);
 
         return abort(404);
+    }
+
+    public function edit()
+    {
+        if (request()->id == auth()->id())
+            return view('frontend.profile.edit-section', ['user' => User::whereId(request()->id)->first()]);
+
+        return abort(404);
+    }
+
+    public function update(ValidateInformationsRequest $request)
+    {
+        if (auth()->user()->update($request->all()))
+            return response()->json(['message' => 'You Informations IS Updated Successfully!'], 200);
+
+        return response()->json(['message' => 'Something is wring, try again later!'], 500);
+    }
+
+    public function changePassword(ValidatePasswordRequest $request)
+    {
+        if (Hash::check($request->password, auth()->user()->password))
+            return response()->json(['errors' => ['password' => 'The new password must be different from the current password!']], 422);
+
+        if (!Hash::check($request->current_password, auth()->user()->password))
+            return response()->json(['errors' => ['current_password' => 'Your Current Password is Wrong!']], 422);
+
+        if (Hash::check($request->current_password, auth()->user()->password)) {
+            if (auth()->user()->update(['password' => $request->password]))
+                return response()->json(['message' => 'You Password Updated Successfully!'], 200);
+        }
     }
 
     public function follow()

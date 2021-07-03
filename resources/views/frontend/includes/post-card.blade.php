@@ -28,7 +28,7 @@
             <span class="count">{{ $post->likes->count() }}</span>
         </a>
         @else
-        <span> <i class="fa fa-thumbs-up"></i> <span class="count">{{ $post->likes->count() }}</span></span>
+        <span> <i class="far fa-thumbs-up"></i> <span class="count">{{ $post->likes->count() }}</span></span>
         @endauth
     </div>
 </div>

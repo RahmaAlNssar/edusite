@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Comment;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -28,10 +29,5 @@ class AddComment extends Notification
     public function toArray($notifiable)
     {
         return $this->data;
-    }
-
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage($this->data);
     }
 }

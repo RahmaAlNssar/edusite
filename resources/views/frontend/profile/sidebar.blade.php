@@ -19,6 +19,28 @@
                     Followers: <span id="followers_count">{{ $user->followers()->count() }}</span>
                 </h3>
             </li>
+
+            @if (!$user->job && !$user->bio && $user->id == auth()->id())
+            <li class="nav-item mt-2 ">
+                <h3 class="text-center font-small-3">
+                    Please complete your data from
+                    <a class="btn btn-outline-info btn-sm font-weight-bold font-medium-1" aria-controls="tabIcon21"
+                        href="{{ route('profile.edit', ['id' => $user->id]) }}">here</a>
+                </h3>
+            </li>
+            @endif
+
+            @if ($user->job)
+            <li class="nav-item mt-2">
+                <h3 class="text-center">{{ $user->job }}</h3>
+            </li>
+            @endif
+
+            @if ($user->bio)
+            <li class="nav-item mt-2">
+                <h3 class="text-center">{{ $user->bio }}</h3>
+            </li>
+            @endif
         </ul>
     </div>
 </div>

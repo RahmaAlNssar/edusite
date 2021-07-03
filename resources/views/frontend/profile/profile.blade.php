@@ -28,6 +28,11 @@
 
 {{-- START FOOTER SECTION --}}
 <script type="text/javascript" src="{{ path('vendors/js/vendors.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('custom/js/preview-file.js') }}"></script>
+
+{{-- ************** START SWEETALERT JS ************** --}}
+@include('sweetalert::alert')
+{{-- ************** END SWEETALERT JS ************** --}}
 
 <script>
     $(document).on('click', '.user_click', function (e) {
