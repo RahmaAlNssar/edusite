@@ -15,8 +15,8 @@ class CreateUserFollowTable extends Migration
     {
         Schema::create('user_follow', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('follower_id')->constrained('users', 'id')->cascadeOnDelete();
-            $table->foreignId('follow_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('follower_id')->constrained('users', 'id')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('follow_id')->constrained('users', 'id')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

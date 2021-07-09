@@ -21,7 +21,8 @@ class VideoObserve
 
     public function deleted(Video $video)
     {
-        $this->remove($video->video, 'videos');
+        if ($video->type == 'file')
+            $this->remove($video->file, 'videos');
     }
 
     protected function upload($video)
