@@ -7,6 +7,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
     Route::group(['prefix' => 'dashboard', 'as' => 'backend.', 'middleware' => ['auth', 'AdminOrTeacher']], function () {
         Route::get('/', 'DashboardController@index')->name('dashboard');
 
+        Route::get('show/notifications', 'DashboardController@showNotifications')->name('show.notifications');
+
         Route::resource('courses', 'CoursesController');
         Route::post('courses/multidelete', 'CoursesController@multidelete')->name('courses.multidelete');
 

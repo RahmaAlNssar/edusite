@@ -24,6 +24,7 @@ class NewComment implements ShouldBroadcast
     public function broadcastOn()
     {
         return ['new-comment'];
+        // return new Channel('new-comment');
     }
 
     public function broadcastWith()

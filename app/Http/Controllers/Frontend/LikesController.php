@@ -36,9 +36,9 @@ class LikesController extends Controller
 
     public function postLike(Post $post)
     {
-        if ($post->likes()->whereUserId(auth()->id())->count())
+        if ($post->likes()->whereUserId(auth()->id())->count()) {
             $post->likes()->whereUserId(auth()->id())->delete();
-        else {
+        } else {
             $data = [
                 'message'     => auth()->user()->name . ' liked your post.',
                 'image'       => auth()->user()->image_url,

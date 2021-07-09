@@ -67,7 +67,7 @@ class BackendController extends Controller
         try {
             $row = $this->model::findOrFail($id);
             $row->delete();
-            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted!', 'icon' => 'success', 'count' => $this->model::author()->count()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted!', 'icon' => 'success', 'count' => $this->getCount()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -81,7 +81,7 @@ class BackendController extends Controller
             foreach ($rows as $row)
                 $row->delete();
             DB::commit();
-            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->model::author()->count()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->getCount()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }
@@ -103,6 +103,14 @@ class BackendController extends Controller
     public function getModel()
     {
         return class_basename($this->model);
+    }
+
+    public function getCount()
+    {
+        if (method_exists($this->model, 'author'))
+            return $this->model->author()->count();
+
+        return $this->model->count();
     }
 
     public function append()

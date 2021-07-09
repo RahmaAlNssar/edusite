@@ -78,7 +78,8 @@
 
                     <!-- START NOTIFICATIONS SECTION -->
                     <li class="dropdown dropdown-notification nav-item">
-                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
+                        <a id="noty_click" class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i
+                                class="ficon ft-bell"></i>
                             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">
                                 {{ auth()->user()->unReadNotifications->count() }}
                             </span>
@@ -89,39 +90,15 @@
                                     <span class="grey darken-2">Notifications</span>
                                 </h6>
                                 @if (auth()->user()->unReadNotifications->count())
-                                <span class="notification-tag badge badge-default badge-danger float-right m-0">
+                                <span id="notify-count"
+                                    class="notification-tag badge badge-default badge-danger float-right m-0">
                                     {{ auth()->user()->unReadNotifications->count() }} New
                                 </span>
                                 @endif
                             </li>
 
                             <li class="scrollable-container media-list w-100">
-                                @forelse (auth()->user()->notifications as $notify)
-                                <a href="{{ $notify->data['url'] }}" onclick="{{ $notify->markAsRead() }}">
-                                    <div class="media">
-                                        <div class="media-left align-self-center">
-                                            <img class="avatar avatar-online" src='{{ $notify->data['image'] }}'
-                                                style="width: 50px !important">
-                                        </div>
-                                        <div class="media-body">
-                                            <h6 class="media-heading">{{ $notify->data['title'] }}</h6>
-                                            <p class="notification-text font-small-3 text-muted">
-                                                {{ $notify->data['message'] }}
-                                            </p>
-                                            <small>
-                                                <time class="media-meta text-muted"
-                                                    datetime="2015-06-11T18:29:20+08:00">{{ $notify->data['date'] }}</time>
-                                            </small>
-                                        </div>
-                                    </div>
-                                </a>
-                                @empty
-                                <a href="javascript:void(0)">
-                                    <div class="media">
-                                        <p class="notification-text font-small-3 text-muted">No Notifications</p>
-                                    </div>
-                                </a>
-                                @endforelse
+                                <div id="notification_list"></div>
                             </li>
                             <li class="dropdown-menu-footer">
                                 <a class="dropdown-item text-muted text-center red"

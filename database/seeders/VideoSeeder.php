@@ -27,7 +27,7 @@ class VideoSeeder extends Seeder
                 'course_id'    =>  Course::select('id')->whereVisibility(true)->inRandomOrder()->first()->id,
             ]);
 
-            $video->tags()->attach([rand(0, 10), rand(0, 10), rand(0, 10)]);
+            $video->tags()->attach([rand(1, 10), rand(1, 10), rand(1, 10)]);
         }
     }
 }

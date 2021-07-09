@@ -20,11 +20,12 @@ class CreatePostsTable extends Migration
             $table->text('desc');
             $table->string('image')->nullable();
             $table->boolean('visibility')->default(false);
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->constrained();
+            $table->foreign('user_id')->references('id')->on('users')->constrained();
         });
     }
 

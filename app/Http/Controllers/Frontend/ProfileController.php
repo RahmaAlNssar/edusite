@@ -6,6 +6,7 @@ use App\Http\Requests\ValidatePasswordRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidateInformationsRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\UserFollowed;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
@@ -60,8 +61,12 @@ class ProfileController extends Controller
             if (auth()->user()->follows()->whereFollowId($this->profileId())->first()) {
                 auth()->user()->follows()->detach($this->profileId());
                 $type = 1;
-            } else
+            } else {
                 auth()->user()->follows()->attach($this->profileId());
+
+                $data = ['message' => auth()->user()->name . ' followed you.', 'image' => auth()->user()->image_url, 'date' => now()->diffForHumans(), 'url' => route('profile')];
+                $profile->notify(new UserFollowed($data));
+            }
 
             return response()->json(['count' => $profile->followers()->count(), 'type' => $type]);
         }

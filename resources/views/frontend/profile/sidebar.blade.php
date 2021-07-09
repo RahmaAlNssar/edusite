@@ -1,4 +1,6 @@
 <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow p-3">
+    <a href="{{ URL::previous() }}" class="btn btn-cyan btn-sm text-bold-700"
+        style=" position: absolute;top: 0px;left: 0px;right:0px"><i class="fas fa-arrow-alt-circle-left"></i> Back</a>
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation">
             <li class="nav-item text-center">

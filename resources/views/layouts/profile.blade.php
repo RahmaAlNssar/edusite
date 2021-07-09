@@ -33,8 +33,14 @@
 {{-- ************** START SWEETALERT JS ************** --}}
 @include('sweetalert::alert')
 {{-- ************** END SWEETALERT JS ************** --}}
-
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('6447b47e7ae98410707d', {
+    cluster: 'mt1',
+    authEndPoint: '/broadcasting/auth',
+    });
+
     $(document).on('click', '.user_click', function (e) {
         e.preventDefault();
         let btn = $(this);
@@ -44,6 +50,11 @@
             success: function (data, textStatus, jqXHR) {
                 btn.empty().html(data.type ? 'Follow' : 'UNFollow');
                 $('#followers_count').html(data.count);
+
+                var channel = pusher.subscribe('private-make-follow');
+                channel.bind('Illuminate\Notifications\Events\BroadcastNotificationCreated', function(data) {
+                    alert('adfad');
+                });
             },
         });
     });

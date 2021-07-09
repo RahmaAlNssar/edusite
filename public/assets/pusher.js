@@ -5,7 +5,6 @@ $(function () {
         authEndPoint: '/broadcasting/auth',
     });
 
-
     $('.comment_form').submit(function (e) {
         e.preventDefault();
         let form = $(this);
@@ -38,6 +37,8 @@ $(function () {
                         </div>
                         </li>`;
                     $('.comments_list').append(comment);
+
+                    alert(data.comment_id);
                 });
             },
         });

@@ -2,19 +2,20 @@
 
 namespace App\Notifications;
 
-use App\Models\Comment;
-use Illuminate\Broadcasting\Channel;
+use App\Models\User;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class AddComment extends Notification
+class UserFollowed extends Notification implements ShouldBroadcast
+
 {
     use Queueable;
 
-    public $data;
+    protected $data;
 
     public function __construct($data)
     {
@@ -23,7 +24,12 @@ class AddComment extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
+    }
+
+    public function broadcastOn()
+    {
+        return new PrivateChannel('make-follow',);
     }
 
     public function toArray($notifiable)

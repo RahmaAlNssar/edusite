@@ -4,8 +4,10 @@
     <a href="{{ $notification->data['url'] }}" onclick="{{ $notification->markAsRead() }}" class="d-block">
         <div class="media p-2">
             <div class="media-body">
+                @if (isset($notification->data['title']))
                 <h6 class="media-heading mb-1" style="overflow: hidden;max-height: 40px;">
                     {{ $notification->data['title'] }}</h6>
+                @endif
                 <div class="d-flex">
                     <img src="{{ $notification->data['image'] }}" width="50px" height="50px"
                         style="border-radius: 50%; margin-top:5px;">

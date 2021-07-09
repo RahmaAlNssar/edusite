@@ -11,4 +11,9 @@ class DashboardController extends Controller
     {
         return view('backend.dashboard');
     }
+
+    public function showNotifications()
+    {
+        return view('layouts.includes.backend.notifications');
+    }
 }

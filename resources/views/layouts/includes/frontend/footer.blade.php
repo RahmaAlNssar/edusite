@@ -147,10 +147,12 @@
 <script>
     // Load All Notifications When Click On Icon
     $('#noty_click').click(function () {
-        $('#notification_list').empty().load("{{ route('show.notifications') }}");
-        setTimeout(function () {
-            $('#notif-count').text(0);
-        }, 2000);
+        if(! $(this).next('.dropdown-menu').hasClass('show')) {
+            $('#notification_list').empty().load("{{ route('show.notifications') }}");
+            setTimeout(function () {
+                $('#notify-count').text(0);
+            }, 2000);
+        }
     });
 
     // Load All Favorite When Click On Icon

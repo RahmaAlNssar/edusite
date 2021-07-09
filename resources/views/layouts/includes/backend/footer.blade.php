@@ -39,6 +39,15 @@
 {{-- ************** END CUSTOM JS ************** --}}
 
 <script type="text/javascript">
+    $('#noty_click').click(function () {
+        if(! $(this).next('.dropdown-menu').hasClass('show')) {
+            $('#notification_list').empty().load("{{ route('backend.show.notifications') }}");
+            setTimeout(function () {
+                $('#notify-count').text(0);
+            }, 2000);
+        }
+    });
+
     $('.badge-text-maxlength').maxlength({
         alwaysShow: true,
         separator: ' of ',

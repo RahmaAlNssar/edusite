@@ -47,8 +47,8 @@ class FrontendController extends Controller
         })->with('user')->paginate(6);
 
         if ($courses) {
-            $latest  = Course::whereVisibility(1)->whereHas('videos')->latest()->take(3)->get();
-            $tags    = Tag::whereVisibility(1)->whereHas('videos')->take(10)->get();
+            $latest = Course::whereVisibility(1)->whereHas('videos')->latest()->take(3)->get();
+            $tags = Tag::whereVisibility(1)->whereHas('videos')->take(10)->get();
             $categories = Category::whereVisibility(1)->whereHas('courses', function ($query) {
                 return $query->whereVisibility(1);
             })->get();

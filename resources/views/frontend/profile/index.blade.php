@@ -1,4 +1,4 @@
-@extends('frontend.profile.profile')
+@extends('layouts.profile')
 
 <title>Profile</title>
 

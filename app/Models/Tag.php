@@ -25,7 +25,6 @@ class Tag extends Model
         return $this->morphedByMany(Post::class, 'taggable');
     }
 
-
     /*************************** Begin SCOPE Area *********************************/
 
     /*************************** Begin ATTRIBUTES Area ****************************/
