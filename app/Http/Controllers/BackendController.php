@@ -81,7 +81,7 @@ class BackendController extends Controller
             foreach ($rows as $row)
                 $row->delete();
             DB::commit();
-            return response()->json(['message' => 'Your ' . $this->getModel() . 'has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->getCount()]);
+            return response()->json(['message' => 'Your ' . $this->getModel() . ' has been deleted! (' . count($rows) . ')', 'icon' => 'success', 'count' => $this->getCount()]);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 500);
         }

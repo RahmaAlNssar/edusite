@@ -1,3 +1,6 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "files.autoSave": "onFocusChange",
+    "blade.format.enable": true,
+    "editor.multiCursorModifier": "ctrlCmd"
 }

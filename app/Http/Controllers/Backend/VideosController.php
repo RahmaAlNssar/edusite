@@ -33,7 +33,7 @@ class VideosController extends BackendController
     {
         try {
             DB::beginTransaction();
-            $video = Video::create($request->except(['id', 'tags']));
+            $video = Video::create($request->validated());
             $video->tags()->attach($request->tags);
             DB::commit();
             toast('Your Video has been created!', 'success');

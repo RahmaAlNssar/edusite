@@ -11,6 +11,7 @@ use App\Models\SliderImage;
 use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Paginator::useBootstrap();
+        JsonResource::withoutWrapping(); // To Remove The data Index From Api Colliction
+        Paginator::useBootstrap(); // To Use  Bootstrap Pagination
 
         SliderImage::observe(SliderImageObserve::class);
         Course::observe(CourseObserve::class);

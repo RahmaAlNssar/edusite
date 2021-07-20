@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    {{ $dataTable->table() }}
+    {{ $dataTable->table([], true) }}
 </div>
 
 {{ $dataTable->scripts() }}

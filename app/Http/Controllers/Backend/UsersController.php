@@ -23,7 +23,7 @@ class UsersController extends BackendController
     {
         try {
             DB::beginTransaction();
-            User::create(array_merge($request->except(['id']), $this->checkIfNull($request)));
+            User::create($request->validated());
             DB::commit();
             toast('Your User has been created!', 'success');
             return response()->json(['redirect' => route('backend.users.index')]);
@@ -38,7 +38,7 @@ class UsersController extends BackendController
             DB::beginTransaction();
             if ($request->has('image'))
                 $this->remove($user->image, 'users');
-            $user->update($request->except(['id']));
+            $user->update($request->validated());
             DB::commit();
             toast('Your User has been updated!', 'success');
             return response()->json(['redirect' => route('backend.users.index')]);

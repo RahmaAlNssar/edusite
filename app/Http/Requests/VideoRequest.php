@@ -26,12 +26,20 @@ class VideoRequest extends FormRequest
         return [
             'title'         => 'required|min:3|max:190|',
             'desc'          => 'required|string|min:5',
-            'file'          => 'required_without:url|nullable|mimes:mp4,mov,ogg|file|max:100000',
-            'url'           => 'required_without:file|nullable|url',
+            'file'          => 'required_if:type,file|nullable|mimes:mp4,mov,ogg|file|max:100000',
+            'url'           => 'required_if:type,url|nullable|url',
             'type'          => 'required|in:file,url',
             'course_id'     => 'required|exists:courses,id',
             'tags'          => 'required|array|min:1|max:6',
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'file.required_if' => 'Please upload video.',
+            'url.required_if' => 'Please get url video.'
         ];
     }
 }

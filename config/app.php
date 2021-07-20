@@ -168,6 +168,7 @@ return [
 
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         Barryvdh\Debugbar\ServiceProvider::class,

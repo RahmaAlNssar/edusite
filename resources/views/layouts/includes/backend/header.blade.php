@@ -47,7 +47,8 @@
 
     {{-- ************** START DATATABLES ************** --}}
     <link rel="stylesheet" type="text/css" href="{{ path('vendors/css/tables/datatable/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ path('vendors/css/tables/extensions/buttons.dataTables.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ path('vendors/css/tables/extensions/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ path('css/plugins/animate/animate.css') }}">
     {{-- ************** START DATATABLES ************** --}}
 

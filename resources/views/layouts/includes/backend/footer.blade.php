@@ -15,6 +15,8 @@
 <script type="text/javascript" src="{{ path('vendors/js/vendors.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/tables/datatable/datatables.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/buttons.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ path('vendors/js/tables/datatable/dataTables.buttons.min.js') }}"></script>
 <script type="text/javascript" src="{{ path('vendors/js/forms/extended/maxlength/bootstrap-maxlength.js') }}"></script>
 {{-- ************** END VENDOR JS ************** --}}
 
@@ -23,8 +25,8 @@
 {{-- ************** START FONTAWESOME JS ************** --}}
 
 {{-- ************** START MODERN JS ************** --}}
-<script type="text/javascript" src="{{ path('js/core/app.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/core/app-menu.js') }}"></script>
+<script type="text/javascript" src="{{ path('js/core/app.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/customizer.js') }}"></script>
 <script type="text/javascript" src="{{ path('js/scripts/forms/select/form-select2.js') }}"></script>
 {{-- ************** END MODERN JS ************** --}}

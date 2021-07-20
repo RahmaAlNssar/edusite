@@ -6,6 +6,7 @@ use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Column;
 use Illuminate\Support\Str;
 use App\Models\Course;
+use Yajra\DataTables\Html\Button;
 
 class CoursesDataTable extends DataTable
 {
@@ -84,12 +85,31 @@ class CoursesDataTable extends DataTable
         return $this->builder()
             ->setTableId('coursesdatatables-table')
             ->columns($this->getColumns())
+            ->setTableAttribute('class', 'table table-bordered table-striped w-100 dataTable dtr-inline')
             ->minifiedAjax()
-            ->setTableAttribute('class', 'table table-striped table-bordered w-100 dataTable')
-            ->parameters([
-                'responsive' => true,
-            ])
             ->dom('Bfrtip')
+            ->lengthMenu([[10, 20, 25, 30, -1], [10, 20, 25, 30, 'All']])
+            ->pageLength(10)
+            ->buttons([
+                Button::make('print')->text('<i class="fa fa-print"></i>')->addClass('btn btn-success')->titleAttr('Print (p)')->key('p'),
+                Button::make('excel')->text('<i class="fas fa-file-excel"></i>')->addClass('btn btn-info')->titleAttr('Excel (e)')->key('e'),
+                Button::make('csv')->text('<i class="fas fa-file-csv"></i>')->addClass('btn btn-primary')->titleAttr('CSV (c)')->key('c'),
+                Button::make()->text('<i class="fas fa-trash"></i>')->addClass('btn btn-danger multi-delete')->titleAttr('Delete (d)')->key('d'),
+                Button::make('pageLength')->text('<i class="fa fa-sort-numeric-up"></i>')->addClass('btn btn-light page-length')->titleAttr('Page Length (l)')->key('l')
+            ])
+            ->responsive(true)
+            ->parameters([
+                'initComplete' => " function () {
+                    this.api().columns([3,5,6]).every(function () {
+                        var column = this;
+                        var input = document.createElement(\"input\");
+                        $(input).appendTo($(column.footer()).empty())
+                        .on('keyup', function () {
+                            column.search($(this).val(), true, true, true).draw();
+                        });
+                    });
+                }",
+            ])
             ->orderBy(0);
     }
 

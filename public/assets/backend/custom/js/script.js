@@ -157,7 +157,7 @@ $(function () {
     $('body').on('click', '.multi-delete', function (e) {
         e.preventDefault();
 
-        let ids = [], href = $(this).attr('href');
+        let ids = [], href = window.location.href + '/multidelete';
         $('input[type=checkbox].check-box-id:checked').each(function() { ids.push($(this).val()); });
 
         if (ids.length == 0) {
