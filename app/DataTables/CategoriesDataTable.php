@@ -35,6 +35,9 @@ class CategoriesDataTable extends DataTable
             })
             ->addColumn('check', 'backend.includes.tables.checkbox')
             ->addColumn('action', 'backend.includes.buttons.table-buttons')
+            ->addColumn('action', function ($category) {
+                return view('backend.categories.buttons-create', ['id' => $category->id, 'slug' => $category->slug]);
+            })
             ->rawColumns(['action', 'order', 'visibility', 'check']);
     }
 

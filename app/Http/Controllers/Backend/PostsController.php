@@ -24,8 +24,10 @@ class PostsController extends BackendController
     public function append()
     {
         return [
-            'categories' => Category::select('id', 'name', 'visibility')->get(),
-            'tags'       => Tag::whereVisibility(1)->get(),
+            'categories' => Category::when(request()->category, function ($query) {
+                $query->where(['id' => request()->category, 'slug' => request()->slug]);
+            })->select('id', 'name', 'visibility')->get(),
+            'tags'       => Tag::get(),
             'no_ajax'    => ''
         ];
     }

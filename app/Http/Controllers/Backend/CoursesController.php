@@ -23,7 +23,9 @@ class CoursesController extends BackendController
     public function append()
     {
         return [
-            'categories' => Category::select('id', 'name', 'visibility')->get(),
+            'categories' => Category::when(request()->category, function ($query) {
+                $query->where(['id' => request()->category, 'slug' => request()->slug]);
+            })->select('id', 'name', 'visibility')->get(),
             'no_ajax' => ''
         ];
     }

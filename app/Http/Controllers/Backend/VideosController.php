@@ -24,8 +24,10 @@ class VideosController extends BackendController
     public function append()
     {
         return [
-            'courses' => Course::select('id', 'title')->whereUserId(auth()->id())->get(),
-            'tags' => Tag::all()
+            'courses' => Course::when(request()->course, function ($query) {
+                $query->where(['id' => request()->course, 'slug' => request()->slug]);
+            })->select('id', 'title')->whereUserId(auth()->id())->get(),
+            'tags' => Tag::get()
         ];
     }
 
