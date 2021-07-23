@@ -59,20 +59,28 @@ class TagsDataTable extends DataTable
         return $this->builder()
             ->setTableId('tag-table')
             ->columns($this->getColumns())
-            ->setTableAttribute('class', 'table table-bordered table-striped w-100 dataTable dtr-inline')
+            ->setTableAttribute('class', 'table table-bordered table-striped table-sm w-100 dataTable')
             ->minifiedAjax()
             ->dom('Bfrtip')
-            ->lengthMenu([[10, 20, 25, 30, -1], [10, 20, 25, 30, 'All']])
-            ->pageLength(10)
+            ->lengthMenu([[5, 10, 20, 25, 30, -1], [5, 10, 20, 25, 30, 'All']])
+            ->pageLength(5)
             ->buttons([
-                Button::make('print')->text('<i class="fa fa-print"></i>')->addClass('btn btn-success')->titleAttr('Print (p)')->key('p'),
-                Button::make('excel')->text('<i class="fas fa-file-excel"></i>')->addClass('btn btn-info')->titleAttr('Excel (e)')->key('e'),
-                Button::make('csv')->text('<i class="fas fa-file-csv"></i>')->addClass('btn btn-primary')->titleAttr('CSV (c)')->key('c'),
-                Button::make()->text('<i class="fas fa-trash"></i>')->addClass('btn btn-danger multi-delete')->titleAttr('Delete (d)')->key('d'),
-                Button::make('pageLength')->text('<i class="fa fa-sort-numeric-up"></i>')->addClass('btn btn-light page-length')->titleAttr('Page Length (l)')->key('l')
+                Button::make()->text('<i class="fa fa-plus"></i>')->addClass('btn btn-outline-info datatables-create-button show-modal-form')->titleAttr('Create New Tag (c)')->key('c'),
+                Button::make()->text('<i class="fas fa-trash"></i>')->addClass('btn btn-outline-danger multi-delete')->titleAttr('Delete (d)')->key('d'),
+                Button::make('print')->text('<i class="fa fa-print"></i>')->addClass('btn btn-outline-success')->titleAttr('Print (p)')->key('p'),
+                Button::make('excel')->text('<i class="fas fa-file-excel"></i>')->addClass('btn btn-outline-info')->titleAttr('Excel (e)')->key('e'),
+                Button::make('csv')->text('<i class="fas fa-file-csv"></i>')->addClass('btn btn-outline-primary')->titleAttr('CSV (s)')->key('s'),
+                Button::make('pageLength')->text('<i class="fa fa-sort-numeric-up"></i>')->addClass('btn btn-outline-light page-length')->titleAttr('Page Length (l)')->key('l')
             ])
             ->responsive(true)
             ->parameters([
+                // 'buttons' => [
+                //     ['extend' => 'csv', 'className' => 'btn btn-success', 'text' => '<i class="fas fa-file-csv "></i> ' . trans('admin.csv')],
+                //     [
+                //         'className' => 'btn btn-success', 'text' => '<i class="fas fa-plus"></i>',
+                //         'action' => 'function(e, dt, node, config) { window.location.href + "/create" }'
+                //     ],
+                // ],
                 'initComplete' => " function () {
                     this.api().columns([2,3,4]).every(function () {
                         var column = this;

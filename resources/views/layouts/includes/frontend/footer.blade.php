@@ -140,10 +140,7 @@
 @include('sweetalert::alert')
 {{-- ************** END SWEETALERT JS ************** --}}
 
-
-{{-- START PUSHER SCRIPT --}}
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-<script src="{{ asset('assets/pusher.js') }}"></script>
+<script src="{{ asset('assets/helper-script.js') }}"></script>
 <script>
     // Load All Notifications When Click On Icon
     $('#noty_click').click(function () {
@@ -159,11 +156,6 @@
     $('#favorite_click').click(function () {
         $('#favorites_list').empty().load("{{ route('show.favorites') }}");
     });
-</script>
-{{-- END PUSHER SCRIPT --}}
-
-<script>
-
 </script>
 
 @yield('script')

@@ -1,19 +1,20 @@
-@forelse (auth()->user()->notifications as $notify)
-<a href="{{ $notify->data['url'] }}" onclick="{{ $notify->markAsRead() }}">
+{{-- @forelse ($notifications as $notification) --}}
+@forelse (auth()->user()->notifications as $notification)
+<a href="{{ $notification->data['url'] }}" onclick="{{ $notification->markAsRead() }}">
     <div class="media">
         <div class="media-left align-self-center">
-            <img class="avatar avatar-online" src='{{ $notify->data['image'] }}' style="width: 50px !important">
+            <img class="avatar avatar-online" src='{{ $notification->data['image'] }}' style="width: 50px !important">
         </div>
         <div class="media-body">
-            @if (isset($notify->data['title']))
-            <h6 class="media-heading">{{ $notify->data['title'] }}</h6>
+            @if (isset($notification->data['title']))
+            <h6 class="media-heading">{{ $notification->data['title'] }}</h6>
             @endif
             <p class="notification-text font-small-3 text-muted">
-                {{ $notify->data['message'] }}
+                {{ $notification->data['message'] }}
             </p>
             <small>
                 <time class="media-meta text-muted"
-                    datetime="2015-06-11T18:29:20+08:00">{{ $notify->data['date'] }}</time>
+                    datetime="2015-06-11T18:29:20+08:00">{{ $notification->data['date'] }}</time>
             </small>
         </div>
     </div>

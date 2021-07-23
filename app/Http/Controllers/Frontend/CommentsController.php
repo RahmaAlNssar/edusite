@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Events\NewComment;
 use Illuminate\Support\Facades\Notification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +12,6 @@ use App\Models\Video;
 use App\Models\Post;
 use App\Models\User;
 use Exception;
-use Pusher\Pusher;
 
 class CommentsController extends Controller
 {
@@ -43,7 +41,6 @@ class CommentsController extends Controller
                 })->get();
                 Notification::send($users, new AddComment($data));
 
-                event(new NewComment($data));
                 DB::commit();
                 return response()->json($data);
             }
@@ -68,16 +65,17 @@ class CommentsController extends Controller
                     'url'         => route('course.video', ['video' => $video->id, 'title' => $video->slug]) . '#comment_' . $comment->id,
                 ];
 
-                $author = User::whereId($video->user_id)->first();
+                $author = User::whereId($video->course->user_id)->first();
                 if ($author->id != $comment->user_id)
                     Notification::send($author, new AddComment($data));
 
                 $data['message'] = auth()->user()->name . ' He commented on a Video you follow';
+
                 $users = User::whereNotIn('id', [$author->id, $comment->user_id])->whereHas('comments', function ($query) use ($video) {
                     return $query->where('commentable_type', 'App\Models\Video')->where('commentable_id', $video->id);
                 })->get();
+
                 Notification::send($users, new AddComment($data));
-                event(new NewComment($data));
                 DB::commit();
                 return response()->json($data);
             }
@@ -111,7 +109,6 @@ class CommentsController extends Controller
                     return $query->where('commentable_type', 'App\Models\Post')->where('commentable_id', $post->id);
                 })->get();
                 Notification::send($users, new AddComment($data));
-                event(new NewComment($data));
                 DB::commit();
                 return response()->json(['comment' => $comment->comment, 'id' => $comment->id, 'image' => auth()->user()->image_url, 'name' => auth()->user()->name, 'date' => $comment->created_at->diffForHumans()]);
             }

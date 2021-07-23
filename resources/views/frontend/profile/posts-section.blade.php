@@ -34,7 +34,7 @@
                 <div class="card-footer py-1">
                     <div class="d-flex justify-content-between">
                         <a class="btn btn-primary btn-sm d-block w-50"
-                            href="{{ route('course', ['id' => $post->id, 'title' => $post->slug]) }}">
+                            href="{{ route('post', ['id' => $post->id, 'title' => $post->slug]) }}">
                             <i class="fas fa-eye"></i> Show Page
                         </a>
                     </div>

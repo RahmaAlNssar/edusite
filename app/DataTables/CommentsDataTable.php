@@ -54,7 +54,7 @@ class CommentsDataTable extends DataTable
         return $this->builder()
             ->setTableId('comment-table')
             ->columns($this->getColumns())
-            ->setTableAttribute('class', 'table table-bordered table-striped w-100 dataTable dtr-inline')
+            ->setTableAttribute('class', 'table table-bordered table-striped table-sm w-100 dataTable')
             ->minifiedAjax()
             ->dom('Bfrtip')
             ->lengthMenu([[10, 20, 25, 30, -1], [10, 20, 25, 30, 'All']])

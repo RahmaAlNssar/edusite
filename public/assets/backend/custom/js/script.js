@@ -43,9 +43,11 @@ $(function () {
             return false;
         }
 
+        let url = btn.hasClass('datatables-create-button') ? window.location.href + '/create' : btn.attr('href');
+
         modal.addClass('load');
         $.ajax({
-            url: btn.attr('href'),
+            url: url,
             type: "GET",
             success: function (data, textStatus, jqXHR) {
                 modal.find('.form-body').empty().append(data);

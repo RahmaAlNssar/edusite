@@ -13,6 +13,7 @@ use App\Models\Video;
 use App\Models\Post;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -33,6 +33,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        view()->share('notifications', function () {
+            Cache::remember('notifications', 60 * 60 * 24, function () {
+                return auth()->user()->notifications;
+            });
+        });
+
         JsonResource::withoutWrapping(); // To Remove The data Index From Api Colliction
         Paginator::useBootstrap(); // To Use  Bootstrap Pagination
 

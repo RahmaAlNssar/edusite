@@ -18,8 +18,10 @@ class FavoritesController extends Controller
     public function favorite(Course $course)
     {
         $favorite = $course->favorites()->whereUserId(auth()->id())->first();
+        $status   = true;
         if ($favorite) {
             $favorite->delete();
+            $status = false;
         } else {
             $data = [
                 'message'     => auth()->user()->name . ' added your course to favorites list.',
@@ -34,6 +36,6 @@ class FavoritesController extends Controller
             if (auth()->id() != $course->user_id)
                 Notification::send($course->user, new AddLike($data));
         }
-        return response()->json(['count' => $course->favorites()->count(), 'favorites_count' => auth()->user()->favorites()->count()]);
+        return response()->json(['count' => $course->favorites()->count(), 'favorites_count' => auth()->user()->favorites()->count(), 'status' => $status]);
     }
 }
