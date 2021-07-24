@@ -20,19 +20,20 @@ class PostsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->filterColumn('visibility', function ($query, $keywords) {
-                $keywords = strtolower($keywords);
-                if ($keywords == 'visible') {
-                    $query->where('visibility', 1);
-                } else if ($keywords == 'hidden') {
-                    $query->where('visibility', 0);
-                }
-            })
+            ->addColumn('tags', 'backend.includes.tables.tags')
             ->editColumn('image', function ($post) {
                 return '<img src="' . $post->image_url . '" class="img-thumbnail" width="150px">';
             })
             ->editColumn('title', function ($post) {
                 return $post->title . '<hr> <span class="red">Category | </span> ' . $post->category->name . '<hr> <span class="red">Author | </span> ' . $post->user->name;
+            })
+            ->editColumn('desc', function ($post) {
+                return Str::limit($post->desc, 200);
+            })
+            ->filterColumn('tags', function ($query, $keywords) {
+                return $query->whereHas('tags', function ($q) use ($keywords) {
+                    return $q->where('name', 'like', '%' . $keywords . '%');
+                });
             })
             ->filterColumn('title', function ($query, $keywords) {
                 return $query->where('title', 'like', '%' . $keywords . '%')->orWhereHas('category', function ($q) use ($keywords) {
@@ -41,8 +42,13 @@ class PostsDataTable extends DataTable
                     return $q->where('name', 'like', '%' . $keywords . '%');
                 });
             })
-            ->editColumn('desc', function ($post) {
-                return Str::limit($post->desc, 200);
+            ->filterColumn('visibility', function ($query, $keywords) {
+                $keywords = strtolower($keywords);
+                if ($keywords == 'visible') {
+                    $query->where('visibility', 1);
+                } else if ($keywords == 'hidden') {
+                    $query->where('visibility', 0);
+                }
             })
             ->setRowClass(function ($post) {
                 return $post->visibility == 0 ? 'bg-primary bg-accent-1' : '';
@@ -51,7 +57,7 @@ class PostsDataTable extends DataTable
             ->addColumn('action', function ($post) {
                 return view('backend.posts.show-button', ['id' => $post->id, 'slug' => $post->slug, 'visibility' => $post->visibility, 'user_id' => $post->user_id, 'no_ajax' => '']);
             })
-            ->rawColumns(['action', 'check', 'desc', 'image', 'title']);
+            ->rawColumns(['action', 'check', 'desc', 'image', 'title', 'tags']);
     }
 
     /**
@@ -62,7 +68,7 @@ class PostsDataTable extends DataTable
      */
     public function query(Post $model)
     {
-        return $model->newQuery()->author();
+        return $model->newQuery()->with('tags')->author();
     }
 
     /**
@@ -79,7 +85,7 @@ class PostsDataTable extends DataTable
             ->minifiedAjax()
             ->dom('Bfrtip')
             ->lengthMenu([[5, 10, 20, 25, 30, -1], [5, 10, 20, 25, 30, 'All']])
-            ->pageLength(5)
+            ->pageLength(10)
             ->buttons([
                 Button::make()->text('<i class="fa fa-plus"></i>')->addClass('btn btn-outline-info create-button')->action("window.location.href = " . '"' . route('backend.posts.create') . '"')->titleAttr('Create New Post (c)')->key('c'),
                 Button::make()->text('<i class="fas fa-trash"></i>')->addClass('btn btn-outline-danger multi-delete')->titleAttr('Delete (d)')->key('d'),
@@ -118,6 +124,7 @@ class PostsDataTable extends DataTable
             Column::make('title')->width(330),
             Column::make('image')->orderable(false)->searchable(false)->width(100),
             Column::make('desc'),
+            Column::make('tags')->orderable(false)->width(65),
             Column::computed('action')->exportable(false)->printable(false)->width(75)->addClass('text-center')->width(65),
         ];
     }
