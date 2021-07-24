@@ -20,15 +20,15 @@
         <div class="blog_post_text" style="height: 85px;overflow: hidden;">{!! $post->desc !!}</div>
     </div>
     <div class="course_footer_content d-flex flex-row align-items-center justify-content-between px-5">
-        <span> <i class="fa fa-eye"></i> {{ $post->visitors->count() }} </span>
+        <span> <i class="fa fa-eye"></i> {{ $post->visitors_count }} </span>
 
         @auth
         <a href="{{ route('post.like', $post) }}" class="user_click" style="color:#a5a5a5">
             <i class=" {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
-            <span class="count">{{ $post->likes->count() }}</span>
+            <span class="count">{{ $post->likes_count }}</span>
         </a>
         @else
-        <span> <i class="far fa-thumbs-up"></i> <span class="count">{{ $post->likes->count() }}</span></span>
+        <span> <i class="far fa-thumbs-up"></i> <span class="count">{{ $post->likes_count }}</span></span>
         @endauth
     </div>
 </div>

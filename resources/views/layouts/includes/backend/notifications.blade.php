@@ -1,5 +1,4 @@
-{{-- @forelse ($notifications as $notification) --}}
-@forelse (auth()->user()->notifications as $notification)
+@forelse ($notifications as $notification)
 <a href="{{ $notification->data['url'] }}" onclick="{{ $notification->markAsRead() }}">
     <div class="media">
         <div class="media-left align-self-center">

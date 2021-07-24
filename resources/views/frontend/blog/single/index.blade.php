@@ -56,18 +56,18 @@
                     </div>
                     <div class="blog_social ml-lg-auto d-flex justify-content-between">
                         <ul>
-                            <li> <span class="mr-5"> <i class="fa fa-eye"></i> {{ $post->visitors->count() }} </span>
+                            <li> <span class="mr-5"> <i class="fa fa-eye"></i> {{ $post->visitors_count }} </span>
                             </li>
                             <li>
                                 @auth
                                 <a href="{{ route('post.like', $post) }}" class="user_click">
                                     <i
                                         class=" {{ $post->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
-                                    <span class="count">{{ $post->likes->count() }}</span>
+                                    <span class="count">{{ $post->likes_count }}</span>
                                 </a>
                                 @else
                                 <span> <i class="fa fa-thumbs-up"></i>
-                                    <span class="count">{{ $post->likes->count() }}</span></span>
+                                    <span class="count">{{ $post->likes_count }}</span></span>
                                 @endauth
                             </li>
                         </ul>

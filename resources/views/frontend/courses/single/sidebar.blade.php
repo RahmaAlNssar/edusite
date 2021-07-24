@@ -32,7 +32,7 @@
                 <div class="feature d-flex flex-row align-items-center justify-content-start">
                     <div class="feature_title"><i class="fa fa-play" aria-hidden="true"></i><span>Lectures:</span>
                     </div>
-                    <div class="feature_text ml-auto">{{ $course->videos->count() }}</div>
+                    <div class="feature_text ml-auto">{{ $course->videos_count }}</div>
                 </div>
             </div>
             <a href="{{ route('course.videos', ['id' => $course->id, 'course' => $course->slug]) }}"
@@ -59,14 +59,15 @@
                 <!-- Teacher Rating -->
                 <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
                     <div class="teacher_meta_title">Average Rating:</div>
-                    <div class="teacher_meta_text ml-auto"><span>4.7</span><i class="fa fa-star" aria-hidden="true"></i>
+                    <div class="teacher_meta_text ml-auto"><span>{{ round($course->ratings_avg_star, 1) }}</span><i
+                            class="fa fa-star" aria-hidden="true"></i>
                     </div>
                 </div>
                 <!-- Teacher Review -->
                 <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">
                     <div class="teacher_meta_title">Review:</div>
-                    <div class="teacher_meta_text ml-auto"><span>12k</span><i class="fa fa-comment"
-                            aria-hidden="true"></i></div>
+                    <div class="teacher_meta_text ml-auto"><span>{{ $course->comments_count }}</span><i
+                            class="fa fa-comment" aria-hidden="true"></i></div>
                 </div>
                 <!-- Teacher Quizzes -->
                 <div class="teacher_meta d-flex flex-row align-items-center justify-content-start">

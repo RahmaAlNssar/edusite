@@ -19,18 +19,18 @@
                     </div>
                     <div class="blog_social ml-lg-auto d-flex justify-content-between">
                         <ul>
-                            <li> <span class="mr-5"> <i class="fa fa-eye"></i> {{ $video->visitors->count() }} </span>
+                            <li> <span class="mr-5"> <i class="fa fa-eye"></i> {{ $video->visitors_count }} </span>
                             </li>
                             <li>
                                 @auth
                                 <a href="{{ route('video.like', $video) }}" class="user_click" style="color:#a5a5a5">
                                     <i
                                         class=" {{ $video->likes()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-thumbs-up"></i>
-                                    <span class="count">{{ $video->likes->count() }}</span>
+                                    <span class="count">{{ $video->likes_count }}</span>
                                 </a>
                                 @else
                                 <span> <i class="fa fa-thumbs-up"></i> <span
-                                        class="count">{{ $video->likes->count() }}</span></span>
+                                        class="count">{{ $video->likes_count }}</span></span>
                                 @endauth
                             </li>
                         </ul>

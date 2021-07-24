@@ -37,6 +37,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+            \App\Http\Middleware\ShareAuthNotifications::class,
         ],
 
         'api' => [
@@ -70,5 +72,7 @@ class Kernel extends HttpKernel
         'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
         'IsAdmin'                 => \App\Http\Middleware\IsAdmin::class,
         'AdminOrTeacher'          => \App\Http\Middleware\AdminOrTeacher::class,
+        'ShareAuthFavorites'      => \App\Http\Middleware\ShareAuthFavorites::class,
+        'ShareSliderImages'       => \App\Http\Middleware\ShareSliderImages::class
     ];
 }

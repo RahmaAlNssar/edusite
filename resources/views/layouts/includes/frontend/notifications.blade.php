@@ -1,4 +1,4 @@
-@forelse (auth()->user()->notifications()->latest()->get() as $notification)
+@forelse ($notifications as $notification)
 <li class="scrollable-container ps-container ps-active-y media-list w-100"
     {{ $notification->read_at == null ? 'style=background:#f1f1f1' : '' }}>
     <a href="{{ $notification->data['url'] }}" onclick="{{ $notification->markAsRead() }}" class="d-block">

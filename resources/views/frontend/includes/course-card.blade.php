@@ -22,19 +22,19 @@
         <div class="course_footer_content d-flex flex-row align-items-center justify-content-between">
             <div class="course_info">
                 <i class="fa fa-star" aria-hidden="true"></i>
-                <span>{{ round($course->ratings()->avg('star'), 1) }} Ratings</span>
+                <span>{{ round($course->ratings_avg_star, 1) }} Ratings</span>
             </div>
 
             <div class="course_info">
                 @auth
                 <a href="{{ route('course.favorite', $course) }}" class="user_click">
-                    <i style="color: red"
-                        class=" {{ $course->favorites()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }} fa-heart"></i>
-                    <span class="count">{{ $course->favorites()->count() }}</span>
+                    <i style="color: red" class=" {{ $course->favorites()->whereUserId(auth()->id())->count() > 0 ? 'fas' : 'far' }}
+                    fa-heart"></i>
+                    <span class="count">{{ $course->favorites_count }}</span>
                 </a>
                 @else
                 <i class="fas fa-heart" style="color: red"></i>
-                <span class="count">{{ $course->favorites()->count() }}</span>
+                <span class="count">{{ $course->favorites_count }}</span>
                 @endauth
             </div>
 

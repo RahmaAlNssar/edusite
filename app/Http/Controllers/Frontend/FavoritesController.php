@@ -36,6 +36,8 @@ class FavoritesController extends Controller
             if (auth()->id() != $course->user_id)
                 Notification::send($course->user, new AddLike($data));
         }
+        cache()->forget('auth_user_avorites');
+        cache()->forget('auth_user_avorites_count');
         return response()->json(['count' => $course->favorites()->count(), 'favorites_count' => auth()->user()->favorites()->count(), 'status' => $status]);
     }
 }

@@ -117,7 +117,7 @@
                             <!-- Rating -->
                             <div class="review_rating_container">
                                 <div class="review_rating">
-                                    <div class="review_rating_num">{{ round($course->ratings()->avg('star'), 1) }}
+                                    <div class="review_rating_num">{{ round($course->ratings_avg_star, 1) }}
                                     </div>
                                     <div class="review_rating_stars">
                                         <div class="rating_r rating_r_4">
@@ -146,7 +146,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="review_rating_text">({{ $course->ratings()->count() }} Ratings)</div>
+                                <div class="review_rating_text">({{ $course->ratings_count }} Ratings)</div>
                             </div>
                             <div class="review_rating_bars">
                                 <ul>

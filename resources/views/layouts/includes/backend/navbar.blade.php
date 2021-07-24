@@ -81,7 +81,7 @@
                         <a id="noty_click" class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i
                                 class="ficon ft-bell"></i>
                             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">
-                                {{ auth()->user()->unReadNotifications->count() }}
+                                {{ $unReadNotifications_count }}{{-- Comming From Cache in Middleware --}}
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
@@ -89,10 +89,10 @@
                                 <h6 class="dropdown-header m-0">
                                     <span class="grey darken-2">Notifications</span>
                                 </h6>
-                                @if (auth()->user()->unReadNotifications->count())
+                                @if ($unReadNotifications_count)
                                 <span id="notify-count"
                                     class="notification-tag badge badge-default badge-danger float-right m-0">
-                                    {{ auth()->user()->unReadNotifications->count() }} New
+                                    {{ $unReadNotifications_count }} New
                                 </span>
                                 @endif
                             </li>

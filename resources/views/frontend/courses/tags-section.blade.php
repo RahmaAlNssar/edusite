@@ -4,7 +4,7 @@
         <ul class="tags_list">
             @foreach ($tags as $tag)
             <li> <a href="{{ route('blog', ['tag' => $tag->slug]) }}">{{ $tag->name }}
-                    ({{ $tag->posts->count() }})</a> </li>
+                    ({{ $tag->videos_count }})</a> </li>
             @endforeach
         </ul>
     </div>

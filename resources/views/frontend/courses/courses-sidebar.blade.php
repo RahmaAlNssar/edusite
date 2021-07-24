@@ -8,8 +8,7 @@
                 <li>
                     <a href="{{ route('blog', ['category' => $category->slug]) }}"
                         {{ request()->category == $category->slug ? 'style=color:#14bdee; font-weight: bold' : '' }}>
-                        {{ $category->name }} <span
-                            class="float-right">({{ $category->courses()->whereVisibility(1)->count() }})</span>
+                        {{ $category->name }} <span class="float-right">({{ $category->courses_count }})</span>
                     </a>
                 </li>
                 @endforeach

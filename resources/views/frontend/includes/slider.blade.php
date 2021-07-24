@@ -1,10 +1,10 @@
-@if (isset($slices))
+@if (isset($slider_images) && $slider_images != null)
 <div class="home">
     <div class="home_slider_container">
 
         <!-- Home Slider -->
         <div class="owl-carousel owl-theme home_slider">
-            @foreach ($slices as $slice)
+            @foreach ($slider_images as $slice)
             <div class="owl-item">
                 <div class="home_slider_background" style="background-image:url({{ $slice->image_url }})"></div>
                 <div class="home_slider_content">

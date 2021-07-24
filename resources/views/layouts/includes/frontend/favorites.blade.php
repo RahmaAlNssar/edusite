@@ -1,4 +1,4 @@
-@forelse (auth()->user()->favorites as $favorite)
+@forelse ($auth_user_avorites as $favorite)
 <li class="scrollable-container ps-container ps-active-y media-list w-100">
     <a href="{{ route('course', ['id' => $favorite->course->id, 'title' => $favorite->course->slug]) }}"
         class="d-block">

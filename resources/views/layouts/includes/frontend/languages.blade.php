@@ -44,7 +44,7 @@
         <a class="nav-link nav-link-label" id="favorite_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-heart"> </i>
             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
-                id="favorites_count">{{ auth()->user()->favorites()->count() }}</span>
+                id="favorites_count">{{ $auth_user_avorites_count }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
             <li class="dropdown-menu-header">
@@ -68,7 +68,7 @@
         <a class="nav-link nav-link-label" id="noty_click" href="javascript:void(0)" data-toggle="dropdown">
             <i class="fa fa-bell"> </i>
             <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow"
-                id="notify-count">{{ auth()->user()->unreadNotifications->count() }}</span>
+                id="notify-count">{{ $unReadNotifications_count }}</span>
         </a>
         <ul class="dropdown-menu" style="width: 400px; left: -115px !important; list-style: none">
             <li class="dropdown-menu-header">
