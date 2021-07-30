@@ -18,14 +18,16 @@ class ShareSliderImages
      */
     public function handle(Request $request, Closure $next)
     {
-        view()->share(
-            'slider_images',
-            Cache::remember('slider_images', 60 * 60 * 24, function () {
-                return SliderImage::select('title', 'desc', 'image')->whereHas('slider', function ($query) {
-                    return $query->whereName('home');
-                })->get();
-            })
-        );
+        if (auth()->check()) {
+            view()->share(
+                'slider_images',
+                Cache::remember('slider_images', 60 * 60 * 24, function () {
+                    return SliderImage::select('title', 'desc', 'image')->whereHas('slider', function ($query) {
+                        return $query->whereName('home');
+                    })->get();
+                })
+            );
+        }
         return $next($request);
     }
 }

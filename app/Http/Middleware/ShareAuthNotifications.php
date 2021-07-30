@@ -17,19 +17,22 @@ class ShareAuthNotifications
      */
     public function handle(Request $request, Closure $next)
     {
-        view()->share(
-            'notifications',
-            Cache::remember('notifications', 60 * 60 * 24, function () {
-                return auth()->user()->notifications;
-            })
-        );
 
-        view()->share(
-            'unReadNotifications_count',
-            Cache::remember('unReadNotifications_count', 60 * 60 * 24, function () {
-                return auth()->user()->unReadNotifications->count();
-            })
-        );
+        if (auth()->check()) {
+            view()->share(
+                'notifications',
+                Cache::remember('notifications', 60 * 60 * 24, function () {
+                    return auth()->user()->notifications;
+                })
+            );
+
+            view()->share(
+                'unReadNotifications_count',
+                Cache::remember('unReadNotifications_count', 60 * 60 * 24, function () {
+                    return auth()->user()->unReadNotifications->count();
+                })
+            );
+        }
 
         return $next($request);
     }
