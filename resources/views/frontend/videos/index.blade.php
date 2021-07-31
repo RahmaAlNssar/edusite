@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/frontend/styles/course_responsive.css') }}">
 @endsection
 
-@section('page_title', ' | Post')
+@section('page_title', ' | Videos')
 
 @section('home')
 @include('frontend.includes.breadcrumbs', [

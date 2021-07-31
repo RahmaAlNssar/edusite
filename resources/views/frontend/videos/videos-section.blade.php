@@ -1,14 +1,12 @@
 <div class="courses_container">
     <div class="row courses_row">
         @forelse ($course->videos as $video)
-        <div class="row px-0 py-2">
-            <div class="col-3">
-                <video class="w-100">
-                    <source src="{{ $video->video_path }}">
-                </video>
+        <div class="mb-3 row col-md-12">
+            <div class="col-5">
+                <iframe style="w-100" src="{{ $video->video_path }}" frameborder="0"></iframe>
             </div>
 
-            <div class="col-9">
+            <div class="col-4">
                 <div class="latest_title">
                     <a href="{{ route('course.video', ['video' => $video->id, 'title' => $video->slug]) }}">
                         {{ $video->title }}

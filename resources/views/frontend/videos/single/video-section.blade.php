@@ -1,8 +1,6 @@
 <div class="courses_container">
     <div class="row courses_row">
-        <video class="w-100 mt-5 mb-3" controls>
-            <source src="{{ $video->video_path }}">
-        </video>
+        <iframe style="width: 100%; height: 380px;" src="{{ $video->video_path }}" frameborder="0"></iframe>
         <div>
             <h3> {{ $video->title }} </h3>
         </div>

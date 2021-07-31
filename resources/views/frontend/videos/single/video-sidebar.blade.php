@@ -7,9 +7,8 @@
                 {{ $video->id == $item->id ? 'style = background:#f1f1f1' : '' }}>
                 <div class="row py-2">
                     <div class="col-5">
-                        <video class="w-100 h-100">
-                            <source src="{{ $item->video_path }}">
-                        </video>
+                        <iframe style="width: 100%; height: 90px;" src="{{ $item->video_path }}"
+                            frameborder="0"></iframe>
                     </div>
                     <div class="col-7">
                         <div class="latest_title" style="height: 75px;overflow: hidden;">
@@ -32,9 +31,8 @@
             <div class="latest mb-0 d-flex flex-row align-items-start justify-content-start w-100">
                 <div class="row py-2">
                     <div class="col-5 pr-0">
-                        <video class="w-100 h-100">
-                            <source src="{{ $ranom_item->video_path }}">
-                        </video>
+                        <iframe style="width: 100%; height: 90px;" src="{{ $ranom_item->video_path }}"
+                            frameborder="0"></iframe>
                     </div>
                     <div class="col-7">
                         <div class="latest_title" style="height: 75px;overflow: hidden;">

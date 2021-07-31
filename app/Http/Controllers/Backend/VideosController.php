@@ -26,7 +26,7 @@ class VideosController extends BackendController
         return [
             'courses' => Course::when(request()->course, function ($query) {
                 $query->where(['id' => request()->course, 'slug' => request()->slug]);
-            })->select('id', 'title')->whereUserId(auth()->id())->get(),
+            })->select('id', 'title', 'visibility')->whereUserId(auth()->id())->get(),
             'tags' => Tag::get()
         ];
     }
