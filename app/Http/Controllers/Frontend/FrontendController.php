@@ -10,6 +10,7 @@ use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class FrontendController extends Controller
@@ -20,7 +21,12 @@ class FrontendController extends Controller
             return Course::whereVisibility(1)->with('user')->withCount('favorites')->withAvg('ratings', 'star')
                 ->inRandomOrder()->take(3)->get();
         });
-        return view('frontend.home.index', compact('courses'));
+
+        $teachers = Cache::remember('teachers', 60 * 60, function () {
+            return User::where('is_teacher', 1)->orWhere('is_admin', 1)->take(4)->get();
+        });
+
+        return view('frontend.home.index', compact('courses', 'teachers'));
     }
 
     public function courses(Request $request)

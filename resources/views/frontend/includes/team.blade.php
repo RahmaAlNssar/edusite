@@ -15,81 +15,23 @@
         </div>
         <div class="row team_row">
 
+            @foreach ($teachers as $teacher)
             <!-- Team Item -->
             <div class="col-lg-3 col-md-6 team_col">
                 <div class="team_item">
-                    <div class="team_image"><img src="{{ asset('assets/frontend/images/team_1.jpg') }}" alt="">
+                    <div class="team_image"><img class="w-100" src="{{ $teacher->image_url }}" alt="">
                     </div>
                     <div class="team_body">
-                        <div class="team_title"><a href="#">Jacke Masito</a></div>
-                        <div class="team_subtitle">Marketing & Management</div>
-                        <div class="social_list">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            </ul>
+                        <div class="team_title"><a
+                                href="{{ route('profile', ['id' => $teacher->id]) }}">{{ $teacher->name }}</a></div>
+                        <div class="team_subtitle">{{ $teacher->job ?? 'Web Developer' }}</div>
+                        <div class="team_subtitle" style="color: #14bdee">
+                            {{ $teacher->is_teacher == 1 ? 'Teacher' : 'Admin' }}
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Team Item -->
-            <div class="col-lg-3 col-md-6 team_col">
-                <div class="team_item">
-                    <div class="team_image"><img src="{{ asset('assets/frontend/images/team_2.jpg') }}" alt="">
-                    </div>
-                    <div class="team_body">
-                        <div class="team_title"><a href="#">William James</a></div>
-                        <div class="team_subtitle">Designer & Website</div>
-                        <div class="social_list">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Team Item -->
-            <div class="col-lg-3 col-md-6 team_col">
-                <div class="team_item">
-                    <div class="team_image"><img src="{{ asset('assets/frontend/images/team_3.jpg') }}" alt="">
-                    </div>
-                    <div class="team_body">
-                        <div class="team_title"><a href="#">John Tyler</a></div>
-                        <div class="team_subtitle">Quantum mechanics</div>
-                        <div class="social_list">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Team Item -->
-            <div class="col-lg-3 col-md-6 team_col">
-                <div class="team_item">
-                    <div class="team_image"><img src="{{ asset('assets/frontend/images/team_4.jpg') }}" alt="">
-                    </div>
-                    <div class="team_body">
-                        <div class="team_title"><a href="#">Veronica Vahn</a></div>
-                        <div class="team_subtitle">Math & Physics</div>
-                        <div class="social_list">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>
