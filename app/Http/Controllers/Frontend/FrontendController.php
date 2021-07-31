@@ -172,7 +172,10 @@ class FrontendController extends Controller
 
     public function about()
     {
-        return view('frontend.about.index');
+        $teachers = Cache::remember('teachers', 60 * 60, function () {
+            return User::where('is_teacher', 1)->orWhere('is_admin', 1)->take(4)->get();
+        });
+        return view('frontend.about.index', compact('teachers'));
     }
 
     public function contact()
