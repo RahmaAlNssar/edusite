@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -48,5 +49,13 @@ class LoginController extends Controller
         return auth()->user()->is_admin || auth()->user()->is_teacher
             ? $this->redirectTo = RouteServiceProvider::DASHBOARD
             : $this->redirectTo = RouteServiceProvider::HOME;
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        cache()->forget('auth_user_avorites');
+        cache()->forget('auth_user_avorites_count');
+        cache()->forget('notifications');
+        cache()->forget('unReadNotifications_count');
     }
 }
