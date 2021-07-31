@@ -150,11 +150,11 @@
             @endif
 
             {{-- START COMMENTS LINKS --}}
-            <li class="nav-item {{ active('comments') }}">
-                <a href="{{ active('comments') ? 'javascript:void(0)' : route('backend.comments.index') }}">
-                    <i class="la la-comment"></i> <span class="menu-title">Comments</span>
-                </a>
-            </li>
+            {{-- <li class="nav-item {{ active('comments') }}">
+            <a href="{{ active('comments') ? 'javascript:void(0)' : route('backend.comments.index') }}">
+                <i class="la la-comment"></i> <span class="menu-title">Comments</span>
+            </a>
+            </li> --}}
             {{-- END COMMENTS LINKS --}}
         </ul>
     </div>

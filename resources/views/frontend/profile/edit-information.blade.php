@@ -19,7 +19,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="la la-list"></i> </span>
                             </div>
-                            <input type="text" class="form-control" name="name" value="{{ $row->name ?? old('name') }}"
+                            <input type="text" class="form-control" name="name" value="{{ $user->name ?? old('name') }}"
                                 placeholder="User Name" autocomplete="off">
 
                         </div>

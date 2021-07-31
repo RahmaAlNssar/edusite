@@ -11,9 +11,11 @@ use App\Models\Course;
 use App\Models\Video;
 use App\Models\Post;
 use App\Models\User;
+use App\Traits\UploadFile;
 
 class ProfileController extends Controller
 {
+    use UploadFile;
     public function index()
     {
         if ($this->profileId())
@@ -32,8 +34,9 @@ class ProfileController extends Controller
 
     public function update(ValidateInformationsRequest $request)
     {
-        if (auth()->user()->update($request->all()))
-            return response()->json(['message' => 'You Informations IS Updated Successfully!'], 200);
+        $image = $request->has('image') ? $this->uploadImage($request->image, 'users') : auth()->user()->image;
+        if (auth()->user()->update(array_merge($request->except('image'), ['image' => $image])))
+            return response()->json(['message' => 'Your Informations Updated Successfully!'], 200);
 
         return response()->json(['message' => 'Something is wring, try again later!'], 500);
     }

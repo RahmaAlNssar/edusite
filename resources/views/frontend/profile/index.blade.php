@@ -118,6 +118,9 @@
                     form.trigger("reset");
                     const Toast = Swal.mixin();
                     Toast.fire({icon: 'success', text: data.message});
+                    setTimeout(function () {
+                        location.reload();
+                    }, 500);
                 },
                 error: function (jqXhr, textStatus, errorMessage) {
                     if (jqXhr.status == 422) {

@@ -11,7 +11,7 @@
     <li class="{{ in_array('blog', explode('.', request()->route()->action['as'])) ? 'active' : '' }}">
         <a href="{{ route('blog') }}">Blog</a>
     </li>
-    <li class="{{ in_array('contact', explode('.', request()->route()->action['as'])) ? 'active' : '' }}">
-        <a href="{{ route('contact') }}">Contact</a>
-    </li>
+    {{-- <li class="{{ in_array('contact', explode('.', request()->route()->action['as'])) ? 'active' : '' }}">
+    <a href="{{ route('contact') }}">Contact</a>
+    </li> --}}
 </ul>
