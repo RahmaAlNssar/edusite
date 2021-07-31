@@ -1,7 +1,7 @@
 <div class="courses_container">
     <div class="row courses_row">
         <iframe style="width: 100%; height: 380px;" src="{{ $video->video_path }}" frameborder="0"></iframe>
-        <div>
+        <div class="mt-4">
             <h3> {{ $video->title }} </h3>
         </div>
         <div class="comment_item d-flex justify-content-start pt-3 w-100">

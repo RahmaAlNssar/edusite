@@ -6,7 +6,7 @@
                 <iframe style="w-100" src="{{ $video->video_path }}" frameborder="0"></iframe>
             </div>
 
-            <div class="col-4">
+            <div class="col-7">
                 <div class="latest_title">
                     <a href="{{ route('course.video', ['video' => $video->id, 'title' => $video->slug]) }}">
                         {{ $video->title }}
